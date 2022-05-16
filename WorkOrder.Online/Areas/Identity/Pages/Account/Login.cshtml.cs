@@ -2,18 +2,12 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Security.Claims;
 
@@ -23,11 +17,15 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IStringLocalizer<LoginModel> _localizer;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, 
+            ILogger<LoginModel> logger,
+            IStringLocalizer<LoginModel> localizer)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -84,6 +82,18 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
             /// </summary>
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+            public TranslationModel Translation { get; set; }
+        }
+
+        public class TranslationModel
+        {
+            public string Message { get; set; }
+            public string RememberMe { get; set; }
+            public string ConnectButton { get; set; }
+            public string ForgotPassword { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -104,6 +114,19 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            Input = new InputModel()
+            {
+                Translation = new TranslationModel()
+                {
+                    Message = _localizer["Message"],
+                    RememberMe = _localizer["RememberMe"],
+                    ConnectButton = _localizer["ConnectButton"],
+                    ForgotPassword = _localizer["ForgotPassword"],
+                    Email = _localizer["Email"],
+                    Password = _localizer["Password"],
+                }
+            };
 
             ReturnUrl = returnUrl;
         }
@@ -152,18 +175,18 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    //Input = new InputModel()
-                    //{
-                    //    Translation = new TranslationModel()
-                    //    {
-                    //        Message = _localizer["Message"],
-                    //        RememberMe = _localizer["RememberMe"],
-                    //        ConnectButton = _localizer["ConnectButton"],
-                    //        ForgotPassword = _localizer["ForgotPassword"],
-                    //        Email = _localizer["Email"],
-                    //        Password = _localizer["Password"],
-                    //    }
-                    //};
+                    Input = new InputModel()
+                    {
+                        Translation = new TranslationModel()
+                        {
+                            Message = _localizer["Message"],
+                            RememberMe = _localizer["RememberMe"],
+                            ConnectButton = _localizer["ConnectButton"],
+                            ForgotPassword = _localizer["ForgotPassword"],
+                            Email = _localizer["Email"],
+                            Password = _localizer["Password"],
+                        }
+                    };
 
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();

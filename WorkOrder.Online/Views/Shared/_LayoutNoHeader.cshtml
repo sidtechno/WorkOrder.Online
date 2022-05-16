@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+       Work Order Online
+    </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/lib/fontawesome-pro/css/all.min.css">
+
+</head>
+<body>
+    @RenderBody()
+
+    <!-- jQuery -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 5 -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- jquery-validation -->
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+
+    <!-- Sweet Alert -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@10.6.1/dist/sweetalert2.all.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

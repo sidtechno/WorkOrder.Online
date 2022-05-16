@@ -1,0 +1,67 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "";
+}
+
+<body class="hold-transition login-page">
+    <div class="login-box box-shadow">
+        <div class="card">
+            <div class="card-body login-card-body">
+                <div class="login-logo text-center">
+                    <img src="~/img/logo/logo-flf-en.png" />
+                </div>
+                <!-- /.login-logo -->
+                <p class="login-box-msg">Connectez-vous pour débuter une session</p>
+
+                <form id="login-form" method="post">
+                    <div class="input-group mb-3">
+                        <input asp-for="Input.Email" type="email" class="form-control" placeholder="Courriel">
+                        <span class="input-group-text" id="basic-addon2"> <i class="fas fa-envelope"></i></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input asp-for="Input.Password" type="password" class="form-control" placeholder="Mot de passe">
+                        <span class="input-group-text" id="basic-addon2"> <i class="fas fa-lock"></i></span>
+                    </div>
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="icheck-primary">
+                                <input asp-for="Input.RememberMe" type="checkbox">
+                                <label for="remember" class="ml-2">
+                                    Se souvenir de moi
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-5">
+                            <button type="submit" class="btn btn-primary w-100">Connexion</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    @Html.AntiForgeryToken()
+                </form>
+
+                <p class="mb-1">
+                    @if (HttpContext.Request.Query.ContainsKey("lang") && HttpContext.Request.Query["lang"] == "en")
+                    {
+                        <a href="./ForgotPassword?lang=en">Mot de passe oublié</a>
+                    }
+                    else
+                    {
+                        <a asp-page="./ForgotPassword">Mot de passe oublié</a>
+                    }
+                </p>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+
+    </div>
+
+    @section Scripts {
+        <script src="~/js/login.js"></script>
+    }
+    </body>

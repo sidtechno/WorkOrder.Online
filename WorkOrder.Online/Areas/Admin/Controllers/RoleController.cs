@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Mapster;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WorkOrder.Online.Areas.Admin.Models;
 using WorkOrder.Online.Controllers;
@@ -27,7 +28,7 @@ namespace WorkOrder.Online.Areas.Admin.Controllers
             {
                 var model = new RoleListViewModel()
                 {
-                    Roles = new List<RoleViewModel>(), // await GetRoles(),
+                    Roles = await GetRoles(),
                     RootUrl = BaseRootUrl
                 };
 
@@ -40,35 +41,35 @@ namespace WorkOrder.Online.Areas.Admin.Controllers
             }
         }
 
-        //private async Task<List<RoleViewModel>> GetRoles()
-        //{
-        //    try
-        //    {
-        //        var result = new List<RoleViewModel>();
+        private async Task<List<RoleViewModel>> GetRoles()
+        {
+            try
+            {
+                var result = new List<RoleViewModel>();
 
-        //        var RolesList = _roleManager.Roles.OrderBy(x => x.Name).ToList();
+                var RolesList = _roleManager.Roles.OrderBy(x => x.Name).ToList();
 
-        //        var roles = RolesList.Adapt<IEnumerable<RoleViewModel>>();
+                var roles = RolesList.Adapt<IEnumerable<RoleViewModel>>();
 
-        //        foreach (var role in roles)
-        //        {
-        //            var RolesUserlist = await _userIdentity.UserManager.GetUsersInRoleAsync(role.Name);
-        //            result.Add(new RoleViewModel()
-        //            {
-        //                Id = role.Id,
-        //                Name = role.Name,
-        //                UserCount = RolesUserlist.Count
-        //            });
-        //        }
+                foreach (var role in roles)
+                {
+                    var RolesUserlist = await _userIdentity.UserManager.GetUsersInRoleAsync(role.Name);
+                    result.Add(new RoleViewModel()
+                    {
+                        Id = role.Id,
+                        Name = role.Name,
+                        UserCount = RolesUserlist.Count
+                    });
+                }
 
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ex.ToExceptionless().Submit();
-        //        return null;
-        //    }
-        //}
+                return result;
+            }
+            catch (Exception ex)
+            {
+               // ex.ToExceptionless().Submit();
+                return null;
+            }
+        }
 
         //[HttpPost("/{lang:lang}/roles/[action]")]
         //public async Task<IActionResult> CreateRole(string name)

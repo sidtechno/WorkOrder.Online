@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WorkOrder.Online.Services.Interfaces;
 
 namespace WorkOrder.Online.Controllers
@@ -35,21 +33,5 @@ namespace WorkOrder.Online.Controllers
         //{
         //    get { return _userService.GetCurrentUserCredentials(); }
         //}
-
-        private string CurrentLanguage
-        {
-            get
-            {
-                return "fr";
-
-                //if (string.IsNullOrEmpty(_currentLanguage))
-                //{
-                //    var feature = HttpContext.Features.Get<IRequestCultureFeature>();
-                //    _currentLanguage = feature.RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
-                //}
-
-                //return _currentLanguage;
-            }
-        }
     }
 }

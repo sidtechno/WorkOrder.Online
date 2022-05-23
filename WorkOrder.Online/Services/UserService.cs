@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using System.Security.Claims;
 using WorkOrder.Online.Data.Interfaces;
 using WorkOrder.Online.Models;
@@ -30,7 +31,8 @@ namespace WorkOrder.Online.Services
             {
                 UserId = GetUserId(),
                 Claims = GetCurrentUserClaims(),
-                FullName = GetUserFullName()
+                FullName = GetUserFullName(),
+                Language = GetCurrentLanguage()
             };
 
             return user;
@@ -39,7 +41,7 @@ namespace WorkOrder.Online.Services
         public async Task<IEnumerable<UserViewModel>> GetUserFacade(int garageId = 0)
         {
             var users = await _userFactory.GetUserFacade(garageId);
-                       
+
             return users.Adapt<IEnumerable<UserViewModel>>();
         }
 
@@ -92,12 +94,18 @@ namespace WorkOrder.Online.Services
             return _contextAccessor.HttpContext.User.Claims;
         }
 
-       
+
         private async Task<IEnumerable<IdentityUser>> GetUsersForClaim(string userClaimType, string claimValue)
         {
             var claim = new Claim(userClaimType, claimValue);
             var users = await _userManager.GetUsersForClaimAsync(claim);
             return users;
+        }
+
+        private string GetCurrentLanguage()
+        {
+            var feature = _contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
+            return feature.RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
         }
     }
 }

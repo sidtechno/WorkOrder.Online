@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Globalization;
 using WorkOrder.Online.Data;
 using WorkOrder.Online.Data.Interfaces;
 using WorkOrder.Online.Services;
@@ -17,6 +19,17 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var cultures = new List<CultureInfo> {
+        new CultureInfo("en"),
+        new CultureInfo("fr")
+    };
+    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en");
+    options.SupportedCultures = cultures;
+    options.SupportedUICultures = cultures;
+});
+
 builder.Services.AddControllersWithViews()
     .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix);
 
@@ -29,6 +42,18 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IUserFactory, UserFactory>();
 
 var app = builder.Build();
+
+//var supportedCultures = new List<CultureInfo> {
+//    new CultureInfo("en"),
+//    new CultureInfo("fr")
+//};
+
+//app.UseRequestLocalization(options => {
+//    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en");
+//    options.SupportedCultures = supportedCultures;
+//    options.SupportedUICultures = supportedCultures;
+//});
+app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

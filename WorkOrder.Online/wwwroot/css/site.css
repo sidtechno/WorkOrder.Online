@@ -22,27 +22,8 @@ body {
 /* Login Box
 -------------------------------------------------- */
 
-.login-box, .register-box {
-    width: 360px;
-}
-
-.login-page, .register-page {
-    -ms-flex-align: center;
-    align-items: center;
-    background: #3e85b7;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    height: 100vh;
-    -ms-flex-pack: center;
-    justify-content: center;
-}
-
-.box-shadow {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.login-box-msg {
-    margin-top:15px;
+@media (max-width: calc(1280px - 1px)) {
+    .login .login__input {
+        min-width: 90% !important;
+    }
 }

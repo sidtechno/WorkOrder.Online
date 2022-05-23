@@ -93,6 +93,9 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
             public string ForgotPassword { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
+            public string Message1 { get; set; }
+            public string Message2 { get; set; }
+
 
         }
 
@@ -125,6 +128,8 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
                     ForgotPassword = _localizer["ForgotPassword"],
                     Email = _localizer["Email"],
                     Password = _localizer["Password"],
+                    Message1 = _localizer["Message1"],
+                    Message2 = _localizer["Message2"],
                 }
             };
 
@@ -133,6 +138,11 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            if (HttpContext.Request.Query.ContainsKey("lang"))
+                CultureInfo.CurrentUICulture = new CultureInfo(HttpContext.Request.Query["lang"], false);
+            else
+                CultureInfo.CurrentUICulture = new CultureInfo("fr", false);
+
             returnUrl ??= Url.Content("~/");
 
             if (ModelState.IsValid)

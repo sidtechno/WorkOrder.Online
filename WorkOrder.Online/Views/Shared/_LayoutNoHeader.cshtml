@@ -1,20 +1,27 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-       Work Order Online
-    </title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <meta charset="utf-8">
+    <link href="dist/images/logo.svg" rel="shortcut icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Enigma admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Enigma Admin Template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="LEFT4CODE">
+    <title>Work Order Online</title>
+    <!-- BEGIN: CSS Assets-->
+    <link rel="stylesheet" href="~/Theme/dist/css/app.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="/lib/fontawesome-pro/css/all.min.css">
-
+    <link rel="stylesheet" href="~/lib/fontawesome-pro/css/all.css" />
+    <!-- END: CSS Assets-->
 </head>
 <body>
     @RenderBody()
+
+    <!-- Sweet Alert -->
+    @*    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@10.6.1/dist/sweetalert2.all.min.js"></script>
+    *@
+    <!-- BEGIN: JS Assets-->
+    <script src="~/Theme/dist/js/app.js"></script>
 
     <!-- jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -23,10 +30,7 @@
     <!-- jquery-validation -->
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
-
-    <!-- Sweet Alert -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@10.6.1/dist/sweetalert2.all.min.js"></script>
-
+    <!-- END: JS Assets-->
     @RenderSection("Scripts", required: false)
 </body>
 </html>

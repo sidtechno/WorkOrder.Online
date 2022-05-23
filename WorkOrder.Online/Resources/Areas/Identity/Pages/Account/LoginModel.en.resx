@@ -127,7 +127,13 @@
     <value>Forgot Password?</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Please connect to start your session</value>
+    <value>Sign In</value>
+  </data>
+  <data name="Message1" xml:space="preserve">
+    <value>A few more clicks to &lt;br /&gt;sign in to your account.</value>
+  </data>
+  <data name="Message2" xml:space="preserve">
+    <value>Manage all your work orders in one place</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>

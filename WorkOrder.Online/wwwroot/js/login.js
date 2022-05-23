@@ -14,7 +14,7 @@
         messages: {
             'Input.Email': {
                 required: "Please enter a email address",
-                email: "Please enter a valid email address"
+                email: "Please enter a vaild email address"
             },
             'Input.Password': {
                 required: "Please provide a password",
@@ -24,7 +24,7 @@
         errorElement: 'span',
         errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');
-            element.closest('.input-group').append(error);
+            element.closest('.intro-x').append(error);
         },
         highlight: function (element, errorClass, validClass) {
             $(element).addClass('is-invalid');

@@ -21,10 +21,13 @@
         buttons: [
             {
                 text: $('#hidNewButton').val(),
+                name: 'addButton',
+                className: 'btn-primary',
                 action: function (e, dt, button, config) {
                     $('#roleError').hide();
                     $('#roleForm').trigger('reset');
-                    $('#roleModal').modal({ backdrop: 'static' });
+                    //$('#roleModal').modal({ backdrop: 'static' });
+                    //$('#roleModal').modal('toggle')
                 }
             },
             {
@@ -71,61 +74,68 @@
             }
         ],
         initComplete: function () {
-            $('#rolesTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');
+            $('#rolesTable').show();
         }
     };
 
     initTable();
 
-    $('#submitAddForm').on('click', function () {
-        var form = $('#roleForm');
+    
+    //$(document).on("click", '#submitAddForm', function () {
+    //    alert('GG');
+    //    if($('.input-form').hasClass('has-error')) return false;
+    //    $('#roleForm').submit();
+    //}); 
 
-        form.validate({
-            rules: {
-                'name': {
-                    required: true,
-                    noSpace: true
-                }
-            },
-            messages: {
-                'name': {
-                    required: $('#hidNameRequired').val(),
-                    noSpace: $('#hidNameRequired').val()
-                }
-            },
-            errorElement: 'span',
-            errorPlacement: function (error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
+    //$('#submitAddForm').on('click', function () {
+    //    var form = $('#roleForm');
+                
+    //    form.validate({
+    //        rules: {
+    //            'name': {
+    //                required: true,
+    //                noSpace: true
+    //            }
+    //        },
+    //        messages: {
+    //            'name': {
+    //                required: 'required', //$('#hidNameRequired').val(),
+    //                noSpace: 'nospace' // $('#hidNameRequired').val()
+    //            }
+    //        },
+    //        errorElement: 'span',
+    //        errorPlacement: function (error, element) {
+    //            error.addClass('invalid-feedback');
+    //            element.closest('.form-group').append(error);
+    //        },
+    //        highlight: function (element, errorClass, validClass) {
+    //            $(element).addClass('is-invalid');
+    //        },
+    //        unhighlight: function (element, errorClass, validClass) {
+    //            $(element).removeClass('is-invalid');
+    //        }
+    //    });
 
-        if (form.valid()) {
-            var formData = $(form).serialize();
+    //    if (form.valid()) {
+    //        var formData = $(form).serialize();
 
-            formData = formData;
+    //        formData = formData;
 
-            $.ajax({
-                url: ajaxUrl + '/Roles/CreateRole',
-                type: "POST",
-                dataType: "json",
-                data: formData,
-                async: false,
-                success: function (response) {
-                    roleDone();
-                },
-                error: function (xhr, status, error) {
-                    roleFail(xhr, status, error);
-                }
-            });
-        }
-    });
+    //        $.ajax({
+    //            url: ajaxUrl + '/Roles/CreateRole',
+    //            type: "POST",
+    //            dataType: "json",
+    //            data: formData,
+    //            async: false,
+    //            success: function (response) {
+    //                roleDone();
+    //            },
+    //            error: function (xhr, status, error) {
+    //                roleFail(xhr, status, error);
+    //            }
+    //        });
+    //    }
+    //});
 
     $('#submitEditForm').on('click', function () {
         var form = $('#editForm');
@@ -182,6 +192,14 @@
         }
 
         var table = $('#rolesTable').DataTable(tableSettings);
+
+        table
+            .button('addButton:name')
+            .nodes()
+            .removeClass('btn-secondary')
+            .addClass('btn-primary mr-1')
+            .attr('data-tw-toggle', 'modal')
+            .attr('data-tw-target', '#small-modal-size-preview');
 
         table.on('select deselect', function (e, dt, type, indexes) {
             var rowData = table.rows(indexes).data().toArray();

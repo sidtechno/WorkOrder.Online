@@ -5,71 +5,113 @@
     ViewData["Title"] = "Login";
 }
 
-<style>
-   
-/*.login .login__input {
-     min-width: 95%; 
-}*/
-</style>
 <body class="login">
-    <div class="container sm:px-10">
-        <div class="block xl:grid grid-cols-2 gap-4">
-            <!-- BEGIN: Login Info -->
-            <div class="hidden xl:flex flex-col min-h-screen">
-                <a href="" class="-intro-x flex items-center pt-5">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="~/Theme/dist/images/logo.svg">
-                    <span class="text-white text-lg ml-3"> Work Order Online </span>
-                </a>
-                <div class="my-auto">
-                    <img alt="WorkOrder.Online Login" class="-intro-x w-1/2 -mt-16" src="~/Theme/dist/images/illustration.svg">
-                    <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
-                         @Html.Raw(Model.Input.Translation.Message1)
+    <div class="auth-bg-basic d-flex align-items-center min-vh-100">
+        <div class="bg-overlay bg-light"></div>
+        <div class="container">
+            <div class="d-flex flex-column min-vh-100 py-5 px-3">
+                <div class="row justify-content-center">
+                    <div class="col-xl-5">
+                        <div class="text-center text-muted mb-2">
+                            <div class="pb-3">
+                                <a href="index.html">
+                                    <span class="logo-lg">
+                                        <img src="~/assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">Work Order Online</span>
+                                    </span>
+                                </a>
+                                <p class="text-muted font-size-15 w-50 mx-auto mt-3 mb-0">@Model.Input.Translation.Message2</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400"> @Model.Input.Translation.Message2</div>
-                </div>
-            </div>
-            <!-- END: Login Info -->
-            <!-- BEGIN: Login Form -->
-            <div class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
-
-                <div class="my-auto mx-auto xl:ml-20 bg-white dark:bg-darkmode-600 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
-                    <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-                        @Model.Input.Translation.Message
-                    </h2>
-                    <div class="intro-x mt-2 text-slate-400 xl:hidden text-center"> @Html.Raw(Model.Input.Translation.Message1) <br /> @Model.Input.Translation.Message2</div>
-                    <form id="login-form" method="post">
-                        <div class="intro-x mt-8">
-                            <div class="input-group">
-                                <input asp-for="Input.Email" type="email" class="intro-x login__input form-control py-3 px-4 block" placeholder="@Model.Input.Translation.Email">
-                                <span class="input-group-text" id="basic-addon2"> <i class="fas fa-envelope fa-lg mt-2"></i></span>
-                            </div>
-                            <div class="input-group">
-                                <input asp-for="Input.Password" type="password" class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="@Model.Input.Translation.Password">
-                                <span class="input-group-text mt-4" id="basic-addon2"> <i class="fas fa-lock fa-lg mt-2"></i></span>
-                            </div>
-                        </div>
-                        <div class="intro-x flex text-slate-600 dark:text-slate-500 text-xs sm:text-sm mt-4">
-                            <div class="flex items-center mr-auto">
-                                <input id="remember-me" asp-for="Input.RememberMe" type="checkbox" class="form-check-input border mr-2">
-                                <label for="remember" class="cursor-pointer select-none">@Model.Input.Translation.RememberMe</label>
-                                @*<input id="remember-me" type="checkbox" class="form-check-input border mr-2">
-                                <label class="cursor-pointer select-none" for="remember-me">Remember me</label>*@
-                            </div>
-                            @*<a href="">Forgot Password?</a>*@
-                        </div>
-                        <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
-                            <button id="btnConnect" type="submit" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">@Model.Input.Translation.ConnectButton</button>
-                            @*<button class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Register</button>*@
-                        </div>
-                    </form>
-                    @* <div class="intro-x mt-10 xl:mt-24 text-slate-600 dark:text-slate-500 text-center xl:text-left"> By signin up, you agree to our <a class="text-primary dark:text-slate-200" href="">Terms and Conditions</a> & <a class="text-primary dark:text-slate-200" href="">Privacy Policy</a> </div>*@
                 </div>
 
+                <div class="row justify-content-center my-auto">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-transparent shadow-none border-0">
+                            <div class="card-body">
+                                <div class="py-3">
+                                    <div class="text-center">
+                                        <h5 class="mb-0">@Model.Input.Translation.Message</h5>
+                                        <p class="text-muted mt-2">@Model.Input.Translation.Message1</p>
+                                    </div>
+
+                                
+
+                                    <form class="mt-4 pt-2" method="post">
+                                        <div class="form-floating form-floating-custom mb-3">
+                                            <input id="input-username" asp-for="Input.Email" type="email" class="form-control" placeholder="@Model.Input.Translation.Email">
+                                            <label for="input-username">@Model.Input.Translation.Email</label>
+                                            <div class="form-floating-icon">
+                                                <i class="uil uil-users-alt"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-floating form-floating-custom mb-3 auth-pass-inputgroup">
+                                            <input id="password-input" asp-for="Input.Password" type="password" class="form-control" placeholder="@Model.Input.Translation.Password">
+                                            <button type="button" class="btn btn-link position-absolute h-100 end-0 top-0" id="password-addon">
+                                                <i class="mdi mdi-eye-outline font-size-18 text-muted"></i>
+                                            </button>
+                                            <label for="password-input">@Model.Input.Translation.Password</label>
+                                            <div class="form-floating-icon">
+                                                <i class="uil uil-padlock"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check form-check-primary font-size-16 py-1">
+                                            <input id="remember-check" asp-for="Input.RememberMe" type="checkbox" class="form-check-input">
+                                            @*<div class="float-end">
+                                                <a href="auth-resetpassword-basic.html" class="text-muted text-decoration-underline font-size-14">Forgot your password?</a>
+                                            </div>*@
+                                            <label class="form-check-label font-size-14" for="remember-check">
+                                                @Model.Input.Translation.RememberMe
+                                            </label>
+                                        </div>
+
+                                        <div class="mt-3">
+                                            <button class="btn btn-primary w-100" type="submit">@Model.Input.Translation.ConnectButton</button>
+                                        </div>
+
+                                        @*<div class="mt-4 text-center">
+                                            <div class="signin-other-title">
+                                                <h5 class="font-size-15 mb-4 text-muted fw-medium">- Or you can join with -</h5>
+                                            </div>
+
+                                            <div class="d-flex gap-2">
+                                                <button type="button" class="btn btn-soft-primary waves-effect waves-light w-100">
+                                                    <i class="bx bxl-facebook font-size-16 align-middle"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-soft-info waves-effect waves-light w-100">
+                                                    <i class="bx bxl-linkedin font-size-16 align-middle"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-soft-danger waves-effect waves-light w-100">
+                                                    <i class="bx bxl-google font-size-16 align-middle"></i>
+                                                </button>
+                                            </div>
+                                        </div>*@
+
+                                        @*<div class="mt-4 pt-3 text-center">
+                                            <p class="text-muted mb-0">Don't have an account ? <a href="auth-signup-basic.html" class="fw-semibold text-decoration-underline"> Signup Now </a> </p>
+                                        </div>*@
+
+                                    </form><!-- end form -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="mt-4 mt-md-5 text-center">
+                            <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> workorder.online.</p>
+                        </div>
+                    </div>
+                </div> <!-- end row -->
             </div>
-            <!-- END: Login Form -->
         </div>
+        <!-- end container fluid -->
     </div>
-
+    <!-- end authentication section -->
     <!-- BEGIN: JS Assets-->
     @section Scripts {
         <script src="~/js/login.js"></script>

@@ -71,27 +71,27 @@ namespace WorkOrder.Online.Areas.Admin.Controllers
             }
         }
 
-        //[HttpPost("/{lang:lang}/roles/[action]")]
-        //public async Task<IActionResult> CreateRole(string name)
-        //{
-        //    try
-        //    {
-        //        var role = new IdentityRole(name);
-        //        var result = await _roleManager.CreateAsync(role);
+        [HttpPost("role/[action]")]
+        public async Task<IActionResult> CreateRole(string name)
+        {
+            try
+            {
+                var role = new IdentityRole(name);
+                var result = await _roleManager.CreateAsync(role);
 
-        //        if (result.Succeeded)
-        //        {
-        //            return NoContent();
-        //        }
-        //        else
-        //            return BadRequest(result.Errors.First().Description);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ex.ToExceptionless().Submit();
-        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        //    }
-        //}
+                if (result.Succeeded)
+                {
+                    return NoContent();
+                }
+                else
+                    return BadRequest(result.Errors.First().Description);
+            }
+            catch (Exception ex)
+            {
+               // ex.ToExceptionless().Submit();
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
         //[HttpPost("/{lang:lang}/roles/[action]")]
         //public async Task<IActionResult> UpdateRole(string id, string name)

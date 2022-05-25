@@ -6,3 +6,14 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+
+<!-- BEGIN: Validation Form -->
+<form id="myform" action="/Home/CreateRole" method="post">
+    <div class="input-form">
+        <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row"> Name <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required, at least 2 characters</span> </label> <input id="validation-form-1" type="text" name="name" class="form-control" placeholder="John Legend" minlength="2" required data-pristine-required-message="C'est requis maudit" data-pristine-minlength-message="C'est 2 de long minimum, cabochon"> </div>
+        <button id="aaa" type="submit" class="btn btn-primary mt-5">Register</button>
+</form> <!-- END: Validation Form -->
+
+

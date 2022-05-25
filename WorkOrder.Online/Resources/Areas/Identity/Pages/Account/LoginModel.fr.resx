@@ -127,10 +127,10 @@
     <value>Mot de passe oublié?</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Connectez-vous</value>
+    <value>Connectez-vous pour continuer</value>
   </data>
   <data name="Message1" xml:space="preserve">
-    <value>À un clic de vous &lt;br /&gt;connecter à votre compte.</value>
+    <value>Bon retour !</value>
   </data>
   <data name="Message2" xml:space="preserve">
     <value>Gérez vos bons de commande en un seul endroit</value>

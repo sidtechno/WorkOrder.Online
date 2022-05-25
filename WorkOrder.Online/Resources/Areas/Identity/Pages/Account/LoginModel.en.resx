@@ -127,10 +127,10 @@
     <value>Forgot Password?</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Sign In</value>
+    <value>Sign in to continue</value>
   </data>
   <data name="Message1" xml:space="preserve">
-    <value>A few more clicks to &lt;br /&gt;sign in to your account.</value>
+    <value>Welcome Back !</value>
   </data>
   <data name="Message2" xml:space="preserve">
     <value>Manage all your work orders in one place</value>

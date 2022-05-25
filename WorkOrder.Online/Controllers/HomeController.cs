@@ -30,5 +30,19 @@ namespace WorkOrder.Online.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpPost("home/[action]")]
+        public async Task<IActionResult> CreateRole(string name)
+        {
+            try
+            {
+                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                // ex.ToExceptionless().Submit();
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }

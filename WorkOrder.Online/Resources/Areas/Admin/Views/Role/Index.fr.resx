@@ -150,6 +150,9 @@
   <data name="EditRole" xml:space="preserve">
     <value>Modifier un rôle</value>
   </data>
+  <data name="MinLength" xml:space="preserve">
+    <value>Doit contenir au moins 3 caractères</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
   </data>

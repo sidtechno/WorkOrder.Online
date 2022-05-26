@@ -37,7 +37,7 @@
 
                                 
 
-                                    <form class="mt-4 pt-2" method="post">
+                                    <form id="login-form" class="mt-4 pt-2" method="post">
                                         <div class="form-floating form-floating-custom mb-3">
                                             <input id="input-username" asp-for="Input.Email" type="email" class="form-control" placeholder="@Model.Input.Translation.Email">
                                             <label for="input-username">@Model.Input.Translation.Email</label>
@@ -112,9 +112,8 @@
         <!-- end container fluid -->
     </div>
     <!-- end authentication section -->
-    <!-- BEGIN: JS Assets-->
+
     @section Scripts {
         <script src="~/js/login.js"></script>
     }
-        <!-- END: JS Assets-->
     </body>

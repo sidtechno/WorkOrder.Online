@@ -24,7 +24,7 @@
         errorElement: 'span',
         errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');
-            element.closest('.intro-x').append(error);
+            element.closest('.form-floating').append(error);
         },
         highlight: function (element, errorClass, validClass) {
             $(element).addClass('is-invalid');

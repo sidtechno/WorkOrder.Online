@@ -1,7 +1,5 @@
 ﻿(function () {
 
-    //alert(getCookie('.AspNetCore.Culture'));
- 
     function getCookie(cname) {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);

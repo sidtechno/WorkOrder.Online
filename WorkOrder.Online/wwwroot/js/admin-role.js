@@ -1,9 +1,11 @@
 ﻿(function () {
 
     var ajaxUrl = $('#HidRootUrl').val();
+    var table;
 
     var tableSettings = {
         dom: 'Bfrtip',
+        retrieve: true,
         select: {
             style: 'single',
             info: false
@@ -23,16 +25,24 @@
                 text: $('#hidNewButton').val(),
                 name: 'addButton',
                 className: 'btn-primary',
+                attr: {
+                    'data-bs-toggle': 'modal',
+                    'data-bs-target': '#roleModal'
+                },
                 action: function (e, dt, button, config) {
                     $('#roleError').hide();
                     $('#roleForm').trigger('reset');
-                    //$('#roleModal').modal({ backdrop: 'static' });
-                    //$('#roleModal').modal('toggle')
                 }
             },
             {
                 extend: "selectedSingle",
                 text: $('#hidEditButton').val(),
+                name: 'editButton',
+                className: 'btn-primary',
+                attr: {
+                    'data-bs-toggle': 'modal',
+                    'data-bs-target': '#editModal'
+                },
                 action: function (e, dt, button, config) {
                     var data = dt.row({ selected: true }).data();
                     $('#editError').hide();
@@ -41,13 +51,13 @@
 
                     $('#editForm input[name=name]').val(data.name);
                     $('#editForm input[name=id]').val(data.id);
-
-                    $('#editModal').modal({ backdrop: 'static' });
                 }
             },
             {
                 extend: "selectedSingle",
                 text: $('#hidDeleteButton').val(),
+                name: 'deleteButton',
+                className: 'btn-primary',
                 action: function (e, dt, button, config) {
                     var data = dt.row({ selected: true }).data();
 
@@ -63,7 +73,7 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Roles/DeleteRole',
+                                url: ajaxUrl + '/Role/DeleteRole',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
@@ -73,69 +83,61 @@
                 }
             }
         ],
-        initComplete: function () {
-            $('#rolesTable').show();
-        }
+
     };
 
     initTable();
 
     
-    //$(document).on("click", '#submitAddForm', function () {
-    //    alert('GG');
-    //    if($('.input-form').hasClass('has-error')) return false;
-    //    $('#roleForm').submit();
-    //}); 
-
-    //$('#submitAddForm').on('click', function () {
-    //    var form = $('#roleForm');
+    $('#submitAddForm').on('click', function () {
+        var form = $('#roleForm');
                 
-    //    form.validate({
-    //        rules: {
-    //            'name': {
-    //                required: true,
-    //                noSpace: true
-    //            }
-    //        },
-    //        messages: {
-    //            'name': {
-    //                required: 'required', //$('#hidNameRequired').val(),
-    //                noSpace: 'nospace' // $('#hidNameRequired').val()
-    //            }
-    //        },
-    //        errorElement: 'span',
-    //        errorPlacement: function (error, element) {
-    //            error.addClass('invalid-feedback');
-    //            element.closest('.form-group').append(error);
-    //        },
-    //        highlight: function (element, errorClass, validClass) {
-    //            $(element).addClass('is-invalid');
-    //        },
-    //        unhighlight: function (element, errorClass, validClass) {
-    //            $(element).removeClass('is-invalid');
-    //        }
-    //    });
+        form.validate({
+            rules: {
+                'name': {
+                    required: true,
+                    noSpace: true
+                }
+            },
+            messages: {
+                'name': {
+                    required: $('#hidNameRequired').val(),
+                    noSpace: $('#hidNameRequired').val()
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
 
-    //    if (form.valid()) {
-    //        var formData = $(form).serialize();
+        if (form.valid()) {
+            var formData = $(form).serialize();
 
-    //        formData = formData;
+            formData = formData;
 
-    //        $.ajax({
-    //            url: ajaxUrl + '/Roles/CreateRole',
-    //            type: "POST",
-    //            dataType: "json",
-    //            data: formData,
-    //            async: false,
-    //            success: function (response) {
-    //                roleDone();
-    //            },
-    //            error: function (xhr, status, error) {
-    //                roleFail(xhr, status, error);
-    //            }
-    //        });
-    //    }
-    //});
+            $.ajax({
+                url: ajaxUrl + '/Role/CreateRole',
+                type: "POST",
+                dataType: "json",
+                data: formData,
+                async: false,
+                success: function (response) {
+                    roleDone();
+                },
+                error: function (xhr, status, error) {
+                    roleFail(xhr, status, error);
+                }
+            });
+        }
+    });
 
     $('#submitEditForm').on('click', function () {
         var form = $('#editForm');
@@ -170,7 +172,7 @@
             var formData = $(form).serialize();
 
             $.ajax({
-                url: ajaxUrl + '/Roles/UpdateRole',
+                url: ajaxUrl + '/Role/UpdateRole',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -191,15 +193,25 @@
             tableSettings.language = JSON.parse(datables_french());
         }
 
-        var table = $('#rolesTable').DataTable(tableSettings);
+        table = $('#rolesTable').DataTable(tableSettings);
 
         table
             .button('addButton:name')
             .nodes()
             .removeClass('btn-secondary')
-            .addClass('btn-primary mr-1')
-            .attr('data-tw-toggle', 'modal')
-            .attr('data-tw-target', '#small-modal-size-preview');
+            .addClass('btn-primary mr-1');
+
+        table
+            .button('editButton:name')
+            .nodes()
+            .removeClass('btn-secondary')
+            .addClass('btn-primary mr-1');
+
+        table
+            .button('deleteButton:name')
+            .nodes()
+            .removeClass('btn-secondary')
+            .addClass('btn-primary mr-1');
 
         table.on('select deselect', function (e, dt, type, indexes) {
             var rowData = table.rows(indexes).data().toArray();
@@ -220,7 +232,7 @@
 
     function UpdateRoleList() {
         $.ajax({
-            url: ajaxUrl + '/Roles/list',
+            url: ajaxUrl + '/Role/list',
             type: "GET",
             dataType: "html",
             async: false,

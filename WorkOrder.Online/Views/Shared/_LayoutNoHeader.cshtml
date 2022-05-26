@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <title>Work Order Online</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- App favicon -->
     <link rel="shortcut icon" href="~/assets/images/favicon.ico">
 
@@ -22,13 +22,20 @@
 <body>
     @RenderBody()
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- JAVASCRIPT -->
     <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/assets/libs/metismenujs/metismenujs.min.js"></script>
     <script src="~/assets/libs/simplebar/simplebar.min.js"></script>
     <script src="~/assets/libs/feather-icons/feather.min.js"></script>
 
+    <!-- jquery-validation -->
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+
     <script src="~/assets/js/pages/pass-addon.init.js"></script>
+
+   
     @RenderSection("Scripts", required: false)
 </body>
 </html>

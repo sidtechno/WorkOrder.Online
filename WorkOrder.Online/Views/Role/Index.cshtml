@@ -1,0 +1,95 @@
+﻿@model WorkOrder.Online.Models.RoleListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+@Html.Hidden("hidNewButton", Localizer["Add"].Value)
+@Html.Hidden("hidEditButton", Localizer["Edit"].Value)
+@Html.Hidden("hidDeleteButton", Localizer["Delete"].Value)
+@Html.Hidden("hidDeleteTitle", Localizer["DeleteTitle"].Value)
+@Html.Hidden("hidDeleteText", Localizer["DeleteText"].Value)
+@Html.Hidden("hidDeleteButton", Localizer["DeleteButton"].Value)
+@Html.Hidden("hidNameRequired", Localizer["NameRequired"].Value)
+
+
+@*Toastr Localisation*@
+@Html.Hidden("hidCreateRoleSuccess", @Localizer["CreateRoleSuccess"].Value)
+@Html.Hidden("hidUpdateRoleSuccess", @Localizer["UpdateRoleSuccess"].Value)
+@Html.Hidden("hidDeleteRoleSuccess", @Localizer["DeleteRoleSuccess"].Value)
+
+@Html.Hidden("HidRootUrl", Model.RootUrl)
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header justify-content-between d-flex align-items-center">
+            <h4 class="card-title">@Localizer["Title"]</h4>
+        </div><!-- end card header -->
+        <div class="card-body">
+            <div id="role-list">
+                @await Html.PartialAsync("_Roles", Model)
+            </div>
+        </div><!-- end card body -->
+    </div><!-- end card -->
+</div>
+
+<div id="roleModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["AddRole"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="roleForm">
+                    <div id="roleError" class="alert alert-danger" style="display:none" role="alert"></div>
+                    <div class="form-group">
+                        <label for="name">@Localizer["Name"]:</label>
+                        <input name="name" type="text" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Close"]</button>
+                <button id="submitAddForm" type="button" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div id="editModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["EditRole"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="editForm">
+                    <div id="roleError" class="alert alert-danger" style="display:none" role="alert"></div>
+                    <div class="form-group">
+                        <input name="id" type="hidden" />
+                        <label for="name">@Localizer["Name"]:</label>
+                        <input name="name" type="text" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Close"]</button>
+                <button id="submitEditForm" type="button" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/admin-role.js"></script>
+}
+

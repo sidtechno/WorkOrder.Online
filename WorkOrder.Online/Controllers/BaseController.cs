@@ -20,7 +20,7 @@ namespace WorkOrder.Online.Controllers
 
         private string BuildRootUrl()
         {
-            return $"{_httpContextAccessor.HttpContext?.Request?.Scheme}{_httpContextAccessor.HttpContext?.Request?.Host}";
+            return $"{_httpContextAccessor.HttpContext?.Request?.Scheme}://{_httpContextAccessor.HttpContext?.Request?.Host}";
 
             //var url = _httpContextAccessor.HttpContext?.Request?.GetEncodedUrl();
 

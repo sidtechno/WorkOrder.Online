@@ -19,7 +19,7 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
         private readonly ILogger<LoginModel> _logger;
         private readonly IStringLocalizer<LoginModel> _localizer;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, 
+        public LoginModel(SignInManager<IdentityUser> signInManager,
             ILogger<LoginModel> logger,
             IStringLocalizer<LoginModel> localizer)
         {
@@ -158,21 +158,10 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
 
                     //Get language in garage
                     var defaultLanguage = "fr";
-                    //var garageId = claims.FirstOrDefault(p => p.Type.ToUpper() == "GARAGEID");
-                    //if (garageId != null)
-                    //{
-                    //    var garage = await _garageService.GetGarage(Convert.ToInt32(garageId.Value));
-                    //    if (garage != null)
-                    //    {
-                    //        defaultLanguage = garage.Language;
-                    //    }
-                    //}
 
                     _logger.LogInformation("User logged in.");
-                   // if (returnUrl.Contains("PreventiveMaintenance", StringComparison.OrdinalIgnoreCase))
-                        return LocalRedirect(returnUrl);
-                    //else
-                    //    return LocalRedirect(UserHelper.GetStartUpUrl(claims, defaultLanguage));
+
+                    return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {

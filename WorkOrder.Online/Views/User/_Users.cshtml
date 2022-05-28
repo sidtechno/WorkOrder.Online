@@ -1,0 +1,52 @@
+﻿@model WorkOrder.Online.Models.UserListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<table id="usersTable" class="table table-striped dataTable" data-processing="true">
+    <thead>
+        <tr>
+            <th data-data="id">Id</th>
+            <th data-data="firstname">@Localizer["Firstname"]</th>
+            <th data-data="lastname">@Localizer["Lastname"]</th>
+            <th data-data="email">@Localizer["Email"]</th>
+            <th data-data="organization">@Localizer["Organization"]</th>
+            <th data-data="username">@Localizer["Username"]</th>
+            <th>@Localizer["Roles"]</th>
+            <th data-data="lockedFordisplay">@Localizer["Locked"]</th>
+            <th data-data="roles">Roles</th>
+            <th data-data="locked">Locked</th>
+            <th data-data="organizationId">OrganizationId</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.FirstName</td>
+            <td>@user.LastName</td>
+            <td>@user.Email</td>
+            <td>
+                @Html.Raw(user.OrganizationToDisplay.ToUpper() == "ALL" ? @Localizer["AllOrganization"].Value : user.OrganizationToDisplay)
+            </td>
+            <td>@user.UserName</td>
+            <td>@Html.Raw(user.RolesToDisplay)</td>
+            <td>
+                @if (user.LockedOut)
+                    {
+                <i class="fas fa-lock-alt text-danger protip" data-pt-delay-out="500" data-pt-animate="fadeIn" data-pt-scheme="black" data-pt-title="User locked, no login allowed"></i>
+                    }
+                    else
+                    {
+                <i class="fas fa-lock-open-alt text-success protip" data-pt-delay-out="500" data-pt-animate="fadeIn" data-pt-scheme="black" data-pt-title="User without login restiction"></i>
+                    }
+            </td>
+            <td>@string.Join("|", user.Roles)</td>
+            <td>@user.LockedOut</td>
+            <td>@user.OrganizationId</td>
+         </tr>
+        }
+
+    </tbody>
+</table>

@@ -38,10 +38,10 @@ namespace WorkOrder.Online.Services
             return user;
         }
 
-        public async Task<IEnumerable<UserViewModel>> GetUserFacade(int garageId = 0)
+        public async Task<IEnumerable<UserViewModel>> GetUserFacade(int organizationId = 0)
         {
-            var users = await _userFactory.GetUserFacade(garageId);
-
+            var users = await _userFactory.GetUserFacade(organizationId);
+            
             return users.Adapt<IEnumerable<UserViewModel>>();
         }
 

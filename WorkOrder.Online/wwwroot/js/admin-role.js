@@ -73,7 +73,7 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Role/DeleteRole',
+                                url: ajaxUrl + '/Roles/DeleteRole',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
@@ -124,7 +124,7 @@
             formData = formData;
 
             $.ajax({
-                url: ajaxUrl + '/Role/CreateRole',
+                url: ajaxUrl + '/Roles/CreateRole',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -172,7 +172,7 @@
             var formData = $(form).serialize();
 
             $.ajax({
-                url: ajaxUrl + '/Role/UpdateRole',
+                url: ajaxUrl + '/Roles/UpdateRole',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -232,7 +232,7 @@
 
     function UpdateRoleList() {
         $.ajax({
-            url: ajaxUrl + '/Role/list',
+            url: ajaxUrl + '/Roles/list',
             type: "GET",
             dataType: "html",
             async: false,

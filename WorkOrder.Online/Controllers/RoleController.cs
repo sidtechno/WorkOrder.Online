@@ -21,6 +21,7 @@ namespace WorkOrder.Online.Controllers
             _roleManager = roleManager;
         }
 
+        [HttpGet("Roles")]
         public async Task<IActionResult> Index()
         {
             try
@@ -70,7 +71,7 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
-        [HttpPost("Role/[action]")]
+        [HttpPost("Roles/[action]")]
         public async Task<IActionResult> CreateRole(string name)
         {
             try
@@ -92,7 +93,7 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
-        [HttpPost("Role/[action]")]
+        [HttpPost("Roles/[action]")]
         public async Task<IActionResult> UpdateRole(string id, string name)
         {
             try
@@ -118,7 +119,7 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
-        [HttpGet("Role/list")]
+        [HttpGet("Roles/list")]
         public async Task<IActionResult> GetRoleList()
         {
             try
@@ -133,7 +134,7 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
-        [HttpDelete("Role/[action]")]
+        [HttpDelete("Roles/[action]")]
         public async Task<ActionResult> DeleteRole(string id)
         {
             try

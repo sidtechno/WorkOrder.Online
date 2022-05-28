@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using System.Globalization;
 using WorkOrder.Online.Data;
 using WorkOrder.Online.Data.Interfaces;
+using WorkOrder.Online.Data.Mapper;
 using WorkOrder.Online.Services;
 using WorkOrder.Online.Services.Interfaces;
 
@@ -37,22 +38,16 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 
 // Services
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IOrganizationService, OrganizationService>();
 
 // Factory
 builder.Services.AddTransient<IUserFactory, UserFactory>();
+builder.Services.AddTransient<IOrganizationFactory, OrganizationFactory>();
 
 var app = builder.Build();
 
-//var supportedCultures = new List<CultureInfo> {
-//    new CultureInfo("en"),
-//    new CultureInfo("fr")
-//};
+UserFacadeMapper.ConfigUserFacadeMapper();
 
-//app.UseRequestLocalization(options => {
-//    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en");
-//    options.SupportedCultures = supportedCultures;
-//    options.SupportedUICultures = supportedCultures;
-//});
 app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 // Configure the HTTP request pipeline.

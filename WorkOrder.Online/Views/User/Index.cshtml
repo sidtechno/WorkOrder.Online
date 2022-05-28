@@ -1,0 +1,229 @@
+﻿@model WorkOrder.Online.Models.UserListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+@Html.Hidden("hidNewButton", Localizer["Add"].Value)
+@Html.Hidden("hidEditButton", Localizer["Edit"].Value)
+@Html.Hidden("hidDeleteButton", Localizer["Delete"].Value)
+@Html.Hidden("hidDeleteTitle", Localizer["DeleteTitle"].Value)
+@Html.Hidden("hidDeleteText", Localizer["DeleteText"].Value)
+@Html.Hidden("hidDeleteButton", Localizer["DeleteButton"].Value)
+@Html.Hidden("hidResetPasswordButton", Localizer["ChangePassword"].Value)
+
+@Html.Hidden("hidUsernameRequired", Localizer["UsernameRequired"].Value)
+@Html.Hidden("hidFirstnameRequired", Localizer["FirstnameRequired"].Value)
+@Html.Hidden("hidLastnameRequired", Localizer["LastnameRequired"].Value)
+@Html.Hidden("hidEmailRequired", Localizer["EmailRequired"].Value)
+@Html.Hidden("hidOrganizationRequired", Localizer["OrganizationRequired"].Value)
+@Html.Hidden("hidRoleSelectionRequired", Localizer["RoleSelectionRequired"].Value)
+@Html.Hidden("hidUsernameExist", Localizer["UsernameExist"].Value)
+
+@Html.Hidden("hidPasswordRequired", Localizer["PasswordRequired"].Value)
+@Html.Hidden("hidVerifyPasswordRequired", Localizer["VerifyPasswordRequired"].Value)
+@Html.Hidden("hidPasswordNotEqual", Localizer["PasswordNotEqual"].Value)
+
+@*Toastr Localisation*@
+@Html.Hidden("hidCreateUserSuccess", @Localizer["CreateUserSuccess"].Value)
+@Html.Hidden("hidUpdateUserSuccess", @Localizer["UpdateUserSuccess"].Value)
+@Html.Hidden("hidDeleteUserSuccess", @Localizer["DeleteUserSuccess"].Value)
+@Html.Hidden("hidChangePasswordSuccess", @Localizer["ChangePasswordSuccess"].Value)
+
+@Html.Hidden("hidRemainingUsers", Model.RemainingUsers)
+
+@Html.Hidden("HidRootUrl", Model.RootUrl)
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header justify-content-between d-flex align-items-center">
+            <h4 class="card-title">@Localizer["Title"]</h4>
+        </div><!-- end card header -->
+        <div class="card-body">
+            <div id="MaxUserWarning" class="alert alert-warning hidden" role="alert">
+                @Localizer["MaxUserReached"]
+            </div>
+            <div id="user-list">
+                @await Html.PartialAsync("_Users", Model)
+            </div>
+        </div><!-- end card body -->
+    </div><!-- end card -->
+</div>
+
+
+<div id="addModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["AddUser"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="addUserForm">
+                    <div id="userError" class="alert alert-danger hidden" role="alert"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="username" class="form-label">@Localizer["Username"]:</label>
+                                <input name="username" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="firstname" class="form-label">@Localizer["Firstname"]:</label>
+                                <input name="firstname" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="lastname" class="form-label">@Localizer["Lastname"]:</label>
+                                <input name="lastname" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="email" class="form-label">@Localizer["Email"]:</label>
+                                <input id="email" name="email" type="email" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label>@Localizer["Organization"]:</label>
+                                @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
+                            </div>
+                            @* <div class="form-group">
+                            <label>@Localizer["StartUpScreen"]:</label>
+                            @await Html.PartialAsync("_StartUpScreenSelector", Model.StartUpScreenSelector)
+                            </div>*@
+                            <div class="form-group">
+                                <label>@Localizer["UserRoles"]:</label>
+                                <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
+                                    @foreach (var role in ViewBag.Roles)
+                                    {
+                                        <li>
+                                            <div class="mb-2">
+                                                <input name="roles[]" type="checkbox" class="checkbox mr-2" value="@role.Value" @(role.Value == "SuperAdmin" ? "disabled" : "") />
+                                                <label style="font-weight:500;">@role.Value</label>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Close"]</button>
+                <button id="submitAddForm" type="button" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div id="editModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["EditUser"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="editUserForm">
+                    <div id="userError" class="alert alert-danger hidden" role="alert"></div>
+                    <input name="id" type="hidden" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="username">@Localizer["Username"]:</label>
+                                <input name="username" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="firstname">@Localizer["Firstname"]:</label>
+                                <input name="firstname" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="lastname">@Localizer["Lastname"]:</label>
+                                <input name="lastname" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="email">@Localizer["Email"]:</label>
+                                <input id="email" name="email" type="email" class="form-control" />
+                            </div>
+                            <div>
+                                <input name="locked" type="checkbox" class="mr-2" value="Yes" />
+                                <label>@Localizer["Locked"]</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label>@Localizer["Organization"]:</label>
+                                 @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
+                            </div>
+                            @*<div class="form-group">
+                            <label>@Localizer["StartUpScreen"]:</label>
+                            @await Html.PartialAsync("_StartUpScreenSelector", Model.StartUpScreenSelector)
+                            </div>*@
+                            <div class="form-group mb-3">
+                                <label>@Localizer["UserRoles"]:</label>
+                                <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
+                                    @foreach (var role in ViewBag.Roles)
+                                    {
+                                        <li>
+                                            <div class="mb-2">
+                                                <input name="roles[]" type="checkbox" class="checkbox mr-2" value="@role.Value" @(role.Value == "SuperAdmin" ? "disabled" : "") />
+                                                <label style="font-weight:500;">@role.Value</label>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Close"]</button>
+                <button id="submitEditForm" type="button" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div id="pwdModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["ChangePassword"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="pwdForm">
+                    <div id="pwdError" class="alert alert-danger" role="alert"></div>
+                    <div class="form-group">
+                        <div class="form-group mb-3">
+                            <label for="password">@Localizer["Password"]:</label>
+                            <input id="password" name="password" type="password" class="form-control" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="verify">@Localizer["VerifyPassword"]:</label>
+                            <input id="verify" name="verify" type="password" class="form-control" />
+                        </div>
+                        <input name="id" type="hidden" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Close"]</button>
+                <button id="submitPwdForm" type="button" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+@section Scripts {
+
+    <script src="~/js/admin-user.js"></script>
+}
+
+

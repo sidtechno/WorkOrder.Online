@@ -16,8 +16,25 @@ namespace WorkOrder.Online.Models
         public string Claims { get; set; }
         public DateTimeOffset? LockoutEnd { get; set; }
 
+        public int OrganizationId { get; set; }
+        public string OrganizationName { get; set; }
+
+
         public int StartUpScreenId { get; set; }
-  
+
+        public string OrganizationToDisplay
+        {
+            get
+            {
+                if (Roles.Any(p => p == "SuperAdmin"))
+                {
+                    return "All";
+                }
+
+                return string.IsNullOrWhiteSpace(OrganizationName) ? "N/A" : OrganizationName;
+            }
+        }
+
         public string RolesToDisplay
         {
 

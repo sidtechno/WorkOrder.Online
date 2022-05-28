@@ -31,11 +31,14 @@ namespace WorkOrder.Online.Data
                         U.Email,
                         U.UserName,
                         C.ClaimValue AS OrganizationId,
+                        O.Name AS OrganizationName,
                         (SELECT STRING_AGG(AR.Name, ', ') FROM [dbo].[AspNetUserRoles] R INNER JOIN [dbo].[AspNetRoles] AR ON R.RoleId = AR.Id WHERE UserId = U.Id) AS Roles,
                         CASE WHEN U.LockoutEnd IS NULL THEN 0 ELSE 1 END AS LockedOut
                         FROM AspNetUsers U
                         INNER JOIN AspNetUserClaims C
 	                        ON U.Id = C.UserId
+                        LEFT JOIN Organizations O
+                            ON O.Id = C.ClaimValue
                         WHERE C.ClaimType = 'OrganizationId'
                         AND C.ClaimValue = @OrganizationId";
                 }
@@ -48,15 +51,18 @@ namespace WorkOrder.Online.Data
                         U.Email,
                         U.UserName,
                         C.ClaimValue AS OrganizationId,
+                        O.Name AS OrganizationName,
                         (SELECT STRING_AGG(AR.Name, ', ') FROM [dbo].[AspNetUserRoles] R INNER JOIN [dbo].[AspNetRoles] AR ON R.RoleId = AR.Id WHERE UserId = U.Id) AS Roles,
                         CASE WHEN U.LockoutEnd IS NULL THEN 0 ELSE 1 END AS LockedOut
                         FROM AspNetUsers U
                         INNER JOIN AspNetUserClaims C
 	                        ON U.Id = C.UserId
+                        LEFT JOIN Organizations O
+                            ON O.Id = C.ClaimValue
                         WHERE C.ClaimType = 'OrganizationId'";
                 }
 
-                using (var connection = new SqlConnection(_configuration.GetConnectionString("AuthConnection")))
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
                     connection.Open();
 

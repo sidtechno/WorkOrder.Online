@@ -120,6 +120,9 @@
   <data name="MenuManagement" xml:space="preserve">
     <value>Gestion</value>
   </data>
+  <data name="MenuOrganizations" xml:space="preserve">
+    <value>Organisations</value>
+  </data>
   <data name="MenuRoles" xml:space="preserve">
     <value>Rôles</value>
   </data>

@@ -117,16 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MenuManagement" xml:space="preserve">
-    <value>Management</value>
-  </data>
-  <data name="MenuOrganizations" xml:space="preserve">
-    <value>Organizations</value>
-  </data>
-  <data name="MenuRoles" xml:space="preserve">
-    <value>Roles</value>
-  </data>
-  <data name="MenuUsers" xml:space="preserve">
-    <value>Users</value>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
   </data>
 </root>

@@ -1,0 +1,23 @@
+﻿@model WorkOrder.Online.Models.OrganizationListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<table id="organizationsTable" class="table table-striped dataTable w-100" data-processing="true">
+    <thead>
+        <tr>
+            <th data-data="id">Id</th>
+            <th data-data="name" style="width:80%">@Localizer["Name"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model.Organizations)
+        {
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

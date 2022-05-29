@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Mapster;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WorkOrder.Online.Data.Interfaces;
+using WorkOrder.Online.Models;
 using WorkOrder.Online.Services.Interfaces;
 
 namespace WorkOrder.Online.Services
@@ -11,6 +13,12 @@ namespace WorkOrder.Online.Services
         public OrganizationService(IOrganizationFactory organizationFactory)
         {
             _organizationFactory = organizationFactory;
+        }
+
+        public async Task<IEnumerable<OrganizationViewModel>> GetOrganizations()
+        {
+            var organizations = await _organizationFactory.GetOrganizations();
+            return organizations.Adapt<IEnumerable<OrganizationViewModel>>();
         }
 
         public async Task<IEnumerable<SelectListItem>> GetOrganizationsSelectList()

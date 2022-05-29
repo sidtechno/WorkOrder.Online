@@ -59,11 +59,6 @@ namespace WorkOrder.Online.Controllers
                         SelectedOrganizationId = HttpContext.User.IsInRole("Administrator") ? CurrentUser.OrganizationId : 0,
                         disabled = HttpContext.User.IsInRole("Administrator")
                     },
-                    //StartUpScreenSelector = new StartUpScreenSelectorViewModel
-                    //{
-                    //    StartUpScreens = await _referenceService.GetStartUpScreenList(CurrentUser.GarageSetting.Language),
-                    //    disabled = false 
-                    //},
                 };
 
                 ViewBag.Roles = _roles;

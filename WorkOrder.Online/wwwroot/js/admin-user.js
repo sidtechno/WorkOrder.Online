@@ -58,24 +58,24 @@
             },
             messages: {
                 'username': {
-                    required: $('#hidUsernameRequired').val(),
-                    noSpace: $('#hidUsernameRequired').val(),
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val(),
                     userNotExist: $('#hidUsernameExist').val()
                 },
                 'firstname': {
-                    required: $('#hidFirstnameRequired').val(),
-                    noSpace: $('#hidUsernameRequired').val()
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
                 },
                 'lastname': {
-                    required: $('#hidLastnameRequired').val(),
-                    noSpace: $('#hidUsernameRequired').val()
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
                 },
                 'SelectedOrganizationId': {
-                    required: $('#hidOrganizationRequired').val()
+                    required: $('#hidRequired').val()
                 },
                 'email': {
-                    required: $('#hidEmailRequired').val(),
-                    noSpace: $('#hidUsernameRequired').val()
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
                 },
                 'roles[]': {
                     required: $('#hidRoleSelectionRequired').val()

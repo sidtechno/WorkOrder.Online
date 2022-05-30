@@ -159,20 +159,11 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="EmailRequired" xml:space="preserve">
-    <value>Email is required</value>
-  </data>
   <data name="Firstname" xml:space="preserve">
     <value>Firstname</value>
   </data>
-  <data name="FirstnameRequired" xml:space="preserve">
-    <value>Firstname is required</value>
-  </data>
   <data name="Lastname" xml:space="preserve">
     <value>Lastname</value>
-  </data>
-  <data name="LastnameRequired" xml:space="preserve">
-    <value>Lastname is required</value>
   </data>
   <data name="Locked" xml:space="preserve">
     <value>Account Locked</value>
@@ -183,17 +174,14 @@
   <data name="Organization" xml:space="preserve">
     <value>Organization Name</value>
   </data>
-  <data name="OrganizationRequired" xml:space="preserve">
-    <value>Organization is required</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>New password</value>
   </data>
   <data name="PasswordNotEqual" xml:space="preserve">
     <value>Passwords are not equals</value>
   </data>
-  <data name="PasswordRequired" xml:space="preserve">
-    <value>Password is required</value>
+  <data name="Required" xml:space="preserve">
+    <value>This field is required</value>
   </data>
   <data name="RoleSelectionRequired" xml:space="preserve">
     <value>Role id required</value>
@@ -213,16 +201,10 @@
   <data name="UsernameExist" xml:space="preserve">
     <value>Username already taken</value>
   </data>
-  <data name="UsernameRequired" xml:space="preserve">
-    <value>Username is required</value>
-  </data>
   <data name="UserRoles" xml:space="preserve">
     <value>Select User Roles</value>
   </data>
   <data name="VerifyPassword" xml:space="preserve">
     <value>Verify new password </value>
-  </data>
-  <data name="VerifyPasswordRequired" xml:space="preserve">
-    <value>Verify password is required</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-﻿(function () {
+﻿$(document).ready(function () {
 
     var ajaxUrl = $('#HidRootUrl').val();
     var table;
@@ -101,8 +101,8 @@
             },
             messages: {
                 'name': {
-                    required: $('#hidNameRequired').val(),
-                    noSpace: $('#hidNameRequired').val()
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
                 }
             },
             errorElement: 'span',
@@ -296,4 +296,4 @@
         alert(xhr.responseText || error);
     }
 
-})();
+});

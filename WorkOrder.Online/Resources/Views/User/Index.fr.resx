@@ -159,20 +159,11 @@
   <data name="Email" xml:space="preserve">
     <value>Courriel</value>
   </data>
-  <data name="EmailRequired" xml:space="preserve">
-    <value>Le courriel est requis</value>
-  </data>
   <data name="Firstname" xml:space="preserve">
     <value>Prénom</value>
   </data>
-  <data name="FirstnameRequired" xml:space="preserve">
-    <value>Le prénom est requis</value>
-  </data>
   <data name="Lastname" xml:space="preserve">
     <value>Nom</value>
-  </data>
-  <data name="LastnameRequired" xml:space="preserve">
-    <value>Le nom est requis</value>
   </data>
   <data name="Locked" xml:space="preserve">
     <value>Compte vérouillé</value>
@@ -186,9 +177,6 @@
   <data name="Organization" xml:space="preserve">
     <value>Organisation</value>
   </data>
-  <data name="OrganizationRequired" xml:space="preserve">
-    <value>L'organisation est requise</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Nouveau mot de passe</value>
   </data>
@@ -197,6 +185,9 @@
   </data>
   <data name="PasswordRequired" xml:space="preserve">
     <value>Le mot de passe est requis</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Ce champs est requis</value>
   </data>
   <data name="RoleSelectionRequired" xml:space="preserve">
     <value>Le rôle est requis</value>
@@ -216,16 +207,10 @@
   <data name="UsernameExist" xml:space="preserve">
     <value>Le nom d'usager existe déjà</value>
   </data>
-  <data name="UsernameRequired" xml:space="preserve">
-    <value>Le nom d'utilisateur est requis</value>
-  </data>
   <data name="UserRoles" xml:space="preserve">
     <value>Sélection des rôles</value>
   </data>
   <data name="VerifyPassword" xml:space="preserve">
     <value>Vérifier le nouveau mot de passe</value>
-  </data>
-  <data name="VerifyPasswordRequired" xml:space="preserve">
-    <value>La vérification du mot de passe est requise</value>
   </data>
 </root>

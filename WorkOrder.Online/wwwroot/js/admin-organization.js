@@ -1,4 +1,4 @@
-﻿(function () {
+﻿$(document).ready(function () {
 
     var ajaxUrl = $('#HidRootUrl').val();
     var table;
@@ -14,6 +14,11 @@
             {
                 "aTargets": [0],
                 "visible": false
+            },
+            {
+                "aTargets": [3],
+                "className": 'text-center',
+                "width": "100px"
             }
         ],
         buttons: [
@@ -86,19 +91,55 @@
 
     
     $('#submitAddForm').on('click', function () {
-        var form = $('#roleForm');
+        var form = $('#addForm');
                 
         form.validate({
             rules: {
                 'name': {
                     required: true,
                     noSpace: true
+                },
+                'address': {
+                    required: true,
+                    noSpace: true
+                },
+                'phone': {
+                    required: true,
+                    noSpace: true
+                },
+                'email': {
+                    required: true,
+                    noSpace: true
+                },
+                'SelectedLanguageCode': {
+                    required: true
+                },
+                'nbrUsers': {
+                    required: true
                 }
             },
             messages: {
                 'name': {
-                    required: $('#hidNameRequired').val(),
-                    noSpace: $('#hidNameRequired').val()
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'address': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'phone': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'email': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'SelectedLanguageCode': {
+                    required: $('#hidRequired').val()
+                },
+                'nbrUsers': {
+                    required: $('#hidRequired').val()
                 }
             },
             errorElement: 'span',
@@ -290,4 +331,4 @@
         alert(xhr.responseText || error);
     }
 
-})();
+});

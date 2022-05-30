@@ -26,6 +26,12 @@ namespace WorkOrder.Online.Controllers
                 var model = new OrganizationListViewModel()
                 {
                     Organizations = await _organizationService.GetOrganizations(),
+                    LanguageSelector = new LanguageSelectorViewModel
+                    {
+                        Languages = await _organizationService.GetOrganizationsSelectList(),
+                        SelectedLanguageCode = "FR",
+                        disabled = false
+                    },
                     RootUrl = BaseRootUrl
                 };
 

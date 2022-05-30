@@ -8,15 +8,28 @@
     <thead>
         <tr>
             <th data-data="id">Id</th>
-            <th data-data="name" style="width:80%">@Localizer["Name"]</th>
+            <th data-data="name" style="width:70%">@Localizer["Name"]</th>
+            <th data-data="creationDate">@Localizer["CreationDate"]</th>
+            <th data-data="isActive" class="text-center">@Localizer["IsActive"]</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var role in Model.Organizations)
+        @foreach (var org in Model.Organizations)
         {
             <tr>
-                <td>@role.Id</td>
-                <td>@role.Name</td>
+                <td>@org.Id</td>
+                <td>@org.Name</td>
+                <td>@org.CreationDate</td>
+                <td>
+                    @if (!org.IsActive)
+                    {
+                        <i class="fas fa-lock text-danger"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-lock-open text-success"></i>
+                    }
+                </td>
             </tr>
         }
     </tbody>

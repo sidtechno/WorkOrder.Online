@@ -18,8 +18,17 @@ namespace WorkOrder.Online.Data
         public async Task<IEnumerable<OrganizationModel>> GetOrganizations()
         {
             var sql = @"SELECT 
-                        Id,
-                        Name
+                           [Id]
+                          ,[Name]
+                          ,[Address]
+                          ,[City]
+                          ,[Province]
+                          ,[PostalCode]
+                          ,[Language]
+                          ,[NbrUsers]
+                          ,[Notes]
+                          ,[CreationDate]
+                          ,[IsActive]
                         FROM [dbo].[Organizations]";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))

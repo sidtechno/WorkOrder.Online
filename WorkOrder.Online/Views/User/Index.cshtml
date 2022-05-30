@@ -15,11 +15,7 @@
 @Html.Hidden("hidDeleteButton", Localizer["DeleteButton"].Value)
 @Html.Hidden("hidResetPasswordButton", Localizer["ChangePassword"].Value)
 
-@Html.Hidden("hidUsernameRequired", Localizer["UsernameRequired"].Value)
-@Html.Hidden("hidFirstnameRequired", Localizer["FirstnameRequired"].Value)
-@Html.Hidden("hidLastnameRequired", Localizer["LastnameRequired"].Value)
-@Html.Hidden("hidEmailRequired", Localizer["EmailRequired"].Value)
-@Html.Hidden("hidOrganizationRequired", Localizer["OrganizationRequired"].Value)
+@Html.Hidden("hidRequired", Localizer["Required"].Value)
 @Html.Hidden("hidRoleSelectionRequired", Localizer["RoleSelectionRequired"].Value)
 @Html.Hidden("hidUsernameExist", Localizer["UsernameExist"].Value)
 
@@ -65,47 +61,49 @@
             <div class="modal-body">
                 <form class="form-horizontal" id="addUserForm">
                     <div id="userError" class="alert alert-danger hidden" role="alert"></div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="username" class="form-label">@Localizer["Username"]:</label>
-                                <input name="username" type="text" class="form-control" />
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="username" class="form-label">@Localizer["Username"]:</label>
+                                    <input name="username" type="text" class="form-control" />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="firstname" class="form-label">@Localizer["Firstname"]:</label>
+                                    <input name="firstname" type="text" class="form-control" />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="lastname" class="form-label">@Localizer["Lastname"]:</label>
+                                    <input name="lastname" type="text" class="form-control" />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="email" class="form-label">@Localizer["Email"]:</label>
+                                    <input id="email" name="email" type="email" class="form-control" />
+                                </div>
                             </div>
-                            <div class="form-group mb-3">
-                                <label for="firstname" class="form-label">@Localizer["Firstname"]:</label>
-                                <input name="firstname" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="lastname" class="form-label">@Localizer["Lastname"]:</label>
-                                <input name="lastname" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="email" class="form-label">@Localizer["Email"]:</label>
-                                <input id="email" name="email" type="email" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label>@Localizer["Organization"]:</label>
-                                @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
-                            </div>
-                            @* <div class="form-group">
-                            <label>@Localizer["StartUpScreen"]:</label>
-                            @await Html.PartialAsync("_StartUpScreenSelector", Model.StartUpScreenSelector)
-                            </div>*@
-                            <div class="form-group">
-                                <label>@Localizer["UserRoles"]:</label>
-                                <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
-                                    @foreach (var role in ViewBag.Roles)
-                                    {
-                                        <li>
-                                            <div class="mb-2">
-                                                <input name="roles[]" type="checkbox" class="checkbox mr-2" value="@role.Value" @(role.Value == "SuperAdmin" ? "disabled" : "") />
-                                                <label style="font-weight:500;">@role.Value</label>
-                                            </div>
-                                        </li>
-                                    }
-                                </ul>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>@Localizer["Organization"]:</label>
+                                    @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
+                                </div>
+                                @* <div class="form-group">
+                                <label>@Localizer["StartUpScreen"]:</label>
+                                @await Html.PartialAsync("_StartUpScreenSelector", Model.StartUpScreenSelector)
+                                </div>*@
+                                <div class="form-group">
+                                    <label>@Localizer["UserRoles"]:</label>
+                                    <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
+                                        @foreach (var role in ViewBag.Roles)
+                                        {
+                                            <li>
+                                                <div class="mb-2">
+                                                    <input name="roles[]" type="checkbox" class="checkbox mr-2" value="@role.Value" @(role.Value == "SuperAdmin" ? "disabled" : "") />
+                                                    <label style="font-weight:500;">@role.Value</label>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -130,52 +128,54 @@
             <div class="modal-body">
                 <form class="form-horizontal" id="editUserForm">
                     <div id="userError" class="alert alert-danger hidden" role="alert"></div>
-                    <input name="id" type="hidden" />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="username">@Localizer["Username"]:</label>
-                                <input name="username" type="text" class="form-control" />
+                    <div class="card card-body">
+                        <input name="id" type="hidden" />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="username">@Localizer["Username"]:</label>
+                                    <input name="username" type="text" class="form-control" />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="firstname">@Localizer["Firstname"]:</label>
+                                    <input name="firstname" type="text" class="form-control" />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="lastname">@Localizer["Lastname"]:</label>
+                                    <input name="lastname" type="text" class="form-control" />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="email">@Localizer["Email"]:</label>
+                                    <input id="email" name="email" type="email" class="form-control" />
+                                </div>
+                                <div>
+                                    <input name="locked" type="checkbox" class="mr-2" value="Yes" />
+                                    <label>@Localizer["Locked"]</label>
+                                </div>
                             </div>
-                            <div class="form-group mb-3">
-                                <label for="firstname">@Localizer["Firstname"]:</label>
-                                <input name="firstname" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="lastname">@Localizer["Lastname"]:</label>
-                                <input name="lastname" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="email">@Localizer["Email"]:</label>
-                                <input id="email" name="email" type="email" class="form-control" />
-                            </div>
-                            <div>
-                                <input name="locked" type="checkbox" class="mr-2" value="Yes" />
-                                <label>@Localizer["Locked"]</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label>@Localizer["Organization"]:</label>
-                                 @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
-                            </div>
-                            @*<div class="form-group">
-                            <label>@Localizer["StartUpScreen"]:</label>
-                            @await Html.PartialAsync("_StartUpScreenSelector", Model.StartUpScreenSelector)
-                            </div>*@
-                            <div class="form-group mb-3">
-                                <label>@Localizer["UserRoles"]:</label>
-                                <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
-                                    @foreach (var role in ViewBag.Roles)
-                                    {
-                                        <li>
-                                            <div class="mb-2">
-                                                <input name="roles[]" type="checkbox" class="checkbox mr-2" value="@role.Value" @(role.Value == "SuperAdmin" ? "disabled" : "") />
-                                                <label style="font-weight:500;">@role.Value</label>
-                                            </div>
-                                        </li>
-                                    }
-                                </ul>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>@Localizer["Organization"]:</label>
+                                    @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
+                                </div>
+                                @*<div class="form-group">
+                                <label>@Localizer["StartUpScreen"]:</label>
+                                @await Html.PartialAsync("_StartUpScreenSelector", Model.StartUpScreenSelector)
+                                </div>*@
+                                <div class="form-group mb-3">
+                                    <label>@Localizer["UserRoles"]:</label>
+                                    <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
+                                        @foreach (var role in ViewBag.Roles)
+                                        {
+                                            <li>
+                                                <div class="mb-2">
+                                                    <input name="roles[]" type="checkbox" class="checkbox mr-2" value="@role.Value" @(role.Value == "SuperAdmin" ? "disabled" : "") />
+                                                    <label style="font-weight:500;">@role.Value</label>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

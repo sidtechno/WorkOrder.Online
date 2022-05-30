@@ -3,3 +3,6 @@
     display: none !important;
 }
 
+.modal-body {
+    background-color: #fdfcfc;
+}

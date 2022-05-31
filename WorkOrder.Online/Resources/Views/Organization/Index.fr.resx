@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
   <data name="AddOrganization" xml:space="preserve">
     <value>Ajouter une organisation</value>
   </data>
@@ -125,6 +128,36 @@
   </data>
   <data name="City" xml:space="preserve">
     <value>Ville</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="CreateSuccess" xml:space="preserve">
+    <value>Organisation créé avec succès</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Oui, supprimer l'organisation</value>
+  </data>
+  <data name="DeleteRoleSuccess" xml:space="preserve">
+    <value>Organisation supprimée avec succès!</value>
+  </data>
+  <data name="DeleteSuccess" xml:space="preserve">
+    <value>Organisation supprimée avec succès</value>
+  </data>
+  <data name="DeleteText" xml:space="preserve">
+    <value>Voulez-vous vraiment supprimer cette organisation?</value>
+  </data>
+  <data name="DeleteTitle" xml:space="preserve">
+    <value>Supprimer cette organisation</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="EditOrganization" xml:space="preserve">
+    <value>Modifier une organisation</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Courriel</value>
@@ -156,7 +189,13 @@
   <data name="Required" xml:space="preserve">
     <value>Ce champs est requis</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Gestion des organisations</value>
+  </data>
+  <data name="UpdateSuccess" xml:space="preserve">
+    <value>Organisation modifiée avec succès</value>
   </data>
 </root>

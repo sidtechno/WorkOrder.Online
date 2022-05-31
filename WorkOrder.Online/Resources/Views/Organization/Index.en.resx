@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="AddOrganization" xml:space="preserve">
     <value>Add Organization</value>
   </data>
@@ -125,6 +128,36 @@
   </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CreateSuccess" xml:space="preserve">
+    <value>Organization created successfully</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Yes, delete it!</value>
+  </data>
+  <data name="DeleteRoleSuccess" xml:space="preserve">
+    <value>Organization deleted successfully!</value>
+  </data>
+  <data name="DeleteSuccess" xml:space="preserve">
+    <value>Organization deleted successfully</value>
+  </data>
+  <data name="DeleteText" xml:space="preserve">
+    <value>Do you really want to delete this organization?</value>
+  </data>
+  <data name="DeleteTitle" xml:space="preserve">
+    <value>Delete Organization</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditOrganization" xml:space="preserve">
+    <value>Edit Organization</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -156,7 +189,13 @@
   <data name="Required" xml:space="preserve">
     <value>This field is required</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Organization Management</value>
+  </data>
+  <data name="UpdateSuccess" xml:space="preserve">
+    <value>Organization updated successfully</value>
   </data>
 </root>

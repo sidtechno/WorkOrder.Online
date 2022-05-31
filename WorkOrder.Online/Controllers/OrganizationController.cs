@@ -1,6 +1,4 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WorkOrder.Online.Models;
 using WorkOrder.Online.Services.Interfaces;
 
@@ -44,92 +42,79 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
-       
-        //[HttpPost("Roles/[action]")]
-        //public async Task<IActionResult> CreateRole(string name)
-        //{
-        //    try
-        //    {
-        //        var role = new IdentityRole(name);
-        //        var result = await _roleManager.CreateAsync(role);
+        [HttpGet("Organizations/{id}")]
+        public async Task<IActionResult> GetOrganization(int id)
+        {
+            try
+            {
+                return Ok(await _organizationService.GetOrganization(id));
+            }
+            catch (Exception)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
 
-        //        if (result.Succeeded)
-        //        {
-        //            return NoContent();
-        //        }
-        //        else
-        //            return BadRequest(result.Errors.First().Description);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // ex.ToExceptionless().Submit();
-        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        //    }
-        //}
+        [HttpPost("Organizations/[action]")]
+        public async Task<IActionResult> Create(OrganizationViewModel model)
+        {
+            try
+            {
+                var result = await _organizationService.Create(model);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
 
-        //[HttpPost("Roles/[action]")]
-        //public async Task<IActionResult> UpdateRole(string id, string name)
-        //{
-        //    try
-        //    {
-        //        var role = await _roleManager.FindByIdAsync(id);
-        //        if (role == null)
-        //            return NotFound("Role not found.");
 
-        //        role.Name = name;
+        [HttpPost("Organizations/[action]")]
+        public async Task<IActionResult> Update(OrganizationViewModel model)
+        {
+            try
+            {
+                var result = await _organizationService.Update(model);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
 
-        //        var result = await _roleManager.UpdateAsync(role);
-        //        if (result.Succeeded)
-        //        {
-        //            return NoContent();
-        //        }
-        //        else
-        //            return BadRequest(result.Errors.First().Description);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //ex.ToExceptionless().Submit();
-        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        //    }
-        //}
+        [HttpGet("Organizations/list")]
+        public async Task<IActionResult> GetOrganizationList()
+        {
+            try
+            {
+                var model = new OrganizationListViewModel() { Organizations = await _organizationService.GetOrganizations() };
+                return PartialView("_organizations", model);
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
 
-        //[HttpGet("Roles/list")]
-        //public async Task<IActionResult> GetRoleList()
-        //{
-        //    try
-        //    {
-        //        var model = new RoleListViewModel() { Roles = await GetRoles() };
-        //        return PartialView("_roles", model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //ex.ToExceptionless().Submit();
-        //        return BadRequest();
-        //    }
-        //}
-
-        //[HttpDelete("Roles/[action]")]
-        //public async Task<ActionResult> DeleteRole(string id)
-        //{
-        //    try
-        //    {
-        //        var role = await _roleManager.FindByIdAsync(id);
-        //        if (role == null)
-        //            return NotFound("Role not found.");
-
-        //        var result = await _roleManager.DeleteAsync(role);
-        //        if (result.Succeeded)
-        //        {
-        //            return NoContent();
-        //        }
-        //        else
-        //            return BadRequest(result.Errors.First().Description);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //ex.ToExceptionless().Submit();
-        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        //    }
-        //}
+        [HttpDelete("Organizations/[action]")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                var result = await _organizationService.Delete(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
     }
 }

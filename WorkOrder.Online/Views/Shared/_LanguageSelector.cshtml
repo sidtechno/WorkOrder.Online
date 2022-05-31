@@ -8,12 +8,12 @@
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
     var cultureItems = LocOptions.Value.SupportedUICultures
-        .Select(c => new SelectListItem { Value = c.Name, Text = Localizer.GetString(c.Name) })
+        .Select(c => new SelectListItem { Value = c.Name.ToUpper(), Text = Localizer.GetString(c.Name) })
         .ToList();
 }
 <div>
 
-    <select name="culture"
+    <select name="language"
         class="form-select"
             asp-for="@requestCulture.RequestCulture.UICulture.Name"
             asp-items="cultureItems">

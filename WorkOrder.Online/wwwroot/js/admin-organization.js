@@ -50,8 +50,28 @@
                     $('#tabs a:first').tab('show');
                     $('#editForm').trigger('reset');
 
-                    $('#editForm input[name=name]').val(data.name);
-                    $('#editForm input[name=id]').val(data.id);
+                    $.ajax({
+                        url: ajaxUrl + '/Organizations/' + data.id,
+                        type: "GET",
+                        async: false,
+                        success: function (response) {
+                            $('#editForm input[name=name]').val(response.name);
+                            $('#editForm input[name=id]').val(response.id);
+                            $('#editForm input[name=address]').val(response.address);
+                            $('#editForm input[name=city]').val(response.city);
+                            $('#editForm input[name=province]').val(response.province);
+                            $('#editForm input[name=postalCode]').val(response.postalCode);
+                            $('#editForm input[name=phone]').val(response.phone);
+                            $('#editForm input[name=email]').val(response.email);
+                            $('#editForm select[name=language]').val(response.language);
+                            $('#editForm input[name=nbrUsers]').val(response.nbrUsers);
+                            $('#editForm textarea[name=Notes]').val(response.notes);
+                            $('#editForm input[name=isActive]').prop('checked', response.isActive);
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Error');
+                        }
+                    });
                 }
             },
             {
@@ -74,7 +94,7 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Organizations/DeleteOrganization',
+                                url: ajaxUrl + '/Organizations/Delete',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
@@ -161,16 +181,16 @@
             formData = formData;
 
             $.ajax({
-                url: ajaxUrl + '/Roles/CreateRole',
+                url: ajaxUrl + '/Organizations/Create',
                 type: "POST",
                 dataType: "json",
                 data: formData,
                 async: false,
                 success: function (response) {
-                    roleDone();
+                    addDone();
                 },
                 error: function (xhr, status, error) {
-                    roleFail(xhr, status, error);
+                    addFail(xhr, status, error);
                 }
             });
         }
@@ -184,12 +204,48 @@
                 'name': {
                     required: true,
                     noSpace: true
+                },
+                'address': {
+                    required: true,
+                    noSpace: true
+                },
+                'phone': {
+                    required: true,
+                    noSpace: true
+                },
+                'email': {
+                    required: true,
+                    noSpace: true
+                },
+                'SelectedLanguageCode': {
+                    required: true
+                },
+                'nbrUsers': {
+                    required: true
                 }
             },
             messages: {
                 'name': {
-                    required: $('#hidNameRequired').val(),
-                    noSpace: $('#hidNameRequired').val()
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'address': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'phone': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'email': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'SelectedLanguageCode': {
+                    required: $('#hidRequired').val()
+                },
+                'nbrUsers': {
+                    required: $('#hidRequired').val()
                 }
             },
             errorElement: 'span',
@@ -209,7 +265,7 @@
             var formData = $(form).serialize();
 
             $.ajax({
-                url: ajaxUrl + '/Roles/UpdateRole',
+                url: ajaxUrl + '/Organizations/Update',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -265,14 +321,14 @@
         });
     }
 
-    function UpdateRoleList() {
+    function UpdateOrganizationList() {
         $.ajax({
-            url: ajaxUrl + '/Roles/list',
+            url: ajaxUrl + '/Organizations/list',
             type: "GET",
             dataType: "html",
             async: false,
             success: function (response) {
-                $('#role-list').empty().append(response);
+                $('#org-list').empty().append(response);
                 initTable();
             },
             error: function (xhr, status, error) {
@@ -281,34 +337,41 @@
         });
     }
 
-    function roleDone(data, status, xhr) {
-        $('#roleModal').modal('hide');
+    function addDone(data, status, xhr) {
+        var addModal = document.getElementById('addModal')
+        var modal = bootstrap.Modal.getInstance(addModal)
+        modal.hide();
+
+        $('#addModal').modal('hide');
         Swal.fire({
             icon: 'success',
-            title: $('#hidCreateRoleSuccess').val(),
+            title: $('#hidCreateSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateRoleList();
+        UpdateOrganizationList();
     }
 
-    function roleFail(xhr, status, error) {
-        $('#roleError').html(xhr.responseText || error).fadeIn();
+    function addFail(xhr, status, error) {
+        $('#addError').html(xhr.responseText || error).fadeIn();
     }
 
     function editDone(data, status, xhr) {
-        $('#editModal').modal('hide');
+        var addModal = document.getElementById('editModal')
+        var modal = bootstrap.Modal.getInstance(addModal)
+        modal.hide();
+
         Swal.fire({
             icon: 'success',
-            title: $('#hidUpdateRoleSuccess').val(),
+            title: $('#hidUpdateSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateRoleList();
+        UpdateOrganizationList();
     }
 
     function editFail(xhr, status, error) {
@@ -318,13 +381,13 @@
     function delDone(data, status, xhr) {
         Swal.fire({
             icon: 'success',
-            title: $('#hidDeleteRoleSuccess').val(),
+            title: $('#hidDeleteSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateRoleList();
+        UpdateOrganizationList();
     }
 
     function delFail(xhr, status, error) {

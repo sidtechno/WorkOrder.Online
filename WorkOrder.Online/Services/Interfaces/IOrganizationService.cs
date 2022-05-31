@@ -7,5 +7,9 @@ namespace WorkOrder.Online.Services.Interfaces
     {
         Task<IEnumerable<SelectListItem>> GetOrganizationsSelectList();
         Task<IEnumerable<OrganizationViewModel>> GetOrganizations();
+        Task<OrganizationViewModel> GetOrganization(int organizationId);
+        Task<int> Create(OrganizationViewModel model);
+        Task<int> Update(OrganizationViewModel model);
+        Task<int> Delete(int organizationId);
     }
 }

@@ -8,8 +8,11 @@
     <thead>
         <tr>
             <th data-data="id">Id</th>
-            <th data-data="name" style="width:70%">@Localizer["Name"]</th>
+            <th data-data="name" style="width:40%">@Localizer["Name"]</th>
+            <th data-data="nbrWorkOrder">@Localizer["NbrWorkOrder"]</th>
+            <th data-data="nbrUsers">@Localizer["NbrUsers"]</th>
             <th data-data="creationDate">@Localizer["CreationDate"]</th>
+             <th data-data="nbrEmail">@Localizer["NbrEmail"]</th>
             <th data-data="isActive" class="text-center">@Localizer["IsActive"]</th>
         </tr>
     </thead>
@@ -19,7 +22,10 @@
             <tr>
                 <td>@org.Id</td>
                 <td>@org.Name</td>
+                <td>@org.WorkOrderCount</td>
+                <td>@org.UserCount</td>
                 <td>@org.CreationDate</td>
+                <td>@org.EmailCount</td>
                 <td>
                     @if (!org.IsActive)
                     {

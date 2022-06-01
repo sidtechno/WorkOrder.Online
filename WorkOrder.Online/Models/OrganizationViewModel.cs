@@ -15,5 +15,9 @@
         public string Notes { get; set; }
         public DateTime CreationDate { get; set; }
         public bool IsActive { get; set; }
+
+        public int WorkOrderCount { get; set; }
+        public int UserCount { get; set; }
+        public int EmailCount { get; set; }
     }
 }

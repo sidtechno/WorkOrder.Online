@@ -132,6 +132,7 @@ namespace WorkOrder.Online.Controllers
                 if (user == null)
                     return NotFound("User not found.");
 
+                user.UserName = email;
                 user.Email = email;
                 user.LockoutEnd = locked == null ? default(DateTimeOffset?) : DateTimeOffset.MaxValue;
 

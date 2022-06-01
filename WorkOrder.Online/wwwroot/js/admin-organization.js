@@ -16,9 +16,14 @@
                 "visible": false
             },
             {
-                "aTargets": [3],
+                "aTargets": [2,3,5],
                 "className": 'text-center',
-                "width": "100px"
+            },
+            {
+                "aTargets": [6],
+                "className": 'text-center',
+                "width": "100px",
+                "orderable": false
             }
         ],
         buttons: [
@@ -263,6 +268,15 @@
 
         if (form.valid()) {
             var formData = $(form).serialize();
+
+            var res = formData.split("&");
+            for (var i = 0; i < res.length; i++) {
+                if (res[i].indexOf("isActive") == 0) {
+                    res[i] = 'isActive=' + $('#editForm input[name=isActive]').prop('checked');
+                }
+            }
+
+            formData = res.join("&");
 
             $.ajax({
                 url: ajaxUrl + '/Organizations/Update',

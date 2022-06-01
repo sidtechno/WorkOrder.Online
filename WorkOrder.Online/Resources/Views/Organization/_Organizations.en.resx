@@ -126,4 +126,13 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NbrEmail" xml:space="preserve">
+    <value>Nb Email</value>
+  </data>
+  <data name="NbrUsers" xml:space="preserve">
+    <value>Nb Users</value>
+  </data>
+  <data name="NbrWorkOrder" xml:space="preserve">
+    <value>Nb Work Order</value>
+  </data>
 </root>

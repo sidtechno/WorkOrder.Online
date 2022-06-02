@@ -124,7 +124,7 @@ namespace WorkOrder.Online.Controllers
         }
 
         [HttpPost("Users/[action]")]
-        public async Task<IActionResult> UpdateUser(string id, string email, string firstName, string lastName, string selectedOrganizationId, string locked, string[] roles)
+        public async Task<IActionResult> UpdateUser(string id, string userName, string email, string firstName, string lastName, string selectedOrganizationId, string locked, string[] roles)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace WorkOrder.Online.Controllers
                 if (user == null)
                     return NotFound("User not found.");
 
-                user.UserName = email;
+                user.UserName = userName;
                 user.Email = email;
                 user.LockoutEnd = locked == null ? default(DateTimeOffset?) : DateTimeOffset.MaxValue;
 

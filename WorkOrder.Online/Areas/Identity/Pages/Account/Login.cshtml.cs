@@ -153,7 +153,7 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     //Get claims
-                    var identityUser = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+                    var identityUser = await _signInManager.UserManager.FindByNameAsync(Input.Email);
                     IList<Claim> claims = await _signInManager.UserManager.GetClaimsAsync(identityUser);
 
                     //Get language in garage

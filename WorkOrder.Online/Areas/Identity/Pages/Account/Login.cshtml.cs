@@ -10,6 +10,7 @@ using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Security.Claims;
+using WorkOrder.Online.Services.Interfaces;
 
 namespace WorkOrder.Online.Areas.Identity.Pages.Account
 {
@@ -18,14 +19,17 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly IStringLocalizer<LoginModel> _localizer;
+        private readonly IOrganizationService _organizationService;
 
         public LoginModel(SignInManager<IdentityUser> signInManager,
             ILogger<LoginModel> logger,
+            IOrganizationService organizationService,
             IStringLocalizer<LoginModel> localizer)
         {
             _signInManager = signInManager;
             _logger = logger;
             _localizer = localizer;
+            _organizationService = organizationService;
         }
 
         /// <summary>
@@ -94,7 +98,7 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
             public string Email { get; set; }
             public string Password { get; set; }
             public string Message1 { get; set; }
-            public string Message2 { get; set; }
+            public string Slogan { get; set; }
 
 
         }
@@ -129,7 +133,7 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
                     Email = _localizer["Email"],
                     Password = _localizer["Password"],
                     Message1 = _localizer["Message1"],
-                    Message2 = _localizer["Message2"],
+                    Slogan = _localizer["Slogan"],
                 }
             };
 
@@ -155,6 +159,19 @@ namespace WorkOrder.Online.Areas.Identity.Pages.Account
                     //Get claims
                     var identityUser = await _signInManager.UserManager.FindByNameAsync(Input.Email);
                     IList<Claim> claims = await _signInManager.UserManager.GetClaimsAsync(identityUser);
+
+                    //Get organization
+                    var organizationId = claims.FirstOrDefault(p => p.Type.ToUpper() == "ORGANIZATIONID");
+                    if (organizationId != null)
+                    {
+                        //validate if organization is active
+                        var organization = await _organizationService.GetOrganization(Convert.ToInt32(organizationId.Value));
+                        if(organization != null && !organization.IsActive)
+                        {
+                            return RedirectToPage("./Lockout");
+                        }
+                    }
+                    
 
                     //Get language in garage
                     var defaultLanguage = "fr";

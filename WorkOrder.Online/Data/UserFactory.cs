@@ -69,7 +69,7 @@ namespace WorkOrder.Online.Data
                     var result = await connection.QueryAsync<UserFacadeModel>(sql,
                         new
                         {
-                            OrganizationId = organizationId
+                            OrganizationId = organizationId.ToString()
                         },
                         commandType: CommandType.Text);
 

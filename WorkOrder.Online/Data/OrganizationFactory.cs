@@ -18,20 +18,22 @@ namespace WorkOrder.Online.Data
         public async Task<IEnumerable<OrganizationModel>> GetOrganizations()
         {
             var sql = @"SELECT 
-                           [Id]
-                          ,[Name]
-                          ,[Address]
-                          ,[City]
-                          ,[Province]
-                          ,[PostalCode]
-                          ,[Phone]
-                          ,[Email]
-                          ,[Language]
-                          ,[NbrUsers]
-                          ,[Notes]
-                          ,[CreationDate]
-                          ,[IsActive]
-                        FROM [dbo].[Organizations]";
+                         O.[Id]
+                        ,O.[Name]
+                        ,O.[Address]
+                        ,O.[City]
+                        ,O.[Province]
+                        ,O.[PostalCode]
+                        ,O.[Phone]
+                        ,O.[Email]
+                        ,O.[Language]
+                        ,O.[NbrUsers]
+                        ,O.[Notes]
+                        ,O.[CreationDate]
+                        ,O.[IsActive]
+	                    ,(SELECT COUNT(*) FROM AspNetUserClaims WHERE ClaimType = 'OrganizationId' AND ClaimValue = CAST(O.Id as varchar(10))) AS NbrActiveUsers
+                    FROM [dbo].[Organizations] O
+                    WHERE Id > 1";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {

@@ -42,7 +42,8 @@
 </head>
 <body data-layout="horizontal" data-topbar="dark" data-layout-mode="light">
     @Html.Hidden("hidLanguage", currentUser.Language)
-    @*@await Html.PartialAsync("_CultureSelector")*@
+    @Html.Hidden("hidLightMode", @Localizer["LightMode"].Value)
+    @Html.Hidden("hidDarkMode", @Localizer["DarkMode"].Value)
 
     <div id="layout-wrapper">
 
@@ -431,8 +432,11 @@
                                             <span data-key="t-components">@Localizer["MenuManagement"]</span> <div class="arrow-down"></div>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="topnav-components">
-                                            <a href="/Organizations" class="dropdown-item" data-key="t-vertical">@Localizer["MenuOrganizations"]</a>
-                                            <a href="/Roles" class="dropdown-item" data-key="t-vertical">@Localizer["MenuRoles"]</a>
+                                            @if (User.IsInRole("SuperAdmin"))
+                                            {
+                                                <a href="/Organizations" class="dropdown-item" data-key="t-vertical">@Localizer["MenuOrganizations"]</a>
+                                                <a href="/Roles" class="dropdown-item" data-key="t-vertical">@Localizer["MenuRoles"]</a>
+                                            }
                                             <a href="/Users" class="dropdown-item" data-key="t-vertical">@Localizer["MenuUsers"]</a>
                                         </div>
                                     </li>
@@ -591,52 +595,21 @@
                             </span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end pt-0">
-                            <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle text-muted font-size-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle text-muted font-size-16 align-middle me-1"></i> <span class="align-middle">@Localizer["MenuProfile"]</span></a>
                             <a class="dropdown-item" href="#"><i class="mdi mdi-message-text-outline text-muted font-size-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
-                            <a class="dropdown-item" href="#"><i class="mdi mdi-lifebuoy text-muted font-size-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-lifebuoy text-muted font-size-16 align-middle me-1"></i> <span class="align-middle">@Localizer["MenuHelp"]</span></a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">
                                 <div class="form-check form-switch form-switch-md mb-2">
                                     <input class="form-check-input" type="checkbox" id="layoutModeCheckbox">
-                                    <label id="layoutModeDesc" class="form-check-label" for="layoutModeCheckbox">Layout Mode</label>
+                                    <label id="layoutModeDesc" class="form-check-label" for="layoutModeCheckbox">@Localizer["LightMode"]</label>
                                 </div>
                             </a>
-                            <a class="dropdown-item" href="/identity/Account/Logout"><i class="mdi mdi-logout text-muted font-size-16 align-middle me-1"></i> <span class="align-middle">Logout</span></a>
+                            <a class="dropdown-item" href="/identity/Account/Logout"><i class="mdi mdi-logout text-muted font-size-16 align-middle me-1"></i> <span class="align-middle">@Localizer["MenuLogout"]</span></a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            @* <div class="collapse show dash-content" id="dashtoggle">
-            <div class="container-fluid">
-            <!-- start page title -->
-            <div class="row">
-            <div class="col-12">
-            <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Welcome !</h4>
-
-            <div class="page-title-right">
-            <ol class="breadcrumb m-0">
-            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-            <li class="breadcrumb-item active">Welcome !</li>
-            </ol>
-            </div>
-
-            </div>
-            </div>
-            </div>
-            <!-- end page title -->
-
-            </div>
-            </div>*@
-
-            <!-- start dash troggle-icon -->
-            @* <div>
-            <a class="dash-troggle-icon" id="dash-troggle-icon" data-bs-toggle="collapse" href="#dashtoggle" aria-expanded="true" aria-controls="dashtoggle">
-            <i class="bx bx-up-arrow-alt"></i>
-            </a>
-            </div>*@
-            <!-- end dash troggle-icon -->
 
         </header>
 
@@ -677,7 +650,6 @@
 
     </div>
     <!-- END layout-wrapper -->
-   
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
 
@@ -686,7 +658,7 @@
 
     <!-- jquery-validation -->
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js">    </script>
 
     <!-- JAVASCRIPT -->
     <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -695,7 +667,7 @@
     <script src="~/assets/libs/feather-icons/feather.min.js"></script>
 
     <!-- Sweet Alerts js -->
-    <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="assets/libs/sweetalert2/sweetalert2.min.js">    </script>
 
     <!-- apexcharts -->
     <script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
@@ -708,7 +680,7 @@
     <script src="~/assets/libs/jsvectormap/maps/world-merc.js"></script>
 
     <!-- swiper js -->
-    <script src="~/assets/libs/swiper/swiper-bundle.min.js"></script>
+    <script src="~/assets/libs/swiper/swiper-bundle.min.js">    </script>
 
     <!-- Datatables js -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -719,23 +691,7 @@
     <script src="~/js/language.js"></script>
 
     <script src="~/assets/js/app.js"></script>
-    <script>
- 
-        $('#layoutModeCheckbox').on('click', function () {
-            debugger
-            if($(this).is(':checked'))
-            {
-                $('body').attr('data-layout-mode', 'dark')
-                $('#layoutModeDesc').val('Dark')
-            }
-            else
-            {
-                $('body').attr('data-layout-mode', 'light')
-                $('#layoutModeDesc').val('Light')
-            }
 
-        });
-    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

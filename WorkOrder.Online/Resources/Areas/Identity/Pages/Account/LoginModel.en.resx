@@ -132,13 +132,13 @@
   <data name="Message1" xml:space="preserve">
     <value>Welcome Back !</value>
   </data>
-  <data name="Message2" xml:space="preserve">
-    <value>Manage all your work orders in one place</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Remember Me</value>
+  </data>
+  <data name="Slogan" xml:space="preserve">
+    <value>Manage all your work orders in one place</value>
   </data>
 </root>

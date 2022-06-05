@@ -117,31 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DarkMode" xml:space="preserve">
-    <value>Dark Mode</value>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Accès refusé!</value>
   </data>
-  <data name="LightMode" xml:space="preserve">
-    <value>Light Mode</value>
+  <data name="AccessDeniedText" xml:space="preserve">
+    <value>Votre organisation ne vous permet pas d'avoir accès à votre compte. Veuillez contacter votre administrateur.</value>
   </data>
-  <data name="MenuHelp" xml:space="preserve">
-    <value>Help</value>
-  </data>
-  <data name="MenuLogout" xml:space="preserve">
-    <value>Logout</value>
-  </data>
-  <data name="MenuManagement" xml:space="preserve">
-    <value>Management</value>
-  </data>
-  <data name="MenuOrganizations" xml:space="preserve">
-    <value>Organizations</value>
-  </data>
-  <data name="MenuProfile" xml:space="preserve">
-    <value>Profile</value>
-  </data>
-  <data name="MenuRoles" xml:space="preserve">
-    <value>Roles</value>
-  </data>
-  <data name="MenuUsers" xml:space="preserve">
-    <value>Users</value>
+  <data name="Slogan" xml:space="preserve">
+    <value>Gérez vos bons de commande en un seul endroit</value>
   </data>
 </root>

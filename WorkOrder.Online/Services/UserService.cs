@@ -13,16 +13,19 @@ namespace WorkOrder.Online.Services
         private readonly SignInManager<IdentityUser> _userIdentity;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IUserFactory _userFactory;
+        private readonly IOrganizationFactory _organizationFactory;
         private readonly UserManager<IdentityUser> _userManager;
 
         public UserService(SignInManager<IdentityUser> userIdentity,
             IUserFactory userFactory,
+            IOrganizationFactory organizationFactory,
             UserManager<IdentityUser> userManager,
             IHttpContextAccessor contextAccessor)
         {
             _userIdentity = userIdentity;
             _contextAccessor = contextAccessor;
             _userFactory = userFactory;
+            _organizationFactory = organizationFactory;
             _userManager = userManager;
         }
         public UserCredentials GetCurrentUserCredentials()
@@ -32,7 +35,8 @@ namespace WorkOrder.Online.Services
                 UserId = GetUserId(),
                 Claims = GetCurrentUserClaims(),
                 FullName = GetUserFullName(),
-                Language = GetCurrentLanguage()
+                Language = GetCurrentLanguage(),
+                OrganizationId = GetOrganizationId()
             };
 
             return user;
@@ -56,25 +60,24 @@ namespace WorkOrder.Online.Services
             return await _userIdentity.UserManager.FindByIdAsync(userId);
         }
 
-        public async Task<int> GetRemainingUsers(int garageId)
+        public async Task<int> GetRemainingUsers(int organizationId)
         {
-            //var garage = await _garageFactory.GetGarage(garageId);
-            //var currentUsers = await GetUsersForClaim("GarageId", garageId.ToString());
+            var organization = await _organizationFactory.GetOrganization(organizationId);
+            var currentUsers = await GetUsersForClaim("OrganizationId", organizationId.ToString());
 
-            //if (garage == null)
-            //    throw new ApplicationException($"Garage id {garageId} not found in database");
+            if (organization == null)
+                throw new ApplicationException($"Organization id {organizationId} not found in database");
 
-            //var maxUserCount = garage.NbrUser;
-            //var currentUserCount = currentUsers.Count();
+            var maxUserCount = organization.NbrUsers;
+            var currentUserCount = currentUsers.Count();
 
-            //return (maxUserCount - currentUserCount) < 0 ? 0 : (maxUserCount - currentUserCount);
-            return 0;
+            return (maxUserCount - currentUserCount) < 0 ? 0 : (maxUserCount - currentUserCount);
         }
 
-        private int GetGarageId()
+        private int GetOrganizationId()
         {
-            var garageId = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "GarageId")?.Value;
-            return Convert.ToInt32(garageId);
+            var organizationId = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "OrganizationId")?.Value;
+            return Convert.ToInt32(organizationId);
         }
 
         private string GetUserId()

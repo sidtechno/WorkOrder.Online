@@ -15,4 +15,17 @@
         }
         return "";
     }
+
+    /* Dark mode / Light Mode switch */
+    $('#layoutModeCheckbox').on('click', function () {
+        if ($(this).is(':checked')) {
+            $('body').attr('data-layout-mode', 'dark');
+            $('#layoutModeDesc').html($('#hidDarkMode').val());
+        }
+        else {
+            $('body').attr('data-layout-mode', 'light');
+            $('#layoutModeDesc').html($('#hidLightMode').val());
+        }
+
+    });
 })();

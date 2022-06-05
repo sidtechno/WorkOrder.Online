@@ -132,13 +132,13 @@
   <data name="Message1" xml:space="preserve">
     <value>Bon retour !</value>
   </data>
-  <data name="Message2" xml:space="preserve">
-    <value>Gérez vos bons de commande en un seul endroit</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Mot de passe</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Se souvenir de moi</value>
+  </data>
+  <data name="Slogan" xml:space="preserve">
+    <value>Gérez vos bons de commande en un seul endroit</value>
   </data>
 </root>

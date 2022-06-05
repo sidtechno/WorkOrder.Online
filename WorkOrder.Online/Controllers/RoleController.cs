@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WorkOrder.Online.Models;
@@ -6,7 +7,7 @@ using WorkOrder.Online.Services.Interfaces;
 
 namespace WorkOrder.Online.Controllers
 {
-    //[Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class RoleController : BaseController
     {
         private readonly SignInManager<IdentityUser> _userIdentity;

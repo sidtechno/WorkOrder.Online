@@ -16,7 +16,7 @@
                 "visible": false
             },
             {
-                "aTargets": [2,3,5],
+                "aTargets": [3,4,5],
                 "className": 'text-center',
             },
             {

@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WorkOrder.Online.Models;
 using WorkOrder.Online.Services.Interfaces;
 
 namespace WorkOrder.Online.Controllers
 {
-    //[Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class OrganizationController : BaseController
     {
         private readonly IOrganizationService _organizationService;

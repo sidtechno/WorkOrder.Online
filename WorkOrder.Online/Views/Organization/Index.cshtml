@@ -159,7 +159,7 @@
                                         <div class="form-group mb-3">
                                             <input name="id" type="hidden" />
                                             <label for="name" class="form-label">@Localizer["Name"]</label>
-                                            <input name="name" type="text" class="form-control" maxlength="100" />
+                                            <input name="name" type="text" class="form-control" maxlength="100" @(!User.IsInRole("SuperAdmin") ? "readonly" : "") />
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="address" class="form-label">@Localizer["Address"]</label>
@@ -213,14 +213,22 @@
                                             <div class="col-md-6 mb-3">
                                                 <div class="form-group">
                                                     <label for="nbrUsers" class="form-label">@Localizer["NbrUsers"]</label>
-                                                    <input name="nbrUsers" type="number" class="form-control" maxlength="4" />
+                                                    <input name="nbrUsers" type="number" class="form-control" maxlength="4" @(!User.IsInRole("SuperAdmin") ? "readonly" : "") />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group">
                                                 <div class="form-check mt-3">
-                                                    <input type="checkbox" class="form-check-input" name="isActive">
+                                                    @if (User.IsInRole("SuperAdmin"))
+                                                    {
+                                                        <input type="checkbox" class="form-check-input" name="isActive">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="hidden" name="isActive">
+                                                        <input type="checkbox" class="form-check-input" name="isActive" disabled>
+                                                    }
                                                     <label class="form-check-label" for="isActive">@Localizer["IsActive"]</label>
                                                 </div>
                                             </div>

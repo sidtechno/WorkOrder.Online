@@ -2,6 +2,9 @@
 
     var ajaxUrl = $('#HidRootUrl').val();
     var table;
+    var buttonArray = [];
+
+    BuildButtonArray();
 
     var tableSettings = {
         dom: 'Bfrtip',
@@ -16,7 +19,7 @@
                 "visible": false
             },
             {
-                "aTargets": [3,4,5],
+                "aTargets": [3, 4, 5],
                 "className": 'text-center',
             },
             {
@@ -26,98 +29,15 @@
                 "orderable": false
             }
         ],
-        buttons: [
-            {
-                text: $('#hidNewButton').val(),
-                name: 'addButton',
-                className: 'btn-primary',
-                attr: {
-                    'data-bs-toggle': 'modal',
-                    'data-bs-target': '#addModal'
-                },
-                action: function (e, dt, button, config) {
-                    $('#roleError').hide();
-                    $('#roleForm').trigger('reset');
-                }
-            },
-            {
-                extend: "selectedSingle",
-                text: $('#hidEditButton').val(),
-                name: 'editButton',
-                className: 'btn-primary',
-                attr: {
-                    'data-bs-toggle': 'modal',
-                    'data-bs-target': '#editModal'
-                },
-                action: function (e, dt, button, config) {
-                    var data = dt.row({ selected: true }).data();
-                    $('#editError').hide();
-                    $('#tabs a:first').tab('show');
-                    $('#editForm').trigger('reset');
-
-                    $.ajax({
-                        url: ajaxUrl + '/Organizations/' + data.id,
-                        type: "GET",
-                        async: false,
-                        success: function (response) {
-                            $('#editForm input[name=name]').val(response.name);
-                            $('#editForm input[name=id]').val(response.id);
-                            $('#editForm input[name=address]').val(response.address);
-                            $('#editForm input[name=city]').val(response.city);
-                            $('#editForm input[name=province]').val(response.province);
-                            $('#editForm input[name=postalCode]').val(response.postalCode);
-                            $('#editForm input[name=phone]').val(response.phone);
-                            $('#editForm input[name=email]').val(response.email);
-                            $('#editForm select[name=language]').val(response.language);
-                            $('#editForm input[name=nbrUsers]').val(response.nbrUsers);
-                            $('#editForm textarea[name=Notes]').val(response.notes);
-                            $('#editForm input[name=isActive]').prop('checked', response.isActive);
-                        },
-                        error: function (xhr, status, error) {
-                            alert('Error');
-                        }
-                    });
-                }
-            },
-            {
-                extend: "selectedSingle",
-                text: $('#hidDeleteButton').val(),
-                name: 'deleteButton',
-                className: 'btn-primary',
-                action: function (e, dt, button, config) {
-                    var data = dt.row({ selected: true }).data();
-
-                    swal.fire({
-                        title: $('#hidDeleteTitle').val(),
-                        text: $('#hidDeleteText').val(),
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#DD6B55',
-                        confirmButtonText: $('#hidDeleteButton').val()
-                    }).then(function (result) {
-                        if (result.value) {
-
-                            $.ajax({
-                                type: 'DELETE',
-                                url: ajaxUrl + '/Organizations/Delete',
-                                data: { id: data.id }
-                            })
-                                .done(delDone)
-                                .fail(delFail);
-                        }
-                    });
-                }
-            }
-        ],
-
+        buttons: buttonArray
     };
 
     initTable();
 
-    
+
     $('#submitAddForm').on('click', function () {
         var form = $('#addForm');
-                
+
         form.validate({
             rules: {
                 'name': {
@@ -320,7 +240,7 @@
             .removeClass('btn-secondary')
             .addClass('btn-primary mr-1');
 
-        table.on('select deselect', function (e, dt, type, indexes) {
+        table.on('select', function (e, dt, type, indexes) {
             var rowData = table.rows(indexes).data().toArray();
 
             //Cannot delete Base Organization
@@ -351,6 +271,95 @@
         });
     }
 
+    function BuildButtonArray() {
+        if ($('#hidIsSuperAdmin').val() == 'True') {
+            buttonArray.push({
+                text: $('#hidNewButton').val(),
+                name: 'addButton',
+                className: 'btn-primary',
+                attr: {
+                    'data-bs-toggle': 'modal',
+                    'data-bs-target': '#addModal'
+                },
+                action: function (e, dt, button, config) {
+                    $('#roleError').hide();
+                    $('#roleForm').trigger('reset');
+                }
+            });
+        }
+
+        buttonArray.push({
+            extend: "selectedSingle",
+            text: $('#hidEditButton').val(),
+            name: 'editButton',
+            className: 'btn-primary',
+            attr: {
+                'data-bs-toggle': 'modal',
+                'data-bs-target': '#editModal'
+            },
+            action: function (e, dt, button, config) {
+                var data = dt.row({ selected: true }).data();
+                $('#editError').hide();
+                $('#tabs a:first').tab('show');
+                $('#editForm').trigger('reset');
+
+                $.ajax({
+                    url: ajaxUrl + '/Organizations/' + data.id,
+                    type: "GET",
+                    async: false,
+                    success: function (response) {
+                        $('#editForm input[name=name]').val(response.name);
+                        $('#editForm input[name=id]').val(response.id);
+                        $('#editForm input[name=address]').val(response.address);
+                        $('#editForm input[name=city]').val(response.city);
+                        $('#editForm input[name=province]').val(response.province);
+                        $('#editForm input[name=postalCode]').val(response.postalCode);
+                        $('#editForm input[name=phone]').val(response.phone);
+                        $('#editForm input[name=email]').val(response.email);
+                        $('#editForm select[name=language]').val(response.language);
+                        $('#editForm input[name=nbrUsers]').val(response.nbrUsers);
+                        $('#editForm textarea[name=Notes]').val(response.notes);
+                        $('#editForm input[name=isActive]').prop('checked', response.isActive);
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error');
+                    }
+                });
+            }
+        });
+
+        if ($('#hidIsSuperAdmin').val() == 'True') {
+            buttonArray.push({
+                extend: "selectedSingle",
+                text: $('#hidDeleteButton').val(),
+                name: 'deleteButton',
+                className: 'btn-primary',
+                action: function (e, dt, button, config) {
+                    var data = dt.row({ selected: true }).data();
+
+                    swal.fire({
+                        title: $('#hidDeleteTitle').val(),
+                        text: $('#hidDeleteText').val(),
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#DD6B55',
+                        confirmButtonText: $('#hidDeleteButton').val()
+                    }).then(function (result) {
+                        if (result.value) {
+
+                            $.ajax({
+                                type: 'DELETE',
+                                url: ajaxUrl + '/Organizations/Delete',
+                                data: { id: data.id }
+                            })
+                                .done(delDone)
+                                .fail(delFail);
+                        }
+                    });
+                }
+            });
+        }
+    }
     function addDone(data, status, xhr) {
         var addModal = document.getElementById('addModal')
         var modal = bootstrap.Modal.getInstance(addModal)

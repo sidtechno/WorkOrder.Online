@@ -123,6 +123,9 @@
   <data name="LightMode" xml:space="preserve">
     <value>Light Mode</value>
   </data>
+  <data name="MenuCustomer" xml:space="preserve">
+    <value>Customers</value>
+  </data>
   <data name="MenuHelp" xml:space="preserve">
     <value>Help</value>
   </data>
@@ -132,16 +135,25 @@
   <data name="MenuManagement" xml:space="preserve">
     <value>Management</value>
   </data>
-  <data name="MenuOrganizations" xml:space="preserve">
+  <data name="MenuOrganization" xml:space="preserve">
     <value>Organizations</value>
+  </data>
+  <data name="MenuProduct" xml:space="preserve">
+    <value>Products</value>
   </data>
   <data name="MenuProfile" xml:space="preserve">
     <value>Profile</value>
   </data>
-  <data name="MenuRoles" xml:space="preserve">
+  <data name="MenuRole" xml:space="preserve">
     <value>Roles</value>
   </data>
-  <data name="MenuUsers" xml:space="preserve">
+  <data name="MenuTask" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="MenuUser" xml:space="preserve">
     <value>Users</value>
+  </data>
+  <data name="MenuWorkOrder" xml:space="preserve">
+    <value>Work Order</value>
   </data>
 </root>

@@ -5,7 +5,6 @@ using WorkOrder.Online.Services.Interfaces;
 
 namespace WorkOrder.Online.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
     public class OrganizationController : BaseController
     {
         private readonly IOrganizationService _organizationService;
@@ -17,6 +16,7 @@ namespace WorkOrder.Online.Controllers
             _organizationService = organizationService;
         }
 
+        [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpGet("Organizations")]
         public async Task<IActionResult> Index()
         {
@@ -43,6 +43,7 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpGet("Organizations/{id}")]
         public async Task<IActionResult> GetOrganization(int id)
         {
@@ -57,6 +58,7 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost("Organizations/[action]")]
         public async Task<IActionResult> Create(OrganizationViewModel model)
         {
@@ -72,7 +74,7 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
-
+        [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpPost("Organizations/[action]")]
         public async Task<IActionResult> Update(OrganizationViewModel model)
         {
@@ -88,6 +90,7 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpGet("Organizations/list")]
         public async Task<IActionResult> GetOrganizationList()
         {
@@ -103,6 +106,7 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpDelete("Organizations/[action]")]
         public async Task<ActionResult> Delete(int id)
         {

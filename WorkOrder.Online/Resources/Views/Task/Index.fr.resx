@@ -118,93 +118,72 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add" xml:space="preserve">
-    <value>Add</value>
+    <value>Ajouter</value>
   </data>
-  <data name="AddUser" xml:space="preserve">
-    <value>Add User</value>
-  </data>
-  <data name="ChangePassword" xml:space="preserve">
-    <value>Change Password</value>
-  </data>
-  <data name="ChangePasswordSuccess" xml:space="preserve">
-    <value>Password mofified successfully!</value>
+  <data name="AddTask" xml:space="preserve">
+    <value>Ajouter une tâche</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Fermer</value>
   </data>
-  <data name="CreateUserSuccess" xml:space="preserve">
-    <value>User created successfully!</value>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="CreateSuccess" xml:space="preserve">
+    <value>Tâche créé avec succès!</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Supprimer</value>
   </data>
   <data name="DeleteButton" xml:space="preserve">
-    <value>Yes, delete it!</value>
+    <value>Oui, supprimer la tâche</value>
+  </data>
+  <data name="DeleteSuccess" xml:space="preserve">
+    <value>Tâche supprimé avec succès!</value>
   </data>
   <data name="DeleteText" xml:space="preserve">
-    <value>Do you really want to delete this user?</value>
+    <value>Voulez-vous vraiment supprimer cette tâche?</value>
   </data>
   <data name="DeleteTitle" xml:space="preserve">
-    <value>Delete User</value>
+    <value>Supprimer cette tâche</value>
   </data>
-  <data name="DeleteUserSuccess" xml:space="preserve">
-    <value>User deleted successfully!</value>
+  <data name="Description_En" xml:space="preserve">
+    <value>Description (anglais)</value>
+  </data>
+  <data name="Description_Fr" xml:space="preserve">
+    <value>Description (français)</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Modifier</value>
   </data>
-  <data name="EditUser" xml:space="preserve">
-    <value>Edit User</value>
+  <data name="EditTask" xml:space="preserve">
+    <value>Modifier une tâche</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
+  <data name="IsFlatRate" xml:space="preserve">
+    <value>Taux fixe</value>
   </data>
-  <data name="Firstname" xml:space="preserve">
-    <value>Firstname</value>
+  <data name="MinLength" xml:space="preserve">
+    <value>Doit contenir au moins 3 caractères</value>
   </data>
-  <data name="Lastname" xml:space="preserve">
-    <value>Lastname</value>
-  </data>
-  <data name="Locked" xml:space="preserve">
-    <value>Account Locked</value>
-  </data>
-  <data name="MaxUserReached" xml:space="preserve">
-    <value>&lt;strong&gt;Warning!&lt;/strong&gt; You have reached the maximum number of users allowed by your license. Contact us to increase the number of user permits for your organization.</value>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
   </data>
   <data name="Organization" xml:space="preserve">
-    <value>Organization Name</value>
+    <value>Organisation</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>New password</value>
-  </data>
-  <data name="PasswordNotEqual" xml:space="preserve">
-    <value>Passwords are not equals</value>
+  <data name="Price" xml:space="preserve">
+    <value>Prix</value>
   </data>
   <data name="Required" xml:space="preserve">
-    <value>This field is required</value>
-  </data>
-  <data name="RoleSelectionRequired" xml:space="preserve">
-    <value>Role id required</value>
+    <value>Ce champs est requis</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Sauvegarder</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>User Management</value>
+    <value>Gestion des tâches</value>
   </data>
-  <data name="UpdateUserSuccess" xml:space="preserve">
-    <value>User updated successfully!</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>Username (Email only)</value>
-  </data>
-  <data name="UsernameExist" xml:space="preserve">
-    <value>Username already taken</value>
-  </data>
-  <data name="UserRoles" xml:space="preserve">
-    <value>Select User Roles</value>
-  </data>
-  <data name="VerifyPassword" xml:space="preserve">
-    <value>Verify new password </value>
+  <data name="UpdateSuccess" xml:space="preserve">
+    <value>Tâche mise-à-jour avec succès!</value>
   </data>
 </root>

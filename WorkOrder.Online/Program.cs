@@ -39,10 +39,12 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 // Services
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IOrganizationService, OrganizationService>();
+builder.Services.AddTransient<ITaskService, TaskService>();
 
 // Factory
 builder.Services.AddTransient<IUserFactory, UserFactory>();
 builder.Services.AddTransient<IOrganizationFactory, OrganizationFactory>();
+builder.Services.AddTransient<ITaskFactory, WorkOrder.Online.Data.TaskFactory>();
 
 var app = builder.Build();
 

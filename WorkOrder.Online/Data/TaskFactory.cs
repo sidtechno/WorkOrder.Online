@@ -42,136 +42,107 @@ namespace WorkOrder.Online.Data
             }
         }
 
-        //public async Task<int> Create(OrganizationModel model)
-        //{
-        //    try
-        //    {
-        //        var sql = @"INSERT INTO [dbo].[Organizations]
-        //                   ([Name]
-        //                   ,[Address]
-        //                   ,[City]
-        //                   ,[Province]
-        //                   ,[PostalCode]
-        //                   ,[Phone]
-        //                   ,[Email]
-        //                   ,[Language]
-        //                   ,[NbrUsers]
-        //                   ,[Notes]
-        //                   ,[CreationDate]
-        //                   ,[IsActive])
-        //             VALUES
-        //                   (@Name
-        //                   ,@Address
-        //                   ,@City
-        //                   ,@Province
-        //                   ,@PostalCode 
-        //                   ,@Phone 
-        //                   ,@Email 
-        //                   ,@Language 
-        //                   ,@NbrUsers 
-        //                   ,@Notes 
-        //                   ,@CreationDate
-        //                   ,@IsActive)";
+        public async Task<int> Create(TaskModel model)
+        {
+            try
+            {
+                var sql = @"INSERT INTO [dbo].[Tasks]
+                           ([Code]
+                           ,[Description_Fr]
+                           ,[Description_En]
+                           ,[Price]
+                           ,[IsFlatRate]
+                           ,[OrganizationId])
+                        OUTPUT INSERTED.Id
+                        VALUES
+                           (@Code
+                           ,@Description_Fr
+                           ,@Description_En
+                           ,@Price
+                           ,@IsFlatRate
+                           ,@OrganizationId)";
 
-        //        using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-        //        {
-        //            connection.Open();
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
 
-        //            var result = await connection.ExecuteScalarAsync<int>(sql,
-        //                new
-        //                {
-        //                    Name = model.Name,
-        //                    Address = model.Address,
-        //                    City = model.City,
-        //                    Province = model.Province,
-        //                    PostalCode = model.PostalCode,
-        //                    Phone = model.Phone,
-        //                    Email = model.Email,
-        //                    Language = model.Language.ToUpper(),
-        //                    NbrUsers = model.NbrUsers,
-        //                    Notes = model.Notes,
-        //                    CreationDate = model.CreationDate,
-        //                    IsActive = model.IsActive
-        //                },
-        //                commandType: CommandType.Text);
+                    var result = await connection.QuerySingleOrDefaultAsync<int>(sql,
+                        new
+                        {
+                            Code = model.Code,
+                            Description_Fr = model.Description_Fr,
+                            Description_En = model.Description_En,
+                            Price = model.Price,
+                            IsFlatRate = model.IsFlatRate,
+                            OrganizationId = model.OrganizationId
+                        },
+                        commandType: CommandType.Text);
 
-        //            return result;
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-        //public async Task<int> Update(OrganizationModel model)
-        //{
-        //    try
-        //    {
-        //        var sql = @"UPDATE [dbo].[Organizations]
-        //                   SET [Name] = @Name
-        //                   ,[Address] = @Address
-        //                   ,[City] = @City
-        //                   ,[Province] = @Province
-        //                   ,[PostalCode] = @PostalCode
-        //                   ,[Phone] = @Phone
-        //                   ,[Email] = @Email
-        //                   ,[Language] = @Language
-        //                   ,[NbrUsers] = @NbrUsers
-        //                   ,[Notes] = @Notes
-        //                   ,[IsActive] = @IsActive
-        //                   WHERE Id = @Id";
+        public async Task<int> Update(TaskModel model)
+        {
+            try
+            {
+                var sql = @"UPDATE [dbo].[Tasks]
+                           SET [Code] = @Code
+                           ,[Description_Fr] = @Description_Fr
+                           ,[Description_En] = @Description_En
+                           ,[Price] = @Price
+                           ,[IsFlatRate] = @IsFlatRate
+                           WHERE Id = @Id";
 
-        //        using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-        //        {
-        //            connection.Open();
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
 
-        //            var result = await connection.ExecuteScalarAsync<int>(sql,
-        //                new
-        //                {
-        //                    Id = model.Id,
-        //                    Name = model.Name,
-        //                    Address = model.Address,
-        //                    City = model.City,
-        //                    Province = model.Province,
-        //                    PostalCode = model.PostalCode,
-        //                    Phone = model.Phone,
-        //                    Email = model.Email,
-        //                    Language = model.Language.ToUpper(),
-        //                    NbrUsers = model.NbrUsers,
-        //                    Notes = model.Notes,
-        //                    CreationDate = model.CreationDate,
-        //                    IsActive = model.IsActive
-        //                },
-        //                commandType: CommandType.Text);
+                    var result = await connection.ExecuteScalarAsync<int>(sql,
+                        new
+                        {
+                            Id = model.Id,
+                            Code = model.Code,
+                            Description_Fr = model.Description_Fr,
+                            Description_En = model.Description_En,
+                            Price = model.Price,
+                            IsFlatRate = model.IsFlatRate
+                        },
+                        commandType: CommandType.Text);
 
-        //            return result;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-        //public async Task<int> Delete(int organizationId)
-        //{
-        //    var sql = @"DELETE FROM [dbo].[Organizations]
-        //                WHERE Id = @Id";
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-        //    using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-        //    {
-        //        connection.Open();
+        public async Task<int> Delete(int taskId)
+        {
+            var sql = @"DELETE FROM [dbo].[Tasks]
+                        WHERE Id = @Id";
 
-        //        var result = await connection.ExecuteAsync(sql,
-        //            new
-        //            {
-        //                Id = organizationId
-        //            },
-        //            commandType: CommandType.Text);
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
 
-        //        return result;
-        //    }
-        //}
+                var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        Id = taskId
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
 
         //public async Task<OrganizationModel> GetOrganization(int organizationId)
         //{

@@ -1,0 +1,144 @@
+﻿@model WorkOrder.Online.Models.TaskListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@inject IUserService userService
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var currentUser = userService.GetCurrentUserCredentials();
+}
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+@Html.Hidden("hidNewButton", Localizer["Add"].Value)
+@Html.Hidden("hidEditButton", Localizer["Edit"].Value)
+@Html.Hidden("hidDeleteButton", Localizer["Delete"].Value)
+@Html.Hidden("hidDeleteTitle", Localizer["DeleteTitle"].Value)
+@Html.Hidden("hidDeleteText", Localizer["DeleteText"].Value)
+@Html.Hidden("hidDeleteButton", Localizer["DeleteButton"].Value)
+@Html.Hidden("hidRequired", Localizer["Required"].Value)
+
+
+@*Toastr Localisation*@
+@Html.Hidden("hidCreateSuccess", @Localizer["CreateSuccess"].Value)
+@Html.Hidden("hidUpdateSuccess", @Localizer["UpdateSuccess"].Value)
+@Html.Hidden("hidDeleteSuccess", @Localizer["DeleteSuccess"].Value)
+
+@Html.Hidden("hidSelectedOrganizationId", @currentUser.OrganizationId)
+@Html.Hidden("HidRootUrl", Model.RootUrl)
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header justify-content-between d-flex align-items-center">
+            <h4 class="card-title">@Localizer["Title"]</h4>
+        </div><!-- end card header -->
+        <div class="card-body">
+
+            @if (User.IsInRole("SuperAdmin"))
+            {
+                <div class="mb-5 row">
+                    <label for="example-text-input" class="col-md-2 col-form-label">@Localizer["Organization"]</label>
+                    <div class="col-md-10">
+                        @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
+                    </div>
+                </div>
+            }
+            <div id="task-list">
+                @await Html.PartialAsync("_Tasks", Model)
+            </div>
+        </div><!-- end card body -->
+    </div><!-- end card -->
+</div>
+
+<div id="addModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["AddTask"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="addForm">
+                    <div id="taskError" class="alert alert-danger" style="display:none" role="alert"></div>
+                    <div class="form-group mb-3">
+                        <label for="code" class="form-label">@Localizer["Code"]:</label>
+                        <input name="code" type="text" class="form-control" maxlength="20" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="description_fr" class="form-label">@Localizer["Description_Fr"]:</label>
+                        <input name="description_fr" type="text" class="form-control" maxlength="150" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="description_en" class="form-label">@Localizer["Description_En"]:</label>
+                        <input name="description_en" type="text" class="form-control" maxlength="150" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="price" class="form-label">@Localizer["Price"]:</label>
+                        <input name="price" type="text" class="form-control" maxlength="10" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="checkbox" class="form-check-input" name="isFlatRate">
+                        <label for="isFlatRate" class="form-check-label">@Localizer["IsFlatRate"]</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Close"]</button>
+                <button id="submitAddForm" type="button" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div id="editModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["EditTask"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="editForm">
+                    <div id="taskError" class="alert alert-danger" style="display:none" role="alert"></div>
+                    <div class="form-group mb-3">
+                        <input name="id" type="hidden" />
+                        <label for="code" class="form-label">@Localizer["Code"]:</label>
+                        <input name="code" type="text" class="form-control" maxlength="20" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="description_fr" class="form-label">@Localizer["Description_Fr"]:</label>
+                        <input name="description_fr" type="text" class="form-control" maxlength="150" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="description_en" class="form-label">@Localizer["Description_En"]:</label>
+                        <input name="description_en" type="text" class="form-control" maxlength="150" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="price" class="form-label">@Localizer["Price"]:</label>
+                        <input name="price" type="text" class="form-control" maxlength="10" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="checkbox" class="form-check-input" name="isFlatRate">
+                        <label for="isFlatRate" class="form-check-label">@Localizer["IsFlatRate"]</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Close"]</button>
+                <button id="submitEditForm" type="button" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/admin-task.js"></script>
+}
+

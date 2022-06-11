@@ -117,43 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DarkMode" xml:space="preserve">
-    <value>Mode foncé</value>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
   </data>
-  <data name="LightMode" xml:space="preserve">
-    <value>mode clair</value>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
-  <data name="MenuCustomer" xml:space="preserve">
-    <value>Clients</value>
+  <data name="IsFlatRate" xml:space="preserve">
+    <value>Flat Rate</value>
   </data>
-  <data name="MenuHelp" xml:space="preserve">
-    <value>Aide</value>
-  </data>
-  <data name="MenuLogout" xml:space="preserve">
-    <value>Déconnexion</value>
-  </data>
-  <data name="MenuManagement" xml:space="preserve">
-    <value>Gestion</value>
-  </data>
-  <data name="MenuOrganization" xml:space="preserve">
-    <value>Organisations</value>
-  </data>
-  <data name="MenuProduct" xml:space="preserve">
-    <value>Produits</value>
-  </data>
-  <data name="MenuProfile" xml:space="preserve">
-    <value>Profil</value>
-  </data>
-  <data name="MenuRole" xml:space="preserve">
-    <value>Rôles</value>
-  </data>
-  <data name="MenuTask" xml:space="preserve">
-    <value>Tâches</value>
-  </data>
-  <data name="MenuUser" xml:space="preserve">
-    <value>Utilisateurs</value>
-  </data>
-  <data name="MenuWorkOrder" xml:space="preserve">
-    <value>Bon de travail</value>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
   </data>
 </root>

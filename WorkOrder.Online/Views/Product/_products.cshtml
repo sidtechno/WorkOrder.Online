@@ -1,4 +1,4 @@
-﻿@model WorkOrder.Online.Models.TaskListViewModel
+﻿@model WorkOrder.Online.Models.ProductListViewModel
 
 @using Microsoft.AspNetCore.Mvc.Localization
 @using WorkOrder.Online.Services.Interfaces
@@ -10,7 +10,7 @@
     var currentUser = userService.GetCurrentUserCredentials();
 }
 
-<table id="tasksTable" class="table table-striped dataTable w-100" data-processing="true">
+<table id="productsTable" class="table table-striped dataTable w-100" data-processing="true">
     <thead>
         <tr>
             <th data-data="id">Id</th>
@@ -23,16 +23,16 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var task in Model.Tasks)
+        @foreach (var product in Model.Products)
         {
             <tr>
-                <td>@task.Id</td>
-                <td>@task.Code</td>
-                <td class="@(currentUser.Language.ToUpper() == "EN" ? "hidden" : "")">@task.Description_Fr</td>
-                <td class="@(currentUser.Language.ToUpper() == "FR" ? "hidden" : "")">@task.Description_En</td>
-                <td>@task.Price</td>
+                <td>@product.Id</td>
+                <td>@product.Code</td>
+                <td class="@(currentUser.Language.ToUpper() == "EN" ? "hidden" : "")">@product.Description_Fr</td>
+                <td class="@(currentUser.Language.ToUpper() == "FR" ? "hidden" : "")">@product.Description_En</td>
+                <td>@product.Price</td>
                 <td>
-                    @if (task.IsFlatRate)
+                    @if (product.IsFlatRate)
                     {
                         <i class="fas fa-check text-success"></i>
                     }
@@ -41,7 +41,7 @@
                         <i class="fas fa-times"></i>
                     }
                 </td>
-                <td>@task.IsFlatRate</td>
+                <td>@product.IsFlatRate</td>
             </tr>
         }
     </tbody>

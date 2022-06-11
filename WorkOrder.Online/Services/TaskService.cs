@@ -56,23 +56,5 @@ namespace WorkOrder.Online.Services
         {
             return await _taskFactory.Delete(taskId);
         }
-
-
-        //public async Task<OrganizationViewModel> GetOrganization(int organizationId)
-        //{
-        //    var organization = await _organizationFactory.GetOrganization(organizationId);
-        //    return organization.Adapt<OrganizationViewModel>();
-        //}
-
-        //public async Task<IEnumerable<SelectListItem>> GetOrganizationsSelectList()
-        //{
-        //    var organizations = await _organizationFactory.GetOrganizations();
-
-        //    return organizations.Select(x => new SelectListItem
-        //    {
-        //        Value = x.Id.ToString(),
-        //        Text = x.Name
-        //    }).OrderBy(o => o.Text);
-        //}
     }
 }

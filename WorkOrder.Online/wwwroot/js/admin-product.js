@@ -9,7 +9,7 @@
         var selectedOrganization = $(this).val();
         $('#hidSelectedOrganizationId').val(selectedOrganization);
         $('input[name="selectedOrganizationId"]').val(selectedOrganization);
-        UpdateTaskList(selectedOrganization);
+        UpdateProductList(selectedOrganization);
     });
 
     var tableSettings = {
@@ -21,7 +21,7 @@
         },
         "aoColumnDefs": [
             {
-                "aTargets": [0, 6],
+                "aTargets": [0,6],
                 "visible": false
             },
             {
@@ -35,7 +35,7 @@
             {
                 "aTargets": [4],
                 "width": "10%",
-            },
+            }, 
             {
                 "aTargets": [5],
                 "width": "10%",
@@ -52,7 +52,7 @@
                     'data-bs-target': '#addModal'
                 },
                 action: function (e, dt, button, config) {
-                    $('#taskError').hide();
+                    $('#productError').hide();
                     $('#addForm').trigger('reset');
                 }
             },
@@ -99,7 +99,7 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Tasks/Delete',
+                                url: ajaxUrl + '/Products/Delete',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
@@ -180,7 +180,7 @@
             }
 
             $.ajax({
-                url: ajaxUrl + '/Tasks/Create',
+                url: ajaxUrl + '/Products/Create',
                 type: "POST",
                 data: data,
                 success: function (response) {
@@ -259,7 +259,7 @@
             }
 
             $.ajax({
-                url: ajaxUrl + '/Tasks/Update',
+                url: ajaxUrl + '/Products/Update',
                 type: "POST",
                 data: data,
                 success: function (response) {
@@ -278,7 +278,7 @@
             tableSettings.language = JSON.parse(datables_french());
         }
 
-        table = $('#tasksTable').DataTable(tableSettings);
+        table = $('#productsTable').DataTable(tableSettings);
 
         table
             .button('addButton:name')
@@ -315,9 +315,9 @@
         });
     }
 
-    function UpdateTaskList() {
+    function UpdateProductList() {
         $.ajax({
-            url: ajaxUrl + '/Tasks/list',
+            url: ajaxUrl + '/Products/list',
             type: "GET",
             data: {
                 organizationId: $('select[name="SelectedOrganizationId"]').val()
@@ -325,7 +325,7 @@
             dataType: "html",
             async: false,
             success: function (response) {
-                $('#task-list').empty().append(response);
+                $('#product-list').empty().append(response);
                 initTable();
             },
             error: function (xhr, status, error) {
@@ -344,11 +344,11 @@
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateTaskList();
+        UpdateProductList();
     }
 
     function addFail(xhr, status, error) {
-        $('#taskError').html(xhr.responseText || error).fadeIn();
+        $('#productError').html(xhr.responseText || error).fadeIn();
     }
 
     function editDone(data, status, xhr) {
@@ -361,11 +361,11 @@
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateTaskList();
+        UpdateProductList();
     }
 
     function editFail(xhr, status, error) {
-        $('#taskError').html(xhr.responseText || error).fadeIn();
+        $('#productError').html(xhr.responseText || error).fadeIn();
     }
 
     function delDone(data, status, xhr) {
@@ -377,7 +377,7 @@
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateTaskList();
+        UpdateProductList();
     }
 
     function delFail(xhr, status, error) {

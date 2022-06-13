@@ -11,6 +11,7 @@ namespace WorkOrder.Online.Models
         public bool LockedOut { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Cellphone { get; set; }
         public IEnumerable<string> Roles { get; set; }
  
         public string Claims { get; set; }

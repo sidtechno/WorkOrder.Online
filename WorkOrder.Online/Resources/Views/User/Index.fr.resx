@@ -123,6 +123,9 @@
   <data name="AddUser" xml:space="preserve">
     <value>Ajouter un utilisateur</value>
   </data>
+  <data name="Cellphone" xml:space="preserve">
+    <value>Cellulaire</value>
+  </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Modifier le mot de passe</value>
   </data>

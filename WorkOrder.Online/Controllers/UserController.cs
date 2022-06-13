@@ -81,7 +81,7 @@ namespace WorkOrder.Online.Controllers
         }
 
         [HttpPost("Users/[action]")]
-        public async Task<IActionResult> CreateUser(string userName, string firstName, string lastName, string selectedOrganizationId, string email, string[] roles)
+        public async Task<IActionResult> CreateUser(string userName, string firstName, string lastName, string selectedOrganizationId, string email, string cellphone, string[] roles)
         {
             try
             {
@@ -106,6 +106,9 @@ namespace WorkOrder.Online.Controllers
                     if (selectedOrganizationId != null)
                         await _userIdentity.UserManager.AddClaimAsync(user, new Claim("OrganizationId", organizationIdSelected.ToString()));
 
+                    if (cellphone != null)
+                        await _userIdentity.UserManager.AddClaimAsync(user, new Claim("Cellphone", cellphone));
+
                     foreach (string role in roles)
                         await _userIdentity.UserManager.AddToRoleAsync(user, role);
 
@@ -125,7 +128,7 @@ namespace WorkOrder.Online.Controllers
         }
 
         [HttpPost("Users/[action]")]
-        public async Task<IActionResult> UpdateUser(string id, string userName, string email, string firstName, string lastName, string selectedOrganizationId, string locked, string[] roles)
+        public async Task<IActionResult> UpdateUser(string id, string userName, string email, string firstName, string lastName, string selectedOrganizationId, string locked, string cellphone, string[] roles)
         {
             try
             {
@@ -197,7 +200,21 @@ namespace WorkOrder.Online.Controllers
                             await _userIdentity.UserManager.AddClaimAsync(user, new Claim("OrganizationId", selectedOrganizationId));
                         }
                     }
-                    
+
+                    if (cellphone != null)
+                    {
+                        if (!userClaims.Any(c => c.Type == "Cellphone")) //Add
+                        {
+                            await _userIdentity.UserManager.AddClaimAsync(user, new Claim("Cellphone", cellphone));
+                        }
+                        else if (userClaims.Any(c => c.Type == "Cellphone") && userClaims.First(c => c.Type == "Cellphone").Value != cellphone)
+                        {
+                            var originalCellphone = userClaims.First(c => c.Type == "Cellphone").Value;
+                            await _userIdentity.UserManager.RemoveClaimAsync(user, new Claim("Cellphone", originalCellphone));
+                            await _userIdentity.UserManager.AddClaimAsync(user, new Claim("Cellphone", cellphone));
+                        }
+
+                    }
                     return NoContent();
                 }
 

@@ -80,16 +80,16 @@
                                     <label for="email" class="form-label">@Localizer["Email"]:</label>
                                     <input id="email" name="email" type="email" class="form-control" />
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label for="cellphone" class="form-label">@Localizer["Cellphone"]:</label>
+                                    <input id="cellphone" name="email" type="text" class="form-control phone-mask" />
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label>@Localizer["Organization"]:</label>
                                     @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
                                 </div>
-                                @* <div class="form-group">
-                                <label>@Localizer["StartUpScreen"]:</label>
-                                @await Html.PartialAsync("_StartUpScreenSelector", Model.StartUpScreenSelector)
-                                </div>*@
                                 <div class="form-group">
                                     <label>@Localizer["UserRoles"]:</label>
                                     <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
@@ -148,20 +148,21 @@
                                     <label for="email">@Localizer["Email"]:</label>
                                     <input id="email" name="email" type="email" class="form-control" />
                                 </div>
+                                 <div class="form-group mb-3">
+                                    <label for="cellphone" class="form-label">@Localizer["Cellphone"]:</label>
+                                    <input id="cellphone" name="cellphone" type="text" class="form-control phone-mask" />
+                                </div>
                                 <div>
                                     <input name="locked" type="checkbox" class="mr-2" value="Yes" />
                                     <label>@Localizer["Locked"]</label>
                                 </div>
+                               
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label>@Localizer["Organization"]:</label>
                                     @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
                                 </div>
-                                @*<div class="form-group">
-                                <label>@Localizer["StartUpScreen"]:</label>
-                                @await Html.PartialAsync("_StartUpScreenSelector", Model.StartUpScreenSelector)
-                                </div>*@
                                 <div class="form-group mb-3">
                                     <label>@Localizer["UserRoles"]:</label>
                                     <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">

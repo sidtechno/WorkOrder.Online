@@ -14,7 +14,6 @@
 @Html.Hidden("hidDeleteTitle", Localizer["DeleteTitle"].Value)
 @Html.Hidden("hidDeleteText", Localizer["DeleteText"].Value)
 @Html.Hidden("hidDeleteButton", Localizer["DeleteButton"].Value)
-@Html.Hidden("hidRequired", Localizer["Required"].Value)
 
 
 @*Toastr Localisation*@
@@ -72,14 +71,14 @@
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label for="postalCode" class="form-label">@Localizer["PostalCode"]:</label>
-                                                <input name="postalCode" type="text" class="form-control" maxlength="10" />
+                                                <input name="postalCode" type="text" class="form-control zipcode-mask" maxlength="10" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label">@Localizer["Phone"]:</label>
-                                                    <input name="phone" type="text" class="form-control" maxlength="14" />
+                                                    <input name="phone" type="text" class="form-control phone-mask" maxlength="14" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-3">
@@ -176,14 +175,14 @@
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label for="postalCode" class="form-label">@Localizer["PostalCode"]</label>
-                                                <input name="postalCode" type="text" class="form-control" maxlength="10" />
+                                                <input name="postalCode" type="text" class="form-control zipcode-mask" maxlength="10" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label">@Localizer["Phone"]</label>
-                                                    <input name="phone" type="text" class="form-control" maxlength="14" />
+                                                    <input name="phone" type="text" class="form-control phone-mask" maxlength="14" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-3">

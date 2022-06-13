@@ -156,9 +156,6 @@
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
   </data>
-  <data name="Required" xml:space="preserve">
-    <value>Ce champs est requis</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>Sauvegarder</value>
   </data>

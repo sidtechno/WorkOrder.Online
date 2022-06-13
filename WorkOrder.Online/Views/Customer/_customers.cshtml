@@ -1,0 +1,40 @@
+﻿@model WorkOrder.Online.Models.CustomerListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<table id="customersTable" class="table table-striped dataTable w-100" data-processing="true">
+    <thead>
+        <tr>
+            <th data-data="id">Id</th>
+            <th data-data="name">@Localizer["Name"]</th>
+            <th data-data="address">@Localizer["Address"]</th>
+            <th data-data="city">@Localizer["City"]</th>
+            <th data-data="phone">@Localizer["Phone"]</th>
+            <th data-data="email">@Localizer["Email"]</th>
+            <th data-data="responsable">Responsable</th>
+            <th data-data="state">State</th>
+            <th data-data="postalcode">PostalCode</th>
+            <th data-data="cellphone">CellPhone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <td>@customer.Id</td>
+                <td>@customer.Name</td>
+                <td>@customer.Address</td>
+                <td>@customer.City</td>
+                <td>@customer.Phone</td>
+                <td>@customer.Email</td>
+
+                <td>@customer.Responsable</td>
+                <td>@customer.State</td>
+                <td>@customer.PostalCode</td>
+                <td>@customer.Cellphone</td>
+            </tr>
+        }
+    </tbody>
+</table>

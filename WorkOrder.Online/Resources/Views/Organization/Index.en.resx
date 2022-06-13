@@ -186,9 +186,6 @@
   <data name="Province" xml:space="preserve">
     <value>Province</value>
   </data>
-  <data name="Required" xml:space="preserve">
-    <value>This field is required</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>

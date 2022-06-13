@@ -41,12 +41,14 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IOrganizationService, OrganizationService>();
 builder.Services.AddTransient<ITaskService, TaskService>();
 builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<ICustomerService, CustomerService>();
 
 // Factory
 builder.Services.AddTransient<IUserFactory, UserFactory>();
 builder.Services.AddTransient<IOrganizationFactory, OrganizationFactory>();
 builder.Services.AddTransient<ITaskFactory, WorkOrder.Online.Data.TaskFactory>();
 builder.Services.AddTransient<IProductFactory, ProductFactory>();
+builder.Services.AddTransient<ICustomerFactory, CustomerFactory>();
 
 var app = builder.Build();
 

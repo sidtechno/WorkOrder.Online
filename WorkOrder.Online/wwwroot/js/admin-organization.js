@@ -54,7 +54,8 @@
                 },
                 'email': {
                     required: true,
-                    noSpace: true
+                    noSpace: true,
+                    email: true
                 },
                 'SelectedLanguageCode': {
                     required: true
@@ -78,7 +79,8 @@
                 },
                 'email': {
                     required: $('#hidRequired').val(),
-                    noSpace: $('#hidRequired').val()
+                    noSpace: $('#hidRequired').val(),
+                    email: $('#hidInvalidEmail').val()
                 },
                 'SelectedLanguageCode': {
                     required: $('#hidRequired').val()
@@ -140,7 +142,8 @@
                 },
                 'email': {
                     required: true,
-                    noSpace: true
+                    noSpace: true,
+                    email: true
                 },
                 'SelectedLanguageCode': {
                     required: true
@@ -164,7 +167,8 @@
                 },
                 'email': {
                     required: $('#hidRequired').val(),
-                    noSpace: $('#hidRequired').val()
+                    noSpace: $('#hidRequired').val(),
+                    email: $('#hidInvalidEmail').val()
                 },
                 'SelectedLanguageCode': {
                     required: $('#hidRequired').val()

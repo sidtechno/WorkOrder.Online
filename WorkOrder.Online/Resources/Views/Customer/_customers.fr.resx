@@ -117,70 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Add</value>
+  <data name="Address" xml:space="preserve">
+    <value>Adresse</value>
   </data>
-  <data name="AddProduct" xml:space="preserve">
-    <value>Add Product</value>
+  <data name="Cellphone" xml:space="preserve">
+    <value>Cellulaire</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Close</value>
+  <data name="City" xml:space="preserve">
+    <value>Ville</value>
   </data>
-  <data name="Code" xml:space="preserve">
-    <value>Code</value>
-  </data>
-  <data name="CreateSuccess" xml:space="preserve">
-    <value>Product created successfully!</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="DeleteButton" xml:space="preserve">
-    <value>Yes, delete it!</value>
-  </data>
-  <data name="DeleteSuccess" xml:space="preserve">
-    <value>Product deleted successfully!</value>
-  </data>
-  <data name="DeleteText" xml:space="preserve">
-    <value>Do you really want to delete this product?</value>
-  </data>
-  <data name="DeleteTitle" xml:space="preserve">
-    <value>Delete Product</value>
-  </data>
-  <data name="Description_En" xml:space="preserve">
-    <value>Description (english)</value>
-  </data>
-  <data name="Description_Fr" xml:space="preserve">
-    <value>Description (french)</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="EditProduct" xml:space="preserve">
-    <value>Edit Product</value>
-  </data>
-  <data name="IsFlatRate" xml:space="preserve">
-    <value>Flat Rate</value>
-  </data>
-  <data name="MinLength" xml:space="preserve">
-    <value>Should have 3 characters minimum</value>
+  <data name="Email" xml:space="preserve">
+    <value>Courriel</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Nom</value>
   </data>
-  <data name="Organization" xml:space="preserve">
-    <value>Organization</value>
+  <data name="Phone" xml:space="preserve">
+    <value>Téléphone</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
+  <data name="PostalCode" xml:space="preserve">
+    <value>Code postal</value>
   </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
+  <data name="Responsable" xml:space="preserve">
+    <value>Responsable</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Product Management</value>
-  </data>
-  <data name="UpdateSuccess" xml:space="preserve">
-    <value>Product updated successfully!</value>
+  <data name="State" xml:space="preserve">
+    <value>Province</value>
   </data>
 </root>

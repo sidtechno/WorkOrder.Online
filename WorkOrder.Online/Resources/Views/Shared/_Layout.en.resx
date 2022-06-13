@@ -120,6 +120,9 @@
   <data name="DarkMode" xml:space="preserve">
     <value>Dark Mode</value>
   </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid email format</value>
+  </data>
   <data name="LightMode" xml:space="preserve">
     <value>Light Mode</value>
   </data>
@@ -155,5 +158,8 @@
   </data>
   <data name="MenuWorkOrder" xml:space="preserve">
     <value>Work Order</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>This field is required</value>
   </data>
 </root>

@@ -16,6 +16,18 @@
         return "";
     }
 
+    /*************** Masks *****************/
+    $('.phone-mask').mask('(000) 000-0000');
+
+    $('.zipcode-mask').mask('Z0Z 0Z0', {
+        translation: {
+            'Z': { pattern: /[A-Za-z]/ }
+        }
+        , onKeyPress: function (value, event) {
+            event.currentTarget.value = value.toUpperCase();
+        }
+    });
+
     /* Dark mode / Light Mode switch */
     $('#layoutModeCheckbox').on('click', function () {
         if ($(this).is(':checked')) {

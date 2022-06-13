@@ -136,7 +136,7 @@
     <value>Supprimer</value>
   </data>
   <data name="DeleteButton" xml:space="preserve">
-    <value>Oui, supprimer la tâche</value>
+    <value>Oui, supprimer le produit</value>
   </data>
   <data name="DeleteSuccess" xml:space="preserve">
     <value>Produit supprimé avec succès!</value>
@@ -173,9 +173,6 @@
   </data>
   <data name="Price" xml:space="preserve">
     <value>Prix</value>
-  </data>
-  <data name="Required" xml:space="preserve">
-    <value>Ce champs est requis</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Sauvegarder</value>

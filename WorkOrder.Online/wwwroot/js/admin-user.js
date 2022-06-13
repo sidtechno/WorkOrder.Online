@@ -50,7 +50,8 @@
                 },
                 'email': {
                     required: true,
-                    noSpace: true
+                    noSpace: true,
+                    email: true
                 },
                 'roles[]': {
                     required: true
@@ -75,7 +76,8 @@
                 },
                 'email': {
                     required: $('#hidRequired').val(),
-                    noSpace: $('#hidRequired').val()
+                    noSpace: $('#hidRequired').val(),
+                    email: $('#hidInvalidEmail').val()
                 },
                 'roles[]': {
                     required: $('#hidRoleSelectionRequired').val()
@@ -144,7 +146,8 @@
                 },
                 'email': {
                     required: true,
-                    noSpace: true
+                    noSpace: true,
+                    email: true
                 },
                 'roles[]': {
                     required: true
@@ -168,7 +171,8 @@
                 },
                 'email': {
                     required: $('#hidEmailRequired').val(),
-                    noSpace: $('#hidUsernameRequired').val()
+                    noSpace: $('#hidUsernameRequired').val(),
+                    email: $('#hidInvalidEmail').val()
                 },
                 'roles[]': {
                     required: $('#hidRoleSelectionRequired').val()

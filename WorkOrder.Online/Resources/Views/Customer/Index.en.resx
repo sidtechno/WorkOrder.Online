@@ -120,8 +120,17 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
-  <data name="AddProduct" xml:space="preserve">
-    <value>Add Product</value>
+  <data name="AddCustomer" xml:space="preserve">
+    <value>Add Customer</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Cellphone" xml:space="preserve">
+    <value>Cellphone</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
@@ -130,7 +139,7 @@
     <value>Code</value>
   </data>
   <data name="CreateSuccess" xml:space="preserve">
-    <value>Product created successfully!</value>
+    <value>Customer created successfully!</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -139,13 +148,13 @@
     <value>Yes, delete it!</value>
   </data>
   <data name="DeleteSuccess" xml:space="preserve">
-    <value>Product deleted successfully!</value>
+    <value>Customer deleted successfully!</value>
   </data>
   <data name="DeleteText" xml:space="preserve">
-    <value>Do you really want to delete this product?</value>
+    <value>Do you really want to delete this customer?</value>
   </data>
   <data name="DeleteTitle" xml:space="preserve">
-    <value>Delete Product</value>
+    <value>Delete Customer</value>
   </data>
   <data name="Description_En" xml:space="preserve">
     <value>Description (english)</value>
@@ -156,11 +165,11 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="EditProduct" xml:space="preserve">
-    <value>Edit Product</value>
+  <data name="EditCustomer" xml:space="preserve">
+    <value>Edit Customer</value>
   </data>
-  <data name="IsFlatRate" xml:space="preserve">
-    <value>Flat Rate</value>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="MinLength" xml:space="preserve">
     <value>Should have 3 characters minimum</value>
@@ -171,16 +180,28 @@
   <data name="Organization" xml:space="preserve">
     <value>Organization</value>
   </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>Postal Code</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
+  </data>
+  <data name="Responsable" xml:space="preserve">
+    <value>Responsable</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
   <data name="Title" xml:space="preserve">
-    <value>Product Management</value>
+    <value>Customer Management</value>
   </data>
   <data name="UpdateSuccess" xml:space="preserve">
-    <value>Product updated successfully!</value>
+    <value>Customer updated successfully!</value>
   </data>
 </root>

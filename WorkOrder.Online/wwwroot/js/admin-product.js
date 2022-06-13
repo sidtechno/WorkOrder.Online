@@ -176,7 +176,7 @@
                 Description_En: $('#addForm input[name=description_en]').val(),
                 Price: $('#hidLanguage').val().toUpperCase() == 'FR' ? $('#addForm input[name=price]').val().replace('.', ',') : $('#addForm input[name=price]').val().replace(',', '.'),
                 IsFlatRate: $('#addForm input[name=isFlatRate]').prop("checked"),
-                OrganizationId: $('select[name="SelectedOrganizationId"]').val()
+                OrganizationId: $('#hidSelectedOrganizationId').val()
             }
 
             $.ajax({
@@ -255,7 +255,7 @@
                 Description_En: $('#editForm input[name=description_en]').val(),
                 Price: $('#hidLanguage').val().toUpperCase() == 'FR' ? $('#editForm input[name=price]').val().replace('.', ',') : $('#editForm input[name=price]').val().replace(',', '.'),
                 IsFlatRate: $('#editForm input[name=isFlatRate]').prop("checked"),
-                OrganizationId: $('select[name="SelectedOrganizationId"]').val()
+                OrganizationId: $('#hidSelectedOrganizationId').val()
             }
 
             $.ajax({
@@ -320,7 +320,7 @@
             url: ajaxUrl + '/Products/list',
             type: "GET",
             data: {
-                organizationId: $('select[name="SelectedOrganizationId"]').val()
+                organizationId: $('#hidSelectedOrganizationId').val()
             },
             dataType: "html",
             async: false,

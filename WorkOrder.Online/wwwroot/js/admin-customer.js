@@ -9,7 +9,7 @@
         var selectedOrganization = $(this).val();
         $('#hidSelectedOrganizationId').val(selectedOrganization);
         $('input[name="selectedOrganizationId"]').val(selectedOrganization);
-        UpdateTaskList(selectedOrganization);
+        UpdateCustomerList(selectedOrganization);
     });
 
     var tableSettings = {
@@ -21,25 +21,8 @@
         },
         "aoColumnDefs": [
             {
-                "aTargets": [0, 6],
+                "aTargets": [0,6,7,8,9],
                 "visible": false
-            },
-            {
-                "aTargets": [1],
-                "width": "20%"
-            },
-            {
-                "aTargets": [2],
-                "width": "60%"
-            },
-            {
-                "aTargets": [4],
-                "width": "10%",
-            },
-            {
-                "aTargets": [5],
-                "width": "10%",
-                "className": "dt-center"
             }
         ],
         buttons: [
@@ -52,7 +35,7 @@
                     'data-bs-target': '#addModal'
                 },
                 action: function (e, dt, button, config) {
-                    $('#taskError').hide();
+                    $('#customerError').hide();
                     $('#addForm').trigger('reset');
                 }
             },
@@ -72,11 +55,15 @@
                     $('#editForm').trigger('reset');
 
                     $('#editForm input[name=id]').val(data.id);
-                    $('#editForm input[name=code]').val(data.code);
-                    $('#editForm input[name=description_fr]').val(data.description_fr);
-                    $('#editForm input[name=description_en]').val(data.description_en);
-                    $('#editForm input[name=price]').val(data.price);
-                    $('#editForm input[name=isFlatRate]').prop('checked', data.isflatrate == 'True' ? true : false);
+                    $('#editForm input[name=name]').val(data.name);
+                    $('#editForm input[name=responsable]').val(data.responsable);
+                    $('#editForm input[name=address]').val(data.address);
+                    $('#editForm input[name=city]').val(data.city);
+                    $('#editForm input[name=state]').val(data.state);
+                    $('#editForm input[name=postalcode]').val(data.postalcode);
+                    $('#editForm input[name=phone]').val(data.phone);
+                    $('#editForm input[name=cellphone]').val(data.cellphone);
+                    $('#editForm input[name=email]').val(data.email);
                 }
             },
             {
@@ -99,7 +86,7 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Tasks/Delete',
+                                url: ajaxUrl + '/Customers/Delete',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
@@ -120,39 +107,21 @@
                 
         form.validate({
             rules: {
-                'code': {
+                'name': {
                     required: true,
                     noSpace: true
                 },
-                'description_fr': {
-                    required: true,
-                    noSpace: true
-                },
-                 'description_en': {
-                    required: true,
-                    noSpace: true
-                },
-                'price': {
-                    required: true,
-                    noSpace: true
+                'email': {
+                    email: true
                 }
             },
             messages: {
-                'code': {
+                'name': {
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
                 },
-                'description_fr': {
-                    required: $('#hidRequired').val(),
-                    noSpace: $('#hidRequired').val()
-                },
-                'description_en': {
-                    required: $('#hidRequired').val(),
-                    noSpace: $('#hidRequired').val()
-                },
-                'price': {
-                    required: $('#hidRequired').val(),
-                    noSpace: $('#hidRequired').val()
+                'email': {
+                    email: $('#hidInvalidEmail').val()
                 }
             },
             errorElement: 'span',
@@ -170,19 +139,15 @@
 
         if (form.valid()) {
 
-            var data = {
-                Code: $('#addForm input[name=code]').val(),
-                Description_Fr: $('#addForm input[name=description_fr]').val(),
-                Description_En: $('#addForm input[name=description_en]').val(),
-                Price: $('#hidLanguage').val().toUpperCase() == 'FR' ? $('#addForm input[name=price]').val().replace('.', ',') : $('#addForm input[name=price]').val().replace(',', '.'),
-                IsFlatRate: $('#addForm input[name=isFlatRate]').prop("checked"),
-                OrganizationId: $('#hidSelectedOrganizationId').val()
-            }
+            var formData = $(form).serialize(); 
+            formData = formData + '&OrganizationId=' + $('#hidSelectedOrganizationId').val();
 
             $.ajax({
-                url: ajaxUrl + '/Tasks/Create',
+                url: ajaxUrl + '/Customers/Create',
                 type: "POST",
-                data: data,
+                dataType: "json",
+                data: formData,
+                async: false,
                 success: function (response) {
                     addDone();
                 },
@@ -198,39 +163,21 @@
 
         form.validate({
             rules: {
-                'code': {
+                'name': {
                     required: true,
                     noSpace: true
                 },
-                'description_fr': {
-                    required: true,
-                    noSpace: true
-                },
-                'description_en': {
-                    required: true,
-                    noSpace: true
-                },
-                'price': {
-                    required: true,
-                    noSpace: true
+                'email': {
+                    email: true
                 }
             },
             messages: {
-                'code': {
+                'name': {
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
                 },
-                'description_fr': {
-                    required: $('#hidRequired').val(),
-                    noSpace: $('#hidRequired').val()
-                },
-                'description_en': {
-                    required: $('#hidRequired').val(),
-                    noSpace: $('#hidRequired').val()
-                },
-                'price': {
-                    required: $('#hidRequired').val(),
-                    noSpace: $('#hidRequired').val()
+                'email': {
+                    email: $('#hidInvalidEmail').val()
                 }
             },
             errorElement: 'span',
@@ -248,20 +195,14 @@
 
         if (form.valid()) {
 
-            var data = {
-                Id: $('#editForm input[name=id]').val(),
-                Code: $('#editForm input[name=code]').val(),
-                Description_Fr: $('#editForm input[name=description_fr]').val(),
-                Description_En: $('#editForm input[name=description_en]').val(),
-                Price: $('#hidLanguage').val().toUpperCase() == 'FR' ? $('#editForm input[name=price]').val().replace('.', ',') : $('#editForm input[name=price]').val().replace(',', '.'),
-                IsFlatRate: $('#editForm input[name=isFlatRate]').prop("checked"),
-                OrganizationId: $('#hidSelectedOrganizationId').val()
-            }
+            var formData = $(form).serialize(); 
 
             $.ajax({
-                url: ajaxUrl + '/Tasks/Update',
+                url: ajaxUrl + '/Customers/Update',
                 type: "POST",
-                data: data,
+                dataType: "json",
+                data: formData,
+                async: false,
                 success: function (response) {
                     editDone();
                 },
@@ -278,7 +219,7 @@
             tableSettings.language = JSON.parse(datables_french());
         }
 
-        table = $('#tasksTable').DataTable(tableSettings);
+        table = $('#customersTable').DataTable(tableSettings);
 
         table
             .button('addButton:name')
@@ -297,27 +238,11 @@
             .nodes()
             .removeClass('btn-secondary')
             .addClass('btn-primary mr-1');
-
-        table.on('select deselect', function (e, dt, type, indexes) {
-            var rowData = table.rows(indexes).data().toArray();
-
-            //Cannot delete SuperAdmin/Administrator/Mobile Role
-            if (rowData[0]['name'] === 'SuperAdmin' || rowData[0]['name'] === 'Administrator') {
-                table.button(1).enable(false);
-                table.button(2).enable(false);
-            }
-            else if (rowData[0]['usercount'] > 0) //Cannot delete if user in group
-                table.button(2).enable(false);
-            else {
-                table.button(1).enable(true);
-                table.button(2).enable(true);
-            }
-        });
     }
 
-    function UpdateTaskList() {
+    function UpdateCustomerList() {
         $.ajax({
-            url: ajaxUrl + '/Tasks/list',
+            url: ajaxUrl + '/Customers/list',
             type: "GET",
             data: {
                 organizationId: $('#hidSelectedOrganizationId').val()
@@ -325,7 +250,7 @@
             dataType: "html",
             async: false,
             success: function (response) {
-                $('#task-list').empty().append(response);
+                $('#customer-list').empty().append(response);
                 initTable();
             },
             error: function (xhr, status, error) {
@@ -344,11 +269,11 @@
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateTaskList();
+        UpdateCustomerList();
     }
 
     function addFail(xhr, status, error) {
-        $('#taskError').html(xhr.responseText || error).fadeIn();
+        $('#customerError').html(xhr.responseText || error).fadeIn();
     }
 
     function editDone(data, status, xhr) {
@@ -361,11 +286,11 @@
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateTaskList();
+        UpdateCustomerList();
     }
 
     function editFail(xhr, status, error) {
-        $('#taskError').html(xhr.responseText || error).fadeIn();
+        $('#customerError').html(xhr.responseText || error).fadeIn();
     }
 
     function delDone(data, status, xhr) {
@@ -377,7 +302,7 @@
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateTaskList();
+        UpdateCustomerList();
     }
 
     function delFail(xhr, status, error) {

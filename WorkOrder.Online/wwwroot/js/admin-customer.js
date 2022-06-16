@@ -56,7 +56,7 @@
 
                     $('#editForm input[name=id]').val(data.id);
                     $('#editForm input[name=name]').val(data.name);
-                    $('#editForm input[name=responsable]').val(data.responsable);
+                    $('#editForm input[name=responsible]').val(data.responsible);
                     $('#editForm input[name=address]').val(data.address);
                     $('#editForm input[name=city]').val(data.city);
                     $('#editForm input[name=state]').val(data.state);
@@ -192,7 +192,33 @@
                     required: true,
                     noSpace: true
                 },
+                'responsible': {
+                    required: true,
+                    noSpace: true
+                },
+                'address': {
+                    required: true,
+                    noSpace: true
+                },
+                'city': {
+                    required: true,
+                    noSpace: true
+                },
+                'state': {
+                    required: true,
+                    noSpace: true
+                },
+                'postalCode': {
+                    required: true,
+                    noSpace: true
+                },
+                'phone': {
+                    required: true,
+                    noSpace: true
+                },
                 'email': {
+                    required: true,
+                    noSpace: true,
                     email: true
                 }
             },
@@ -201,7 +227,33 @@
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
                 },
+                'responsible': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'address': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'city': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'state': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'postalCode': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'phone': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
                 'email': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val(),
                     email: $('#hidInvalidEmail').val()
                 }
             },
@@ -248,7 +300,33 @@
                     required: true,
                     noSpace: true
                 },
+                'responsible': {
+                    required: true,
+                    noSpace: true
+                },
+                'address': {
+                    required: true,
+                    noSpace: true
+                },
+                'city': {
+                    required: true,
+                    noSpace: true
+                },
+                'state': {
+                    required: true,
+                    noSpace: true
+                },
+                'postalCode': {
+                    required: true,
+                    noSpace: true
+                },
+                'phone': {
+                    required: true,
+                    noSpace: true
+                },
                 'email': {
+                    required: true,
+                    noSpace: true,
                     email: true
                 }
             },
@@ -257,7 +335,33 @@
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
                 },
+                'responsible': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'address': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'city': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'state': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'postalCode': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'phone': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
                 'email': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val(),
                     email: $('#hidInvalidEmail').val()
                 }
             },
@@ -302,12 +406,30 @@
                 'name': {
                     required: true,
                     noSpace: true
+                },
+                'cellphone': {
+                    required: true,
+                    noSpace: true
+                },
+                'email': {
+                    required: true,
+                    noSpace: true,
+                    email: true
                 }
             },
             messages: {
                 'name': {
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
+                },
+                'cellphone': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'email': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val(),
+                    email: $('#hidInvalidEmail').val()
                 }
             },
             errorElement: 'span',
@@ -337,7 +459,7 @@
                     UpdateResponsibleList();
                 },
                 error: function (xhr, status, error) {
-                   alert(xhr.responseText || error);
+                    alert(xhr.responseText || error);
                 }
             });
         }
@@ -396,7 +518,7 @@
                             alert('Error');
                         }
                     })
-                    
+
 
                 }
             }]

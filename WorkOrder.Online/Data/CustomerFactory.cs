@@ -19,7 +19,7 @@ namespace WorkOrder.Online.Data
         {
             var sql = @"SELECT [Id]
                   ,[Name]
-                  ,[Responsable]
+                  ,[Responsible]
                   ,[Address]
                   ,[City]
                   ,[State]
@@ -52,7 +52,7 @@ namespace WorkOrder.Online.Data
             {
                 var sql = @"INSERT INTO [dbo].[Customers]
                            ([Name]
-                            ,[Responsable]
+                            ,[Responsible]
                             ,[Address]
                             ,[City]
                             ,[State]
@@ -64,7 +64,7 @@ namespace WorkOrder.Online.Data
                         OUTPUT INSERTED.Id
                         VALUES
                            (@Name
-                           ,@Responsable
+                           ,@Responsible
                            ,@Address
                            ,@City
                            ,@State
@@ -82,7 +82,7 @@ namespace WorkOrder.Online.Data
                         new
                         {
                             Name = model.Name,
-                            Responsable = model.Responsable,
+                            Responsible = model.Responsible,
                             Address = model.Address,
                             City = model.City,
                             State = model.State,
@@ -109,7 +109,7 @@ namespace WorkOrder.Online.Data
             {
                 var sql = @"UPDATE [dbo].[Customers]
                            SET [Name] = @Name
-                           ,[Responsable] = @Responsable
+                           ,[Responsible] = @Responsible
                            ,[Address] = @Address
                            ,[City] = @City
                            ,[State] = @State
@@ -128,7 +128,7 @@ namespace WorkOrder.Online.Data
                         {
                             Id = model.Id,
                             Name = model.Name,
-                            Responsable = model.Responsable,
+                            Responsible = model.Responsible,
                             Address = model.Address,
                             City = model.City,
                             State = model.State,

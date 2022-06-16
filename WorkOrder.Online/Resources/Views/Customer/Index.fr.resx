@@ -201,8 +201,8 @@
   <data name="Price" xml:space="preserve">
     <value>Prix</value>
   </data>
-  <data name="Responsable" xml:space="preserve">
-    <value>Responsable</value>
+  <data name="Responsible" xml:space="preserve">
+    <value>Personne contact</value>
   </data>
   <data name="ResponsibleTitle" xml:space="preserve">
     <value>Gestion des représentants autorisés</value>

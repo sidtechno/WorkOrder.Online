@@ -126,6 +126,9 @@
   <data name="Address" xml:space="preserve">
     <value>Address</value>
   </data>
+  <data name="Authorized" xml:space="preserve">
+    <value>Representatives</value>
+  </data>
   <data name="Cellphone" xml:space="preserve">
     <value>Cellphone</value>
   </data>
@@ -146,6 +149,12 @@
   </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Yes, delete it!</value>
+  </data>
+  <data name="DeleteResponsibleText" xml:space="preserve">
+    <value>Do you really want to delete this representative?</value>
+  </data>
+  <data name="DeleteResponsibleTitle" xml:space="preserve">
+    <value>Delete Authorized Representative</value>
   </data>
   <data name="DeleteSuccess" xml:space="preserve">
     <value>Customer deleted successfully!</value>
@@ -191,6 +200,9 @@
   </data>
   <data name="Responsable" xml:space="preserve">
     <value>Responsable</value>
+  </data>
+  <data name="ResponsibleTitle" xml:space="preserve">
+    <value>Authorized representatives management</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>

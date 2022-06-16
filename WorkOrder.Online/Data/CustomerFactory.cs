@@ -167,5 +167,122 @@ namespace WorkOrder.Online.Data
                 return result;
             }
         }
+
+        public async Task<IEnumerable<ResponsibleModel>> GetResponsibles(int customerId)
+        {
+            var sql = @"SELECT TOP (1000) [Id]
+                  ,[Name]
+                  ,[Cellphone]
+                  ,[Email]
+                  ,[CustomerId]
+              FROM [dbo].[ResponsiblePerson]
+              WHERE CustomerId = @CustomerId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<ResponsibleModel>(sql,
+                    new
+                    {
+                        CustomerId = customerId
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
+        public async Task<int> CreateResponsible(ResponsibleModel model)
+        {
+            try
+            {
+                var sql = @"INSERT INTO [dbo].[ResponsiblePerson]
+                           ([Name]
+                            ,[Cellphone]
+                            ,[Email]
+                            ,[CustomerId])
+                        OUTPUT INSERTED.Id
+                        VALUES
+                           (@Name
+                           ,@Cellphone
+                           ,@Email
+                           ,@CustomerId)";
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+
+                    var result = await connection.QuerySingleOrDefaultAsync<int>(sql,
+                        new
+                        {
+                            Name = model.Name,
+                            Cellphone = model.Cellphone,
+                            Email = model.Email,
+                            CustomerId = model.CustomerId
+                        },
+                        commandType: CommandType.Text);
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<int> UpdateResponsible(CustomerModel model)
+        {
+            try
+            {
+                var sql = @"UPDATE [dbo].[ResponsiblePerson]
+                           SET [Name] = @Name
+                           ,[Cellphone] = @Cellphone
+                           ,[Email] = @Email
+                           WHERE Id = @Id";
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+
+                    var result = await connection.ExecuteScalarAsync<int>(sql,
+                        new
+                        {
+                            Id = model.Id,
+                            Name = model.Name,
+                            Cellphone = model.Cellphone,
+                            Email = model.Email
+                        },
+                        commandType: CommandType.Text);
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<int> DeleteResponsible(int responsibleId)
+        {
+            var sql = @"DELETE FROM [dbo].[ResponsiblePerson]
+                        WHERE Id = @Id";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        Id = responsibleId
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
     }
 }

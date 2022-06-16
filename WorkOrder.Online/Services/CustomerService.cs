@@ -56,5 +56,46 @@ namespace WorkOrder.Online.Services
         {
             return await _customerFactory.Delete(customerId);
         }
+
+        public async Task<IEnumerable<ResponsibleViewModel>> GetResponsibles(int customerId)
+        {
+            var responsibles = await _customerFactory.GetResponsibles(customerId);
+            return responsibles.Adapt<IEnumerable<ResponsibleViewModel>>();
+        }
+
+        public async Task<int> AddResponsible(ResponsibleViewModel model)
+        {
+            try
+            {
+                var factoryModel = model.Adapt<ResponsibleModel>();
+                var responsibleId = await _customerFactory.CreateResponsible(factoryModel);
+
+                return responsibleId;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<int> UpdateResponsible(ResponsibleViewModel model)
+        {
+            try
+            {
+                var factoryModel = model.Adapt<CustomerModel>();
+                var responsibleId = await _customerFactory.UpdateResponsible(factoryModel);
+
+                return responsibleId;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<int> DeleteResponsible(int responsibleId)
+        {
+            return await _customerFactory.DeleteResponsible(responsibleId);
+        }
     }
 }

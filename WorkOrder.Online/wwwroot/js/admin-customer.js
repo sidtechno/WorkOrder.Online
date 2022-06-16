@@ -2,7 +2,7 @@
 
     var ajaxUrl = $('#HidRootUrl').val();
     var table;
-
+    var tableResponsible;
     //$('select[name="SelectedOrganizationId"]').select2();
 
     $('select[name="SelectedOrganizationId"]').on('change', function () {
@@ -21,7 +21,7 @@
         },
         "aoColumnDefs": [
             {
-                "aTargets": [0,6,7,8,9],
+                "aTargets": [0, 6, 7, 8, 9],
                 "visible": false
             }
         ],
@@ -94,17 +94,98 @@
                         }
                     });
                 }
+            },
+        ],
+    };
+
+    var responsibleTableSettings = {
+        dom: 'Bfrtip',
+        retrieve: true,
+        autoWidth: false,
+        select: {
+            style: 'single',
+            info: false
+        },
+        "aoColumnDefs": [
+            {
+                "aTargets": [0, 4],
+                "visible": false
             }
+        ],
+        buttons: [
+            {
+                text: $('#hidNewButton').val(),
+                name: 'addResponsibleButton',
+                className: 'btn-primary',
+                action: function (e, dt, button, config) {
+                    $('#responsibleForm').trigger('reset');
+                    $('#responsibleForm input[name=id]').val(0);
+                    $('#responsibleForm').slideDown();
+                }
+            },
+            {
+                extend: "selectedSingle",
+                text: $('#hidEditButton').val(),
+                name: 'editResponsibleButton',
+                className: 'btn-primary',
+                action: function (e, dt, button, config) {
+                    var data = dt.row({ selected: true }).data();
+                    $('#editError').hide();
+                    $('#tabs a:first').tab('show');
+                    $('#responsibleForm').trigger('reset');
+
+                    $('#responsibleForm input[name=id]').val(data.id);
+                    $('#responsibleForm input[name=customerId]').val(data.customerId);
+                    $('#responsibleForm input[name=name]').val(data.name);
+                    $('#responsibleForm input[name=cellphone]').val(data.cellphone);
+                    $('#responsibleForm input[name=email]').val(data.email);
+
+                    $('#responsibleForm').slideDown();
+                }
+            },
+            {
+                extend: "selectedSingle",
+                text: $('#hidDeleteButton').val(),
+                name: 'deleteResponsibleButton',
+                className: 'btn-primary',
+                action: function (e, dt, button, config) {
+                    var data = dt.row({ selected: true }).data();
+
+                    swal.fire({
+                        title: $('#hidDeleteResponsibleTitle').val(),
+                        text: $('#hidDeleteResponsibleText').val(),
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#DD6B55',
+                        confirmButtonText: $('#hidDeleteButton').val()
+                    }).then(function (result) {
+                        if (result.value) {
+
+                            $.ajax({
+                                type: 'DELETE',
+                                url: ajaxUrl + '/Customers/Responsible/Delete',
+                                data: { id: data.id },
+                                success: function (response) {
+                                    UpdateResponsibleList();
+                                },
+                                error: function (xhr, status, error) {
+                                    alert(xhr.responseText || error);
+                                }
+                            });
+                        }
+                    });
+                }
+            },
         ],
 
     };
 
     initTable();
 
-    
+
     $('#submitAddForm').on('click', function () {
         var form = $('#addForm');
-                
+
         form.validate({
             rules: {
                 'name': {
@@ -139,7 +220,7 @@
 
         if (form.valid()) {
 
-            var formData = $(form).serialize(); 
+            var formData = $(form).serialize();
             formData = formData + '&OrganizationId=' + $('#hidSelectedOrganizationId').val();
 
             $.ajax({
@@ -195,7 +276,7 @@
 
         if (form.valid()) {
 
-            var formData = $(form).serialize(); 
+            var formData = $(form).serialize();
 
             $.ajax({
                 url: ajaxUrl + '/Customers/Update',
@@ -213,6 +294,55 @@
         }
     });
 
+    $('#submitResponsibleForm').on('click', function () {
+        var form = $('#responsibleForm');
+
+        form.validate({
+            rules: {
+                'name': {
+                    required: true,
+                    noSpace: true
+                }
+            },
+            messages: {
+                'name': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+        if (form.valid()) {
+
+            var formData = $(form).serialize();
+
+            $.ajax({
+                url: ajaxUrl + '/Customers/Responsible/Save',
+                type: "POST",
+                dataType: "json",
+                data: formData,
+                async: false,
+                success: function (response) {
+                    UpdateResponsibleList();
+                },
+                error: function (xhr, status, error) {
+                   alert(xhr.responseText || error);
+                }
+            });
+        }
+    });
+
     function initTable() {
 
         if ($('#hidLanguage').val().toUpperCase() === "FR") {
@@ -225,19 +355,96 @@
             .button('addButton:name')
             .nodes()
             .removeClass('btn-secondary')
-            .addClass('btn-primary mr-1');
+            .addClass('btn-primary');
 
         table
             .button('editButton:name')
             .nodes()
             .removeClass('btn-secondary')
-            .addClass('btn-primary mr-1');
+            .addClass('btn-primary');
 
         table
             .button('deleteButton:name')
             .nodes()
             .removeClass('btn-secondary')
-            .addClass('btn-primary mr-1');
+            .addClass('btn-primary');
+
+        new $.fn.dataTable.Buttons(table, {
+            name: 'respButton',
+            buttons: [{
+                extend: "selectedSingle",
+                text: $('#hidAuthorized').val(),
+                name: 'responsibleButton',
+                className: 'btn-primary',
+                attr: {
+                    'data-bs-toggle': 'modal',
+                    'data-bs-target': '#responsibleModal'
+                },
+                action: function (e, dt, button, config) {
+                    var data = dt.row({ selected: true }).data();
+
+                    $.ajax({
+                        type: 'GET',
+                        url: ajaxUrl + '/Customers/Responsibles/list',
+                        data: { customerId: data.id },
+                        success: function (response) {
+                            $('#responsible-list').empty().append(response);
+                            $('#responsibleForm input[name=customerId]').val(data.id);
+                            initResponsibleTable();
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Error');
+                        }
+                    })
+                    
+
+                }
+            }]
+        });
+
+        table
+            .buttons('respButton', null)
+            .containers()
+            .insertBefore('.dataTables_filter');
+
+        table
+            .button('responsibleButton:name')
+            .nodes()
+            .removeClass('btn-secondary')
+            .addClass('btn-primary')
+            .addClass('margin-button');
+
+    }
+
+    function initResponsibleTable() {
+
+        if ($('#hidLanguage').val().toUpperCase() === "FR") {
+            responsibleTableSettings.language = JSON.parse(datables_french());
+        }
+
+        tableResponsible = $('#responsiblesTable').DataTable(responsibleTableSettings);
+
+        tableResponsible
+            .button('addResponsibleButton:name')
+            .nodes()
+            .removeClass('btn-secondary')
+            .addClass('btn-primary');
+
+        tableResponsible
+            .button('editResponsibleButton:name')
+            .nodes()
+            .removeClass('btn-secondary')
+            .addClass('btn-primary');
+
+        tableResponsible
+            .button('deleteResponsibleButton:name')
+            .nodes()
+            .removeClass('btn-secondary')
+            .addClass('btn-primary');
+
+        tableResponsible.on('deselect', function (e, dt, type, indexes) {
+            $('#responsibleForm').slideUp();
+        });
     }
 
     function UpdateCustomerList() {
@@ -252,6 +459,26 @@
             success: function (response) {
                 $('#customer-list').empty().append(response);
                 initTable();
+            },
+            error: function (xhr, status, error) {
+                alert('Error');
+            }
+        });
+    }
+
+    function UpdateResponsibleList() {
+        $.ajax({
+            url: ajaxUrl + '/Customers/Responsibles/list',
+            type: "GET",
+            data: {
+                customerId: $('#responsibleForm input[name=customerId]').val()
+            },
+            dataType: "html",
+            async: false,
+            success: function (response) {
+                $('#responsible-list').empty().append(response);
+                $('#responsibleForm').slideUp();
+                initResponsibleTable();
             },
             error: function (xhr, status, error) {
                 alert('Error');

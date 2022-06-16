@@ -91,12 +91,66 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
+        [HttpPost("Customers/Responsible/[action]")]
+        public async Task<IActionResult> Save(ResponsibleViewModel model)
+        {
+            try
+            {
+                var result = 0;
+                if(model.Id == 0)
+                {
+                    result = await _customerService.AddResponsible(model);
+                }
+                else
+                {
+                    result = await _customerService.UpdateResponsible(model);
+                }
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("Customers/Responsibles/list")]
+        public async Task<IActionResult> GetResponsibleList(int customerId)
+        {
+            try
+            {
+                var model = await _customerService.GetResponsibles(customerId);
+                return PartialView("_responsibles", model);
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
         [HttpDelete("Customers/[action]")]
         public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 var result = await _customerService.Delete(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("Customers/Responsible/Delete")]
+        public async Task<ActionResult> DeleteResponsible(int id)
+        {
+            try
+            {
+                var result = await _customerService.DeleteResponsible(id);
                 return Ok(result);
             }
             catch (Exception ex)

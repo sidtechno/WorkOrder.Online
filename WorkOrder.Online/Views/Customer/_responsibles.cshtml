@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WorkOrder.Online.Models.ResponsibleViewModel>
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<table id="responsiblesTable" class="table table-striped dataTable w-100" data-processing="true">
+    <thead>
+        <tr>
+            <th data-data="id">Id</th>
+            <th data-data="name" style="width:40%">@Localizer["Name"]</th>
+            <th data-data="cellphone" style="width:20%">@Localizer["Cellphone"]</th>
+            <th data-data="email" style="width:40%">@Localizer["Email"]</th>
+            <th data-data="customerId">CustomerId</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var resp in Model)
+        {
+            <tr>
+                <td>@resp.Id</td>
+                <td>@resp.Name</td>
+                <td>@resp.Cellphone</td>
+                <td>@resp.Email</td>
+                <td>@resp.CustomerId</td>
+            </tr>
+        }
+    </tbody>
+</table>

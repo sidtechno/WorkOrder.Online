@@ -147,6 +147,9 @@
   <data name="MenuProfile" xml:space="preserve">
     <value>Profile</value>
   </data>
+  <data name="MenuProject" xml:space="preserve">
+    <value>Projects</value>
+  </data>
   <data name="MenuRole" xml:space="preserve">
     <value>Roles</value>
   </data>

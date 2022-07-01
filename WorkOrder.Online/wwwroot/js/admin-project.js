@@ -3,8 +3,6 @@
     var ajaxUrl = $('#HidRootUrl').val();
     var table;
 
-    //$('select[name="SelectedOrganizationId"]').select2();
-
     $('select[name="SelectedOrganizationId"]').on('change', function () {
         var selectedOrganization = $(this).val();
         $('#hidSelectedOrganizationId').val(selectedOrganization);
@@ -46,6 +44,18 @@
                 action: function (e, dt, button, config) {
                     $('#projectError').hide();
                     $('#addForm').trigger('reset');
+
+                    $.ajax({
+                        url: ajaxUrl + '/Projects/NextSequence/' + $('#hidSelectedOrganizationId').val(),
+                        type: "GET",
+                        async: false,
+                        success: function (response) {
+                            $('#addForm input[name=projectNo]').val(response);
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Error');
+                        }
+                    });
                 }
             },
             {

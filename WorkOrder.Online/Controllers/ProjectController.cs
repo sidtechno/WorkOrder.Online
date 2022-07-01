@@ -92,6 +92,22 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
+        [HttpGet("Projects/NextSequence/{organizationId}")]
+        public async Task<IActionResult> GetNextProjectSequence(int organizationId)
+        {
+            try
+            {
+                var organization = await _organizationService.GetOrganization(organizationId);
+                var nextSequence = organization.ProjectStartSequence + 1;
+                return Ok(nextSequence);
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
         [HttpDelete("Projects/[action]")]
         public async Task<ActionResult> Delete(int id)
         {

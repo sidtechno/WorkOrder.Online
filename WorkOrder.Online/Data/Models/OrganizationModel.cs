@@ -16,6 +16,6 @@
         public DateTime CreationDate { get; set; }
         public bool IsActive { get; set; }
         public int NbrActiveUsers { get; set; }
-
+        public int ProjectStartSequence { get; set; }
     }
 }

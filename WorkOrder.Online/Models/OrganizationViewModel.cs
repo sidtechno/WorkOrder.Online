@@ -18,5 +18,6 @@
         public int NbrActiveUsers { get; set; }
         public int WorkOrderCount { get; set; }
         public int EmailCount { get; set; }
+        public int ProjectStartSequence { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace WorkOrder.Online.Data
         {
             _configuration = configuration;
         }
-               
+
         public async Task<IEnumerable<OrganizationModel>> GetOrganizations()
         {
             var sql = @"SELECT 
@@ -63,6 +63,7 @@ namespace WorkOrder.Online.Data
                            ,[Notes]
                            ,[CreationDate]
                            ,[IsActive])
+                     OUTPUT INSERTED.Id
                      VALUES
                            (@Name
                            ,@Address
@@ -77,11 +78,22 @@ namespace WorkOrder.Online.Data
                            ,@CreationDate
                            ,@IsActive)";
 
+                var sqlStartSequence = @"IF NOT EXISTS (SELECT * FROM [dbo].[ProjectSequences] WHERE [OrganizationId] = @Id)
+                            INSERT INTO [dbo].[ProjectSequences]
+                             (Sequence, OrganizationId)
+                             VALUES(@Sequence, @Id)
+                        ELSE
+                            UPDATE [dbo].[ProjectSequences]
+                              SET [Sequence] = @Sequence
+                              WHERE [OrganizationId] = @Id";
+
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
                     connection.Open();
 
-                    var result = await connection.ExecuteScalarAsync<int>(sql,
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        var insertedOrg = await connection.QuerySingleAsync<int>(sql,
                         new
                         {
                             Name = model.Name,
@@ -97,12 +109,25 @@ namespace WorkOrder.Online.Data
                             CreationDate = model.CreationDate,
                             IsActive = model.IsActive
                         },
-                        commandType: CommandType.Text);
+                        commandType: CommandType.Text,
+                        transaction: transaction);
 
-                    return result;
+                        await connection.ExecuteAsync(sqlStartSequence,
+                            new
+                            {
+                                Sequence = model.ProjectStartSequence,
+                                Id = insertedOrg
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        transaction.Commit();
+
+                        return insertedOrg;
+                    }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -126,11 +151,22 @@ namespace WorkOrder.Online.Data
                            ,[IsActive] = @IsActive
                            WHERE Id = @Id";
 
+                var sqlStartSequence = @"IF NOT EXISTS (SELECT * FROM [dbo].[ProjectSequences] WHERE [OrganizationId] = @Id)
+                            INSERT INTO [dbo].[ProjectSequences]
+                             (Sequence, OrganizationId)
+                             VALUES(@Sequence, @Id)
+                        ELSE
+                            UPDATE [dbo].[ProjectSequences]
+                              SET [Sequence] = @Sequence
+                              WHERE [OrganizationId] = @Id";
+
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
                     connection.Open();
 
-                    var result = await connection.ExecuteScalarAsync<int>(sql,
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        var result = await connection.ExecuteScalarAsync<int>(sql,
                         new
                         {
                             Id = model.Id,
@@ -147,9 +183,22 @@ namespace WorkOrder.Online.Data
                             CreationDate = model.CreationDate,
                             IsActive = model.IsActive
                         },
-                        commandType: CommandType.Text);
+                        commandType: CommandType.Text,
+                        transaction: transaction);
+                        
 
-                    return result;
+                        await connection.ExecuteAsync(sqlStartSequence,
+                            new
+                            {
+                                Sequence = model.ProjectStartSequence,
+                                Id = model.Id
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        transaction.Commit();
+                        return result;
+                    }
                 }
             }
             catch (Exception ex)

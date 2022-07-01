@@ -51,6 +51,7 @@ builder.Services.AddTransient<ITaskFactory, WorkOrder.Online.Data.TaskFactory>()
 builder.Services.AddTransient<IProductFactory, ProductFactory>();
 builder.Services.AddTransient<ICustomerFactory, CustomerFactory>();
 builder.Services.AddTransient<IProjectFactory, ProjectFactory>();
+builder.Services.AddTransient<IProjectSequenceFactory, ProjectSequenceFactory>();
 
 var app = builder.Build();
 

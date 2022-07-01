@@ -113,6 +113,15 @@
                                             </div>
                                         </div>
 
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-group">
+                                                    <label for="ProjectStartSequence" class="form-label">@Localizer["ProjectStartSequence"]:</label>
+                                                    <input name="ProjectStartSequence" type="number" class="form-control" maxlength="8" />
+                                                </div>
+                                            </div>
+
+                                        </div>
 
                                         @if (User.IsInRole("SuperAdmin"))
                                         {
@@ -149,7 +158,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="editForm">
-                    <div id="addError" class="alert alert-danger" style="display:none" role="alert"></div>
+                    <div id="editError" class="alert alert-danger" style="display:none" role="alert"></div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
@@ -215,6 +224,15 @@
                                                     <input name="nbrUsers" type="number" class="form-control" maxlength="4" @(!User.IsInRole("SuperAdmin") ? "readonly" : "") />
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-group">
+                                                    <label for="ProjectStartSequence" class="form-label">@Localizer["ProjectStartSequence"]:</label>
+                                                    <input name="ProjectStartSequence" type="number" class="form-control" maxlength="8" />
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="row">
                                             <div class="form-group">

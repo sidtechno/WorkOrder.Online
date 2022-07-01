@@ -183,6 +183,9 @@
   <data name="PostalCode" xml:space="preserve">
     <value>Postal Code</value>
   </data>
+  <data name="ProjectStartSequence" xml:space="preserve">
+    <value>Start Sequence (Project No)</value>
+  </data>
   <data name="Province" xml:space="preserve">
     <value>Province</value>
   </data>

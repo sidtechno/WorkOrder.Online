@@ -10,10 +10,13 @@ namespace WorkOrder.Online.Services
     public class OrganizationService : IOrganizationService
     {
         private readonly IOrganizationFactory _organizationFactory;
+        private readonly IProjectSequenceFactory _projectSequenceFactory;
 
-        public OrganizationService(IOrganizationFactory organizationFactory)
+        public OrganizationService(IOrganizationFactory organizationFactory,
+            IProjectSequenceFactory projectSequenceFactory)
         {
             _organizationFactory = organizationFactory;
+            _projectSequenceFactory = projectSequenceFactory;
         }
 
         public async Task<int> Create(OrganizationViewModel model)
@@ -62,7 +65,10 @@ namespace WorkOrder.Online.Services
         public async Task<OrganizationViewModel> GetOrganization(int organizationId)
         {
             var organization = await _organizationFactory.GetOrganization(organizationId);
-            return organization.Adapt<OrganizationViewModel>();
+            var projectSequence = await _projectSequenceFactory.GetProjectSequence(organizationId);
+            var model = organization.Adapt<OrganizationViewModel>();
+            model.ProjectStartSequence = projectSequence != null ? projectSequence.Sequence : 100;
+            return model;
         }
 
         public async Task<IEnumerable<SelectListItem>> GetOrganizationsSelectList()

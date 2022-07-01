@@ -18,8 +18,8 @@ namespace WorkOrder.Online.Services
 
         public async Task<IEnumerable<ProjectViewModel>> GetProjects(int organizationId)
         {
-            var products = await _projectFactory.GetProjects(organizationId);
-            return products.Adapt<IEnumerable<ProjectViewModel>>();
+            var projects = await _projectFactory.GetProjects(organizationId);
+            return projects.Adapt<IEnumerable<ProjectViewModel>>();
         }
 
         public async Task<int> Create(ProjectViewModel model)

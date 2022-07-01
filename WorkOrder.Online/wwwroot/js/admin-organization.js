@@ -286,8 +286,8 @@
                     'data-bs-target': '#addModal'
                 },
                 action: function (e, dt, button, config) {
-                    $('#roleError').hide();
-                    $('#roleForm').trigger('reset');
+                    $('#addError').hide();
+                    $('#addForm').trigger('reset');
                 }
             });
         }
@@ -324,6 +324,8 @@
                         $('#editForm input[name=nbrUsers]').val(response.nbrUsers);
                         $('#editForm textarea[name=Notes]').val(response.notes);
                         $('#editForm input[name=isActive]').prop('checked', response.isActive);
+                        $('#editForm input[name=ProjectStartSequence]').val(response.projectStartSequence);
+
                     },
                     error: function (xhr, status, error) {
                         alert('Error');

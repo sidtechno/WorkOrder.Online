@@ -53,20 +53,43 @@ namespace WorkOrder.Online.Data
                            ,@Description
                            ,@OrganizationId)";
 
+                var sqlStartSequence = @"IF NOT EXISTS (SELECT * FROM [dbo].[ProjectSequences] WHERE [OrganizationId] = @Id)
+                            INSERT INTO [dbo].[ProjectSequences]
+                             (Sequence, OrganizationId)
+                             VALUES(@Sequence, @Id)
+                        ELSE
+                            UPDATE [dbo].[ProjectSequences]
+                              SET [Sequence] = @Sequence
+                              WHERE [OrganizationId] = @Id";
+
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
                     connection.Open();
-
-                    var result = await connection.QuerySingleOrDefaultAsync<int>(sql,
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        var result = await connection.QuerySingleOrDefaultAsync<int>(sql,
                         new
                         {
                             ProjectNo = model.ProjectNo,
                             Description = model.Description,
                             OrganizationId = model.OrganizationId
                         },
-                        commandType: CommandType.Text);
+                        commandType: CommandType.Text,
+                        transaction: transaction);
 
-                    return result;
+                        await connection.ExecuteAsync(sqlStartSequence,
+                          new
+                          {
+                              Sequence = model.ProjectNo,
+                              Id = model.OrganizationId
+                          },
+                          commandType: CommandType.Text,
+                          transaction: transaction);
+
+                        transaction.Commit();
+
+                        return result;
+                    }
                 }
             }
             catch (Exception ex)

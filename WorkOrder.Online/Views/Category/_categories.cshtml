@@ -1,0 +1,35 @@
+﻿@model WorkOrder.Online.Models.CategoryListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using WorkOrder.Online.Services.Interfaces
+
+@inject IViewLocalizer Localizer
+@inject IUserService userService
+
+@{
+    var currentUser = userService.GetCurrentUserCredentials();
+}
+
+<table id="categoryTable" class="table table-striped dataTable w-100" data-processing="true">
+    <thead>
+        <tr>
+            <th data-data="id">Id</th>
+            <th data-data="description_fr" class="@(currentUser.Language.ToUpper() == "EN" ? "hidden" : "")">@Localizer["Description"]</th>
+            <th data-data="description_en" class="@(currentUser.Language.ToUpper() == "FR" ? "hidden" : "")">@Localizer["Description"]</th>
+            <th data-data="cost">@Localizer["Cost"]</th>
+            <th data-data="retail">@Localizer["Retail"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model.Categories)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td class="@(currentUser.Language.ToUpper() == "EN" ? "hidden" : "")">@category.Description_Fr</td>
+                <td class="@(currentUser.Language.ToUpper() == "FR" ? "hidden" : "")">@category.Description_En</td>
+                <td>@category.Cost</td>
+                <td>@category.Retail</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -43,6 +43,7 @@ builder.Services.AddTransient<ITaskService, TaskService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IProjectService, ProjectService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 // Factory
 builder.Services.AddTransient<IUserFactory, UserFactory>();
@@ -52,6 +53,7 @@ builder.Services.AddTransient<IProductFactory, ProductFactory>();
 builder.Services.AddTransient<ICustomerFactory, CustomerFactory>();
 builder.Services.AddTransient<IProjectFactory, ProjectFactory>();
 builder.Services.AddTransient<IProjectSequenceFactory, ProjectSequenceFactory>();
+builder.Services.AddTransient<ICategoryFactory, CategoryFactory>();
 
 var app = builder.Build();
 

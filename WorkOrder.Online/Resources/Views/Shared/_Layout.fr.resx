@@ -126,6 +126,9 @@
   <data name="LightMode" xml:space="preserve">
     <value>mode clair</value>
   </data>
+  <data name="MenuCategories" xml:space="preserve">
+    <value>Catégories</value>
+  </data>
   <data name="MenuCustomer" xml:space="preserve">
     <value>Clients</value>
   </data>

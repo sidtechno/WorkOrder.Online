@@ -117,55 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DarkMode" xml:space="preserve">
-    <value>Dark Mode</value>
+  <data name="Add" xml:space="preserve">
+    <value>Ajouter</value>
   </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>Invalid email format</value>
+  <data name="AddCategory" xml:space="preserve">
+    <value>Ajouter une catégorie</value>
   </data>
-  <data name="LightMode" xml:space="preserve">
-    <value>Light Mode</value>
+  <data name="Close" xml:space="preserve">
+    <value>Fermer</value>
   </data>
-  <data name="MenuCategories" xml:space="preserve">
-    <value>Categories</value>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
   </data>
-  <data name="MenuCustomer" xml:space="preserve">
-    <value>Customers</value>
+  <data name="Cost" xml:space="preserve">
+    <value>Prix coutant</value>
   </data>
-  <data name="MenuHelp" xml:space="preserve">
-    <value>Help</value>
+  <data name="CreateSuccess" xml:space="preserve">
+    <value>Catégorie créé avec succès!</value>
   </data>
-  <data name="MenuLogout" xml:space="preserve">
-    <value>Logout</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
   </data>
-  <data name="MenuManagement" xml:space="preserve">
-    <value>Management</value>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Oui, supprimer la catégorie</value>
   </data>
-  <data name="MenuOrganization" xml:space="preserve">
-    <value>Organizations</value>
+  <data name="DeleteSuccess" xml:space="preserve">
+    <value>Catégorie supprimé avec succès!</value>
   </data>
-  <data name="MenuProduct" xml:space="preserve">
-    <value>Products</value>
+  <data name="DeleteText" xml:space="preserve">
+    <value>Voulez-vous vraiment supprimer cette catégorie?</value>
   </data>
-  <data name="MenuProfile" xml:space="preserve">
-    <value>Profile</value>
+  <data name="DeleteTitle" xml:space="preserve">
+    <value>Supprimer cette catégorie</value>
   </data>
-  <data name="MenuProject" xml:space="preserve">
-    <value>Projects</value>
+  <data name="Description_En" xml:space="preserve">
+    <value>Description (anglais)</value>
   </data>
-  <data name="MenuRole" xml:space="preserve">
-    <value>Roles</value>
+  <data name="Description_Fr" xml:space="preserve">
+    <value>Description (français)</value>
   </data>
-  <data name="MenuTask" xml:space="preserve">
-    <value>Tasks</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
   </data>
-  <data name="MenuUser" xml:space="preserve">
-    <value>Users</value>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Modifier une catégorie</value>
   </data>
-  <data name="MenuWorkOrder" xml:space="preserve">
-    <value>Work Order</value>
+  <data name="MinLength" xml:space="preserve">
+    <value>Doit contenir au moins 3 caractères</value>
   </data>
-  <data name="Required" xml:space="preserve">
-    <value>This field is required</value>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="Retail" xml:space="preserve">
+    <value>Prix de détail</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Gestion des catégories</value>
+  </data>
+  <data name="UpdateSuccess" xml:space="preserve">
+    <value>Catégorie mise-à-jour avec succès!</value>
   </data>
 </root>

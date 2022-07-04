@@ -105,7 +105,14 @@
         if (form.valid()) {
             var formData = $(form).serialize();
 
-            formData = formData;
+            var res = formData.split("&");
+            for (var i = 0; i < res.length; i++) {
+                if (res[i].indexOf("IsWoPriceHidden") == 0) {
+                    res[i] = 'IsWoPriceHidden=' + $('#addForm input[name=IsWoPriceHidden]').prop('checked');
+                }
+            }
+
+            formData = res.join("&");
 
             $.ajax({
                 url: ajaxUrl + '/Organizations/Create',
@@ -197,6 +204,9 @@
             for (var i = 0; i < res.length; i++) {
                 if (res[i].indexOf("isActive") == 0) {
                     res[i] = 'isActive=' + $('#editForm input[name=isActive]').prop('checked');
+                }
+                if (res[i].indexOf("IsWoPriceHidden") == 0) {
+                    res[i] = 'IsWoPriceHidden=' + $('#editForm input[name=IsWoPriceHidden]').prop('checked');
                 }
             }
 
@@ -325,7 +335,7 @@
                         $('#editForm textarea[name=Notes]').val(response.notes);
                         $('#editForm input[name=isActive]').prop('checked', response.isActive);
                         $('#editForm input[name=ProjectStartSequence]').val(response.projectStartSequence);
-
+                        $('#editForm input[name=IsWoPriceHidden]').prop('checked', response.isWoPriceHidden);
                     },
                     error: function (xhr, status, error) {
                         alert('Error');

@@ -31,6 +31,7 @@ namespace WorkOrder.Online.Data
                         ,O.[Notes]
                         ,O.[CreationDate]
                         ,O.[IsActive]
+                        ,O.[IsWoPriceHidden]
 	                    ,(SELECT COUNT(*) FROM AspNetUserClaims WHERE ClaimType = 'OrganizationId' AND ClaimValue = CAST(O.Id as varchar(10))) AS NbrActiveUsers
                     FROM [dbo].[Organizations] O
                     WHERE Id > 1";
@@ -62,7 +63,8 @@ namespace WorkOrder.Online.Data
                            ,[NbrUsers]
                            ,[Notes]
                            ,[CreationDate]
-                           ,[IsActive])
+                           ,[IsActive]
+                           ,[IsWoPriceHidden])
                      OUTPUT INSERTED.Id
                      VALUES
                            (@Name
@@ -76,7 +78,8 @@ namespace WorkOrder.Online.Data
                            ,@NbrUsers 
                            ,@Notes 
                            ,@CreationDate
-                           ,@IsActive)";
+                           ,@IsActive
+                           ,@IsWoPriceHidden)";
 
                 var sqlStartSequence = @"IF NOT EXISTS (SELECT * FROM [dbo].[ProjectSequences] WHERE [OrganizationId] = @Id)
                             INSERT INTO [dbo].[ProjectSequences]
@@ -107,7 +110,8 @@ namespace WorkOrder.Online.Data
                             NbrUsers = model.NbrUsers,
                             Notes = model.Notes,
                             CreationDate = model.CreationDate,
-                            IsActive = model.IsActive
+                            IsActive = model.IsActive,
+                            IsWoPriceHidden = model.IsWoPriceHidden
                         },
                         commandType: CommandType.Text,
                         transaction: transaction);
@@ -149,6 +153,7 @@ namespace WorkOrder.Online.Data
                            ,[NbrUsers] = @NbrUsers
                            ,[Notes] = @Notes
                            ,[IsActive] = @IsActive
+                           ,[IsWoPriceHidden] = @IsWoPriceHidden
                            WHERE Id = @Id";
 
                 var sqlStartSequence = @"IF NOT EXISTS (SELECT * FROM [dbo].[ProjectSequences] WHERE [OrganizationId] = @Id)
@@ -181,7 +186,8 @@ namespace WorkOrder.Online.Data
                             NbrUsers = model.NbrUsers,
                             Notes = model.Notes,
                             CreationDate = model.CreationDate,
-                            IsActive = model.IsActive
+                            IsActive = model.IsActive,
+                            IsWoPriceHidden = model.IsWoPriceHidden
                         },
                         commandType: CommandType.Text,
                         transaction: transaction);
@@ -242,6 +248,7 @@ namespace WorkOrder.Online.Data
                           ,[Notes]
                           ,[CreationDate]
                           ,[IsActive]
+                          ,[IsWoPriceHidden]
                         FROM [dbo].[Organizations]
                         WHERE ID = @Id";
 

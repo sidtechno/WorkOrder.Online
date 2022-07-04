@@ -46,20 +46,6 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
-        //[HttpGet("Organizations/{id}")]
-        //public async Task<IActionResult> GetOrganization(int id)
-        //{
-        //    try
-        //    {
-        //        return Ok(await _organizationService.GetOrganization(id));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        //ex.ToExceptionless().Submit();
-        //        return BadRequest();
-        //    }
-        //}
-
         [HttpPost("Tasks/[action]")]
         public async Task<IActionResult> Create(TaskViewModel model)
         {

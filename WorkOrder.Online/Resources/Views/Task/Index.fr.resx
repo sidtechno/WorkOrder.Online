@@ -129,6 +129,9 @@
   <data name="Code" xml:space="preserve">
     <value>Code</value>
   </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Prix coutant</value>
+  </data>
   <data name="CreateSuccess" xml:space="preserve">
     <value>Tâche créé avec succès!</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="Required" xml:space="preserve">
     <value>Ce champs est requis</value>
+  </data>
+  <data name="Retail" xml:space="preserve">
+    <value>Prix de détail</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Sauvegarder</value>

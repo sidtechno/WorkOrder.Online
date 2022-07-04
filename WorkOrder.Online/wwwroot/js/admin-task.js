@@ -21,7 +21,7 @@
         },
         "aoColumnDefs": [
             {
-                "aTargets": [0, 6],
+                "aTargets": [0, 7],
                 "visible": false
             },
             {
@@ -30,14 +30,14 @@
             },
             {
                 "aTargets": [2],
-                "width": "60%"
+                "width": "50%"
             },
             {
-                "aTargets": [4],
+                "aTargets": [4,5],
                 "width": "10%",
             },
             {
-                "aTargets": [5],
+                "aTargets": [6],
                 "width": "10%",
                 "className": "dt-center"
             }
@@ -75,7 +75,8 @@
                     $('#editForm input[name=code]').val(data.code);
                     $('#editForm input[name=description_fr]').val(data.description_fr);
                     $('#editForm input[name=description_en]').val(data.description_en);
-                    $('#editForm input[name=price]').val(data.price);
+                    $('#editForm input[name=cost]').val(data.cost);
+                    $('#editForm input[name=retail]').val(data.retail);
                     $('#editForm input[name=isFlatRate]').prop('checked', data.isflatrate == 'True' ? true : false);
                 }
             },
@@ -132,7 +133,11 @@
                     required: true,
                     noSpace: true
                 },
-                'price': {
+                'cost': {
+                    required: true,
+                    noSpace: true
+                },
+                'retail': {
                     required: true,
                     noSpace: true
                 }
@@ -150,7 +155,11 @@
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
                 },
-                'price': {
+                'cost': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'retail': {
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
                 }
@@ -174,7 +183,8 @@
                 Code: $('#addForm input[name=code]').val(),
                 Description_Fr: $('#addForm input[name=description_fr]').val(),
                 Description_En: $('#addForm input[name=description_en]').val(),
-                Price: $('#hidLanguage').val().toUpperCase() == 'FR' ? $('#addForm input[name=price]').val().replace('.', ',') : $('#addForm input[name=price]').val().replace(',', '.'),
+                Cost: $('#hidLanguage').val().toUpperCase() == 'FR' ? $('#addForm input[name=cost]').val().replace('.', ',') : $('#addForm input[name=cost]').val().replace(',', '.'),
+                Retail: $('#hidLanguage').val().toUpperCase() == 'FR' ? $('#addForm input[name=retail]').val().replace('.', ',') : $('#addForm input[name=retail]').val().replace(',', '.'),
                 IsFlatRate: $('#addForm input[name=isFlatRate]').prop("checked"),
                 OrganizationId: $('#hidSelectedOrganizationId').val()
             }
@@ -210,7 +220,11 @@
                     required: true,
                     noSpace: true
                 },
-                'price': {
+                'cost': {
+                    required: true,
+                    noSpace: true
+                },
+                'retail': {
                     required: true,
                     noSpace: true
                 }
@@ -228,7 +242,11 @@
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
                 },
-                'price': {
+                'cost': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'retail': {
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
                 }
@@ -253,7 +271,8 @@
                 Code: $('#editForm input[name=code]').val(),
                 Description_Fr: $('#editForm input[name=description_fr]').val(),
                 Description_En: $('#editForm input[name=description_en]').val(),
-                Price: $('#hidLanguage').val().toUpperCase() == 'FR' ? $('#editForm input[name=price]').val().replace('.', ',') : $('#editForm input[name=price]').val().replace(',', '.'),
+                Cost: $('#hidLanguage').val().toUpperCase() == 'FR' ? $('#editForm input[name=cost]').val().replace('.', ',') : $('#editForm input[name=cost]').val().replace(',', '.'),
+                Retail: $('#hidLanguage').val().toUpperCase() == 'FR' ? $('#editForm input[name=retail]').val().replace('.', ',') : $('#editForm input[name=retail]').val().replace(',', '.'),
                 IsFlatRate: $('#editForm input[name=isFlatRate]').prop("checked"),
                 OrganizationId: $('#hidSelectedOrganizationId').val()
             }

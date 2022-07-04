@@ -21,7 +21,8 @@ namespace WorkOrder.Online.Data
                   ,[Code]
                   ,[Description_Fr]
                   ,[Description_En]
-                  ,[Price]
+                  ,[Cost]
+                  ,[Retail]
                   ,[IsFlatRate]
                   ,[OrganizationId]
               FROM [dbo].[Tasks]
@@ -50,7 +51,8 @@ namespace WorkOrder.Online.Data
                            ([Code]
                            ,[Description_Fr]
                            ,[Description_En]
-                           ,[Price]
+                           ,[Cost]
+                           ,[Retail]
                            ,[IsFlatRate]
                            ,[OrganizationId])
                         OUTPUT INSERTED.Id
@@ -58,7 +60,8 @@ namespace WorkOrder.Online.Data
                            (@Code
                            ,@Description_Fr
                            ,@Description_En
-                           ,@Price
+                           ,@Cost
+                           ,@Retail
                            ,@IsFlatRate
                            ,@OrganizationId)";
 
@@ -72,7 +75,8 @@ namespace WorkOrder.Online.Data
                             Code = model.Code,
                             Description_Fr = model.Description_Fr,
                             Description_En = model.Description_En,
-                            Price = model.Price,
+                            Cost = model.Cost,
+                            Retail = model.Retail,
                             IsFlatRate = model.IsFlatRate,
                             OrganizationId = model.OrganizationId
                         },
@@ -95,7 +99,8 @@ namespace WorkOrder.Online.Data
                            SET [Code] = @Code
                            ,[Description_Fr] = @Description_Fr
                            ,[Description_En] = @Description_En
-                           ,[Price] = @Price
+                           ,[Cost] = @Cost
+                           ,[Retail] = @Retail
                            ,[IsFlatRate] = @IsFlatRate
                            WHERE Id = @Id";
 
@@ -110,7 +115,8 @@ namespace WorkOrder.Online.Data
                             Code = model.Code,
                             Description_Fr = model.Description_Fr,
                             Description_En = model.Description_En,
-                            Price = model.Price,
+                            Cost = model.Cost,
+                            Retail = model.Retail,
                             IsFlatRate = model.IsFlatRate
                         },
                         commandType: CommandType.Text);
@@ -144,38 +150,5 @@ namespace WorkOrder.Online.Data
             }
         }
 
-        //public async Task<OrganizationModel> GetOrganization(int organizationId)
-        //{
-        //    var sql = @"SELECT 
-        //                   [Id]
-        //                  ,[Name]
-        //                  ,[Address]
-        //                  ,[City]
-        //                  ,[Province]
-        //                  ,[PostalCode]
-        //                  ,[Phone]
-        //                  ,[Email]
-        //                  ,[Language]
-        //                  ,[NbrUsers]
-        //                  ,[Notes]
-        //                  ,[CreationDate]
-        //                  ,[IsActive]
-        //                FROM [dbo].[Organizations]
-        //                WHERE ID = @Id";
-
-        //    using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-        //    {
-        //        connection.Open();
-
-        //        var result = await connection.QueryFirstOrDefaultAsync<OrganizationModel>(sql,
-        //                     new
-        //                     {
-        //                         Id = organizationId
-        //                     },
-        //                     commandType: CommandType.Text);
-
-        //        return result;
-        //    }
-        //}
     }
 }

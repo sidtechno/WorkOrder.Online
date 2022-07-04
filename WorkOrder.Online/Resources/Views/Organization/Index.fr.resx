@@ -165,6 +165,9 @@
   <data name="IsActive" xml:space="preserve">
     <value>Actif</value>
   </data>
+  <data name="IsWoPriceHidden" xml:space="preserve">
+    <value>Cacher les prix bons de travail</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Langue</value>
   </data>

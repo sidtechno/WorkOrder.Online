@@ -15,6 +15,7 @@
         public string Notes { get; set; }
         public DateTime CreationDate { get; set; }
         public bool IsActive { get; set; }
+        public bool IsWoPriceHidden { get; set; }
         public int NbrActiveUsers { get; set; }
         public int WorkOrderCount { get; set; }
         public int EmailCount { get; set; }

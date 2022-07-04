@@ -130,9 +130,6 @@
     <value>Code</value>
   </data>
   <data name="Cost" xml:space="preserve">
-    <value>Cost</value>
-  </data>
-  <data name="Cost1" xml:space="preserve">
     <value>Cost Price</value>
   </data>
   <data name="CreateSuccess" xml:space="preserve">
@@ -175,9 +172,6 @@
     <value>Organization</value>
   </data>
   <data name="Retail" xml:space="preserve">
-    <value>Retail</value>
-  </data>
-  <data name="Retail1" xml:space="preserve">
     <value>Retail Price</value>
   </data>
   <data name="Save" xml:space="preserve">

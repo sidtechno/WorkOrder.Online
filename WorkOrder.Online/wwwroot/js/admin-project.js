@@ -8,6 +8,7 @@
         $('#hidSelectedOrganizationId').val(selectedOrganization);
         $('input[name="selectedOrganizationId"]').val(selectedOrganization);
         UpdateProjectList(selectedOrganization);
+        UpdateCustomerList(selectedOrganization);
     });
 
     var tableSettings = {
@@ -19,7 +20,7 @@
         },
         "aoColumnDefs": [
             {
-                "aTargets": [0],
+                "aTargets": [0,4],
                 "visible": false
             },
             {
@@ -76,6 +77,7 @@
                     $('#editForm input[name=id]').val(data.id);
                     $('#editForm input[name=projectNo]').val(data.projectNo);
                     $('#editForm input[name=description]').val(data.description);
+                    $('#editForm select[name=SelectedCustomerId]').val(data.customerId);
                 }
             },
             {
@@ -122,10 +124,18 @@
                 'projectNo': {
                     required: true,
                     noSpace: true
+                },
+                'SelectedCustomerId': {
+                    required: true,
+                    noSpace: true
                 }
             },
             messages: {
                 'projectNo': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'SelectedCustomerId': {
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
                 }
@@ -148,7 +158,8 @@
             var data = {
                 projectNo: $('#addForm input[name=projectNo]').val(),
                 Description: $('#addForm input[name=description]').val(),
-                OrganizationId: $('#hidSelectedOrganizationId').val()
+                OrganizationId: $('#hidSelectedOrganizationId').val(),
+                CustomerId: $('#addForm select[name=SelectedCustomerId]').val()
             }
 
             $.ajax({
@@ -180,6 +191,25 @@
                     required: $('#hidRequired').val(),
                     noSpace: $('#hidRequired').val()
                 }
+            }, rules: {
+                'projectNo': {
+                    required: true,
+                    noSpace: true
+                },
+                'SelectedCustomerId': {
+                    required: true,
+                    noSpace: true
+                }
+            },
+            messages: {
+                'projectNo': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                },
+                'SelectedCustomerId': {
+                    required: $('#hidRequired').val(),
+                    noSpace: $('#hidRequired').val()
+                }
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -200,7 +230,8 @@
                 Id: $('#editForm input[name=id]').val(),
                 ProjectNo: $('#editForm input[name=projectNo]').val(),
                 Description: $('#editForm input[name=description]').val(),
-                OrganizationId: $('#hidSelectedOrganizationId').val()
+                OrganizationId: $('#hidSelectedOrganizationId').val(),
+                CustomerId: $('#editForm select[name=SelectedCustomerId]').val()
             }
 
             $.ajax({
@@ -260,9 +291,9 @@
         //});
     }
 
-    function UpdateProjectList() {
+    function UpdateProjectList(selectedOrganization) {
         $.ajax({
-            url: ajaxUrl + '/Projects/list',
+            url: ajaxUrl + '/Projects/List',
             type: "GET",
             data: {
                 organizationId: $('#hidSelectedOrganizationId').val()
@@ -272,6 +303,29 @@
             success: function (response) {
                 $('#project-list').empty().append(response);
                 initTable();
+            },
+            error: function (xhr, status, error) {
+                alert('Error');
+            }
+        });
+    }
+
+    function UpdateCustomerList(selectedOrganization) {
+        $.ajax({
+            url: ajaxUrl + '/Projects/Customers',
+            type: "GET",
+            data: {
+                organizationId: $('#hidSelectedOrganizationId').val()
+            },
+           // dataType: "html",
+            async: false,
+            success: function (response) {
+                $('select[name="SelectedCustomerId"]').empty().append('<option value="">' + $('#hidSelectOption').val() + '</option>');
+                $.each(response, function (index, item) {
+                    $('select[name="SelectedCustomerId"]').append(
+                        $('<option value="' + item.value + '">' + item.text + '</option>')
+                    );
+                });
             },
             error: function (xhr, status, error) {
                 alert('Error');

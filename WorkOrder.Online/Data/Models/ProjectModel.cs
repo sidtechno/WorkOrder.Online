@@ -6,5 +6,6 @@
         public string ProjectNo { get; set; }
         public string Description { get; set; }
         public int OrganizationId { get; set; }
+        public int CustomerId { get; set; }
     }
 }

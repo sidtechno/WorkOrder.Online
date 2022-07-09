@@ -10,14 +10,18 @@ namespace WorkOrder.Online.Controllers
     {
         private readonly IProjectService _projectService;
         private readonly IOrganizationService _organizationService;
+        private readonly ICustomerService _customerService;
+
         public ProjectController(
             IHttpContextAccessor httpContextAccessor,
             IProjectService projectService,
+            ICustomerService customerService,
             IOrganizationService organizationService,
             IUserService userService) : base(httpContextAccessor, userService)
         {
             _projectService = projectService;
             _organizationService = organizationService;
+            _customerService = customerService;
         }
 
         [HttpGet("Projects")]
@@ -28,6 +32,12 @@ namespace WorkOrder.Online.Controllers
                 var model = new ProjectListViewModel()
                 {
                     Projects = await _projectService.GetProjects(CurrentUser.OrganizationId),
+                    CustomerSelector = new CustomerSelectorViewModel
+                    {
+                        Customers = await _customerService.GetCustomersSelectList(CurrentUser.OrganizationId),
+                        SelectedCustomerId = HttpContext.User.IsInRole("Administrator") ? CurrentUser.OrganizationId : 0,
+                        disabled = false
+                    },
                     OrganizationSelector = new OrganizationSelectorViewModel
                     {
                         Organizations = await _organizationService.GetOrganizationsSelectList(),
@@ -46,7 +56,7 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
-       
+
         [HttpPost("Projects/[action]")]
         public async Task<IActionResult> Create(ProjectViewModel model)
         {
@@ -77,13 +87,30 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
-        [HttpGet("Projects/list")]
+        [HttpGet("Projects/List")]
         public async Task<IActionResult> GetProjectList(int organizationId)
         {
             try
             {
-                var model = new ProjectListViewModel() { Projects = await _projectService.GetProjects(organizationId) };
+                var model = new ProjectListViewModel()
+                {
+                    Projects = await _projectService.GetProjects(organizationId),
+                };
                 return PartialView("_projects", model);
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("Projects/Customers")]
+        public async Task<IActionResult> GetProjectCustomers(int organizationId)
+        {
+            try
+            {
+                return Ok(await _customerService.GetCustomersSelectList(organizationId));
             }
             catch (Exception ex)
             {

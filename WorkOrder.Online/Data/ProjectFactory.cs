@@ -21,6 +21,7 @@ namespace WorkOrder.Online.Data
                   ,[ProjectNo]
                   ,[Description]
                   ,[OrganizationId]
+                  ,[CustomerId]
               FROM [dbo].[Projects]
               WHERE OrganizationId = @OrganizationId";
 
@@ -46,12 +47,14 @@ namespace WorkOrder.Online.Data
                 var sql = @"INSERT INTO [dbo].[Projects]
                            ([ProjectNo]
                            ,[Description]
-                           ,[OrganizationId])
+                           ,[OrganizationId]
+                           ,[CustomerId])
                         OUTPUT INSERTED.Id
                         VALUES
                            (@ProjectNo
                            ,@Description
-                           ,@OrganizationId)";
+                           ,@OrganizationId
+                           ,@CustomerId)";
 
                 var sqlStartSequence = @"IF NOT EXISTS (SELECT * FROM [dbo].[ProjectSequences] WHERE [OrganizationId] = @Id)
                             INSERT INTO [dbo].[ProjectSequences]
@@ -72,7 +75,8 @@ namespace WorkOrder.Online.Data
                         {
                             ProjectNo = model.ProjectNo,
                             Description = model.Description,
-                            OrganizationId = model.OrganizationId
+                            OrganizationId = model.OrganizationId,
+                            CustomerId = model.CustomerId
                         },
                         commandType: CommandType.Text,
                         transaction: transaction);
@@ -105,6 +109,7 @@ namespace WorkOrder.Online.Data
                 var sql = @"UPDATE [dbo].[Projects]
                            SET [ProjectNo] = @ProjectNo
                            ,[Description] = @Description
+                           ,[CustomerId] = @CustomerId
                            WHERE Id = @Id";
 
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
@@ -116,7 +121,8 @@ namespace WorkOrder.Online.Data
                         {
                             Id = model.Id,
                             ProjectNo = model.ProjectNo,
-                            Description = model.Description
+                            Description = model.Description,
+                            CustomerId = model.CustomerId
                         },
                         commandType: CommandType.Text);
 

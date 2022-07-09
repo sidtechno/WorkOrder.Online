@@ -22,6 +22,17 @@ namespace WorkOrder.Online.Services
             return customers.Adapt<IEnumerable<CustomerViewModel>>();
         }
 
+        public async Task<IEnumerable<SelectListItem>> GetCustomersSelectList(int organizationId)
+        {
+            var customers = await _customerFactory.GetCustomers(organizationId);
+
+            return customers.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            }).OrderBy(o => o.Text);
+        }
+
         public async Task<int> Create(CustomerViewModel model)
         {
             try

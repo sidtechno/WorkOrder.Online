@@ -1,0 +1,22 @@
+﻿@model WorkOrder.Online.Models.CustomerSelectorViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@if (Model.disabled)
+{
+    <select id="@Model.UniqueId" class="form-select custom-select" asp-for="SelectedCustomerId"
+            asp-items="Model.Customers" disabled>
+        <option value="">@Localizer["SelectOption"]</option>
+    </select>
+}
+else
+{
+    <select id="@Model.UniqueId" class="form-select custom-select auto-complete" asp-for="SelectedCustomerId"
+            asp-items="Model.Customers">
+        <option value="">@Localizer["SelectOption"]</option>
+    </select>
+}
+
+<span asp-validation-for="SelectedCustomerId" class="text-danger"></span>

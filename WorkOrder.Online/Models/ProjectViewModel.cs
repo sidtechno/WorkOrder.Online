@@ -7,5 +7,6 @@
         public string Description { get; set; }
         public int OrganizationId { get; set; }
         public int NbWorkOrder { get; set; }
+        public int CustomerId { get; set; }
     }
 }

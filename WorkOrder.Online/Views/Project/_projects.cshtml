@@ -16,7 +16,8 @@
             <th data-data="id">Id</th>
             <th data-data="projectNo">@Localizer["ProjectNo"]</th>
             <th data-data="description">@Localizer["Description"]</th>
-            <th data-data="isflatrate">@Localizer["NbWorkOrder"]</th>
+            <th data-data="nbWo">@Localizer["NbWorkOrder"]</th>
+             <th data-data="customerId">@Localizer["CustomerId"]</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,7 @@
                 <td>@project.ProjectNo</td>
                 <td>@project.Description</td>
                 <td>@project.NbWorkOrder</td>
+                <td>@project.CustomerId</td>
             </tr>
         }
     </tbody>

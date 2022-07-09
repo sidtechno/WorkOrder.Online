@@ -300,7 +300,7 @@
             },
             "aoColumnDefs": [
                 {
-                    "aTargets": [0, 5, 8, 9, 10, 11],
+                    "aTargets": [0, 5, 8, 9, 10, 11, 12],
                     "visible": false
                 },
                 {
@@ -342,6 +342,7 @@
                         $('#editUserForm input[name=firstname]').val(data.firstname);
                         $('#editUserForm input[name=lastname]').val(data.lastname);
                         $('#editUserForm input[name=cellphone]').val(data.cellphone);
+                        $('#editUserForm input[name=costHour]').val(data.costHour);
                         $("#editUserForm select[name='SelectedOrganizationId']").val(data.organizationId).trigger('change');
                        
 

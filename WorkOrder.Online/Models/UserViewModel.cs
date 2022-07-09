@@ -19,7 +19,7 @@ namespace WorkOrder.Online.Models
 
         public int OrganizationId { get; set; }
         public string OrganizationName { get; set; }
-
+        public string CostHour { get; set; }
 
         public int StartUpScreenId { get; set; }
 

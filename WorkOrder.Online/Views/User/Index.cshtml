@@ -90,6 +90,10 @@
                                     <label>@Localizer["Organization"]:</label>
                                     @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label for="costHour" class="form-label">@Localizer["CostHour"]:</label>
+                                    <input id="costHour" name="costHour" type="text" class="form-control" maxlength="10" />
+                                </div>
                                 <div class="form-group">
                                     <label>@Localizer["UserRoles"]:</label>
                                     <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
@@ -162,6 +166,10 @@
                                 <div class="form-group mb-3">
                                     <label>@Localizer["Organization"]:</label>
                                     @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
+                                </div>
+                                 <div class="form-group mb-3">
+                                    <label for="costHour" class="form-label">@Localizer["CostHour"]:</label>
+                                    <input id="costHour" name="costHour" type="text" class="form-control" maxlength="10" />
                                 </div>
                                 <div class="form-group mb-3">
                                     <label>@Localizer["UserRoles"]:</label>

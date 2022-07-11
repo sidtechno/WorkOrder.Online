@@ -1,0 +1,22 @@
+﻿@model WorkOrder.Online.Models.CategorySelectorViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@if (Model.disabled)
+{
+    <select id="@Model.UniqueId" class="form-select custom-select" asp-for="SelectedCategoryId"
+            asp-items="Model.Categories" disabled>
+        <option value="">@Localizer["SelectOption"]</option>
+    </select>
+}
+else
+{
+    <select id="@Model.UniqueId" class="form-select custom-select auto-complete" asp-for="SelectedCategoryId"
+            asp-items="Model.Categories">
+        <option value="">@Localizer["SelectOption"]</option>
+    </select>
+}
+
+<span asp-validation-for="SelectedCategoryId" class="text-danger"></span>

@@ -56,5 +56,16 @@ namespace WorkOrder.Online.Services
         {
             return await _categoryFactory.Delete(categoryId);
         }
+
+        public async Task<IEnumerable<SelectListItem>> GetCategorySelectList(int organizationId, string language)
+        {
+            var categories = await _categoryFactory.GetCategories(organizationId);
+
+            return categories.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = language.ToLower() == "fr" ? x.Description_Fr : x.Description_En
+            }).OrderBy(o => o.Text);
+        }
     }
 }

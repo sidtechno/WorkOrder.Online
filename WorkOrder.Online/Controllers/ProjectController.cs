@@ -11,17 +11,20 @@ namespace WorkOrder.Online.Controllers
         private readonly IProjectService _projectService;
         private readonly IOrganizationService _organizationService;
         private readonly ICustomerService _customerService;
+        private readonly ICategoryService _categoryService;
 
         public ProjectController(
             IHttpContextAccessor httpContextAccessor,
             IProjectService projectService,
             ICustomerService customerService,
             IOrganizationService organizationService,
+            ICategoryService categoryService,
             IUserService userService) : base(httpContextAccessor, userService)
         {
             _projectService = projectService;
             _organizationService = organizationService;
             _customerService = customerService;
+            _categoryService = categoryService; 
         }
 
         [HttpGet("Projects")]
@@ -35,14 +38,20 @@ namespace WorkOrder.Online.Controllers
                     CustomerSelector = new CustomerSelectorViewModel
                     {
                         Customers = await _customerService.GetCustomersSelectList(CurrentUser.OrganizationId),
-                        SelectedCustomerId = HttpContext.User.IsInRole("Administrator") ? CurrentUser.OrganizationId : 0,
+                        SelectedCustomerId = 0,
                         disabled = false
                     },
                     OrganizationSelector = new OrganizationSelectorViewModel
                     {
                         Organizations = await _organizationService.GetOrganizationsSelectList(),
-                        SelectedOrganizationId = HttpContext.User.IsInRole("Administrator") ? CurrentUser.OrganizationId : 0,
+                        SelectedOrganizationId = 0,
                         disabled = HttpContext.User.IsInRole("Administrator")
+                    },
+                    CategorySelector = new CategorySelectorViewModel
+                    {
+                        Categories = await _categoryService.GetCategorySelectList(CurrentUser.OrganizationId, CurrentUser.Language),
+                        SelectedCategoryId = 0,
+                        disabled = false
                     },
                     RootUrl = BaseRootUrl
                 };
@@ -111,6 +120,20 @@ namespace WorkOrder.Online.Controllers
             try
             {
                 return Ok(await _customerService.GetCustomersSelectList(organizationId));
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("Projects/Categories")]
+        public async Task<IActionResult> GetProjectCategories(int organizationId)
+        {
+            try
+            {
+                return Ok(await _categoryService.GetCategorySelectList(organizationId, CurrentUser.Language));
             }
             catch (Exception ex)
             {

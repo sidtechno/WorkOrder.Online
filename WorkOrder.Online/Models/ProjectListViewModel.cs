@@ -7,6 +7,6 @@ namespace WorkOrder.Online.Models
         public IEnumerable<ProjectViewModel> Projects { get; set; }
         public CustomerSelectorViewModel CustomerSelector { get; set; }
         public OrganizationSelectorViewModel OrganizationSelector { get; set; }
-
+        public CategorySelectorViewModel CategorySelector { get; set; }
     }
 }

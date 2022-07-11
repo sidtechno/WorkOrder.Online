@@ -9,6 +9,7 @@
         $('input[name="selectedOrganizationId"]').val(selectedOrganization);
         UpdateProjectList(selectedOrganization);
         UpdateCustomerList(selectedOrganization);
+        UpdateCategoryList(selectedOrganization);
     });
 
     var tableSettings = {
@@ -333,6 +334,28 @@
         });
     }
 
+    function UpdateCategoryList(selectedOrganization) {
+        $.ajax({
+            url: ajaxUrl + '/Projects/Categories',
+            type: "GET",
+            data: {
+                organizationId: $('#hidSelectedOrganizationId').val()
+            },
+            // dataType: "html",
+            async: false,
+            success: function (response) {
+                $('select[name="SelectedCategoryId"]').empty().append('<option value="">' + $('#hidSelectOption').val() + '</option>');
+                $.each(response, function (index, item) {
+                    $('select[name="SelectedCategoryId"]').append(
+                        $('<option value="' + item.value + '">' + item.text + '</option>')
+                    );
+                });
+            },
+            error: function (xhr, status, error) {
+                alert('Error');
+            }
+        });
+    }
     function addDone(data, status, xhr) {
         $('#addModal').modal('hide');
         Swal.fire({

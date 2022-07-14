@@ -12,6 +12,49 @@
         UpdateCategoryList(selectedOrganization);
     });
 
+    $('select[name="SelectedCategoryId"]').on('change', function () {
+        var selectedCategoryId = $(this).val();
+        if (selectedCategoryId === '') return;
+        var selectedCategory = $("option:selected", this);
+
+        $('#tbodyCategories').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
+                                    <td class="hidden">${selectedCategoryId}</td>
+                                    <td>${selectedCategory[0].innerText}</td>
+                                    <td><input id="txtHours" type="text" class="form-control hours" /></td>
+                                    <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt fa-lg"></i></td>
+                                </tr >
+            `);
+
+        $('#tbodyCategoriesEdit').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
+                                    <td class="hidden">${selectedCategoryId}</td>
+                                    <td>${selectedCategory[0].innerText}</td>
+                                    <td><input id="txtHours" type="text" class="form-control hours" /></td>
+                                    <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt edit fa-lg"></i></td>
+                                </tr >
+            `);
+
+        $('#tblCategories').removeClass('hidden');
+        $('#tblCategoriesEdit').removeClass('hidden');
+    });
+
+    $(document).on("click", '.fa-trash-alt', function () {
+        $(this).closest('tr').remove();
+
+        if ($(this).hasClass('edit')) {
+            var rowCount = $('#tbodyCategoriesEdit tr').length;
+            if (rowCount === 0) {
+                $('#tblCategoriesEdit').addClass('hidden');
+            }
+        }
+        else {
+            var rowCount = $('#tbodyCategories tr').length;
+            if (rowCount === 0) {
+                $('#tblCategories').addClass('hidden');
+            }
+
+        }
+    });
+
     var tableSettings = {
         dom: 'Bfrtip',
         retrieve: true,
@@ -21,7 +64,7 @@
         },
         "aoColumnDefs": [
             {
-                "aTargets": [0,4],
+                "aTargets": [0, 4],
                 "visible": false
             },
             {
@@ -46,7 +89,7 @@
                 action: function (e, dt, button, config) {
                     $('#projectError').hide();
                     $('#addForm').trigger('reset');
-
+                    $('#tbodyCategories').empty();
                     $.ajax({
                         url: ajaxUrl + '/Projects/NextSequence/' + $('#hidSelectedOrganizationId').val(),
                         type: "GET",
@@ -79,6 +122,31 @@
                     $('#editForm input[name=projectNo]').val(data.projectNo);
                     $('#editForm input[name=description]').val(data.description);
                     $('#editForm select[name=SelectedCustomerId]').val(data.customerId);
+
+                    $.ajax({
+                        url: ajaxUrl + '/Projects/ProjectCategories/' + data.id,
+                        type: "GET",
+                        async: false,
+                        success: function (response) {
+                            $('#tbodyCategoriesEdit').empty();
+                            $.each(response, function (index, item) {
+                                $('#tbodyCategoriesEdit').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
+                                    <td class="hidden">${item.categoryId}</td>
+                                    <td>${$('#hidLanguage').val().toUpperCase() == 'FR' ? item.description_Fr : item.description_En}</td>
+                                    <td><input id="txtHours" type="text" class="form-control hours" value="${item.hours}" /></td>
+                                    <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt edit fa-lg"></i></td>
+                                </tr >
+                                `);
+                            });
+
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Error');
+                        }
+                    });
+
+                    data.id
+
                 }
             },
             {
@@ -116,10 +184,27 @@
 
     initTable();
 
-    
+
     $('#submitAddForm').on('click', function () {
         var form = $('#addForm');
-                
+        var projectCategories = [];
+        var sequence = 1;
+
+        $('#tblCategories tbody tr').each(function () {
+            $this = $(this);
+            var categoryId = $this.find("td:eq(0)").text().trim();
+            var hours = $this.find("input.hours").val();
+
+            var projectCategoryViewModel = {
+                ProjectId: 0, //doesn't exist
+                CategoryId: categoryId,
+                Hours: hours,
+                Sequence: sequence++
+            };
+
+            projectCategories.push(projectCategoryViewModel);
+        });
+
         form.validate({
             rules: {
                 'projectNo': {
@@ -160,7 +245,8 @@
                 projectNo: $('#addForm input[name=projectNo]').val(),
                 Description: $('#addForm input[name=description]').val(),
                 OrganizationId: $('#hidSelectedOrganizationId').val(),
-                CustomerId: $('#addForm select[name=SelectedCustomerId]').val()
+                CustomerId: $('#addForm select[name=SelectedCustomerId]').val(),
+                ProjectsCategories: projectCategories
             }
 
             $.ajax({
@@ -179,6 +265,23 @@
 
     $('#submitEditForm').on('click', function () {
         var form = $('#editForm');
+        var projectCategories = [];
+        var sequence = 1;
+
+        $('#tblCategoriesEdit tbody tr').each(function () {
+            $this = $(this);
+            var categoryId = $this.find("td:eq(0)").text().trim();
+            var hours = $this.find("input.hours").val();
+
+            var projectCategoryViewModel = {
+                ProjectId: $('#editForm input[name=id]').val(),
+                CategoryId: categoryId,
+                Hours: hours,
+                Sequence: sequence++
+            };
+
+            projectCategories.push(projectCategoryViewModel);
+        });
 
         form.validate({
             rules: {
@@ -232,7 +335,8 @@
                 ProjectNo: $('#editForm input[name=projectNo]').val(),
                 Description: $('#editForm input[name=description]').val(),
                 OrganizationId: $('#hidSelectedOrganizationId').val(),
-                CustomerId: $('#editForm select[name=SelectedCustomerId]').val()
+                CustomerId: $('#editForm select[name=SelectedCustomerId]').val(),
+                ProjectsCategories: projectCategories
             }
 
             $.ajax({
@@ -274,22 +378,6 @@
             .nodes()
             .removeClass('btn-secondary')
             .addClass('btn-primary mr-1');
-
-        //table.on('select deselect', function (e, dt, type, indexes) {
-        //    var rowData = table.rows(indexes).data().toArray();
-
-        //    //Cannot delete SuperAdmin/Administrator/Mobile Role
-        //    if (rowData[0]['name'] === 'SuperAdmin' || rowData[0]['name'] === 'Administrator') {
-        //        table.button(1).enable(false);
-        //        table.button(2).enable(false);
-        //    }
-        //    else if (rowData[0]['usercount'] > 0) //Cannot delete if user in group
-        //        table.button(2).enable(false);
-        //    else {
-        //        table.button(1).enable(true);
-        //        table.button(2).enable(true);
-        //    }
-        //});
     }
 
     function UpdateProjectList(selectedOrganization) {
@@ -318,7 +406,7 @@
             data: {
                 organizationId: $('#hidSelectedOrganizationId').val()
             },
-           // dataType: "html",
+            // dataType: "html",
             async: false,
             success: function (response) {
                 $('select[name="SelectedCustomerId"]').empty().append('<option value="">' + $('#hidSelectOption').val() + '</option>');

@@ -19,7 +19,19 @@ namespace WorkOrder.Online.Services
         public async Task<IEnumerable<ProjectViewModel>> GetProjects(int organizationId)
         {
             var projects = await _projectFactory.GetProjects(organizationId);
+
+            foreach(var project in projects)
+            {
+                project.ProjectsCategories = await _projectFactory.GetProjectCategories(project.Id);
+            }
+
             return projects.Adapt<IEnumerable<ProjectViewModel>>();
+        }
+
+        public async Task<IEnumerable<ProjectCategoryViewModel>> GetProjectCategories(int projectId)
+        {
+            var categories = await _projectFactory.GetProjectCategories(projectId);
+            return categories.Adapt<IEnumerable<ProjectCategoryViewModel>>();
         }
 
         public async Task<int> Create(ProjectViewModel model)

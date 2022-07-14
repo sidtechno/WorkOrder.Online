@@ -8,5 +8,6 @@
         public int OrganizationId { get; set; }
         public int NbWorkOrder { get; set; }
         public int CustomerId { get; set; }
+        public IEnumerable<ProjectCategoryViewModel> ProjectsCategories { get; set; }
     }
 }

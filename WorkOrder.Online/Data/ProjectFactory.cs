@@ -14,7 +14,7 @@ namespace WorkOrder.Online.Data
         {
             _configuration = configuration;
         }
-               
+
         public async Task<IEnumerable<ProjectModel>> GetProjects(int organizationId)
         {
             var sql = @"SELECT [Id]
@@ -33,6 +33,36 @@ namespace WorkOrder.Online.Data
                              new
                              {
                                  OrganizationId = organizationId
+                             },
+                             commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
+        public async Task<IEnumerable<ProjectCategoryModel>> GetProjectCategories(int projectId)
+        {
+            var sql = @"SELECT PC.[Id]
+                          ,PC.[ProjectId]
+                          ,PC.[CategoryId]
+	                      ,C.[Description_En]
+	                      ,C.[Description_Fr]
+                          ,PC.[Hours]
+                          ,PC.[Sequence]
+                      FROM [dbo].[Projects_Categories] PC
+                      INNER JOIN [dbo].[Categories] C
+	                    ON C.Id = PC.CategoryId
+                      WHERE ProjectId = @ProjectId
+                      ORDER BY Sequence";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<ProjectCategoryModel>(sql,
+                             new
+                             {
+                                 ProjectId = projectId
                              },
                              commandType: CommandType.Text);
 
@@ -65,12 +95,23 @@ namespace WorkOrder.Online.Data
                               SET [Sequence] = @Sequence
                               WHERE [OrganizationId] = @Id";
 
+                var sqlProjectCategory = @"INSERT INTO [dbo].[Projects_Categories]
+                            ([ProjectId]
+                           ,[CategoryId]
+                           ,[Hours]
+                           ,[Sequence])
+                     VALUES
+                           (@ProjectId
+                           ,@CategoryId
+                           ,@Hours
+                           ,@Sequence)";
+
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
                     connection.Open();
                     using (var transaction = connection.BeginTransaction())
                     {
-                        var result = await connection.QuerySingleOrDefaultAsync<int>(sql,
+                        var insertedProjectId = await connection.QuerySingleOrDefaultAsync<int>(sql,
                         new
                         {
                             ProjectNo = model.ProjectNo,
@@ -90,9 +131,29 @@ namespace WorkOrder.Online.Data
                           commandType: CommandType.Text,
                           transaction: transaction);
 
+                        //Insert Project categories
+                        if (model.ProjectsCategories.Any())
+                        {
+                            //var productList = new List<MaintenanceProductModel>();
+
+                            foreach (var p in model.ProjectsCategories)
+                            {
+                                await connection.ExecuteAsync(sqlProjectCategory,
+                                new
+                                {
+                                    ProjectId = insertedProjectId,
+                                    CategoryId = p.CategoryId,
+                                    Hours = p.Hours,
+                                    Sequence = p.sequence
+                                },
+                                commandType: CommandType.Text,
+                                transaction: transaction);
+                            }
+                        }
+
                         transaction.Commit();
 
-                        return result;
+                        return insertedProjectId;
                     }
                 }
             }
@@ -112,11 +173,26 @@ namespace WorkOrder.Online.Data
                            ,[CustomerId] = @CustomerId
                            WHERE Id = @Id";
 
+                var sqlDeleteProjectCategory = @"DELETE FROM [dbo].[Projects_Categories] WHERE ProjectId = @ProjectId";
+
+                var sqlProjectCategory = @"INSERT INTO [dbo].[Projects_Categories]
+                            ([ProjectId]
+                           ,[CategoryId]
+                           ,[Hours]
+                           ,[Sequence])
+                     VALUES
+                           (@ProjectId
+                           ,@CategoryId
+                           ,@Hours
+                           ,@Sequence)";
+
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
                     connection.Open();
 
-                    var result = await connection.ExecuteScalarAsync<int>(sql,
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        var result = await connection.ExecuteScalarAsync<int>(sql,
                         new
                         {
                             Id = model.Id,
@@ -124,9 +200,42 @@ namespace WorkOrder.Online.Data
                             Description = model.Description,
                             CustomerId = model.CustomerId
                         },
-                        commandType: CommandType.Text);
+                        commandType: CommandType.Text,
+                         transaction: transaction);
 
-                    return result;
+                        //delete all related Categories relation
+                        var deleteProjectCategories = await connection.ExecuteAsync(sqlDeleteProjectCategory,
+                            new
+                            {
+                                ProjectId = model.Id
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        //Insert Project categories
+                        if (model.ProjectsCategories.Any())
+                        {
+                            //var productList = new List<MaintenanceProductModel>();
+
+                            foreach (var p in model.ProjectsCategories)
+                            {
+                                await connection.ExecuteAsync(sqlProjectCategory,
+                                new
+                                {
+                                    ProjectId = model.Id,
+                                    CategoryId = p.CategoryId,
+                                    Hours = p.Hours,
+                                    Sequence = p.sequence
+                                },
+                                commandType: CommandType.Text,
+                                transaction: transaction);
+                            }
+                        }
+
+                        transaction.Commit();
+
+                        return result;
+                    }
                 }
             }
             catch (Exception ex)

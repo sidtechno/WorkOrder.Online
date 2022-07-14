@@ -84,30 +84,17 @@
                         @await Html.PartialAsync("_CategorySelector", Model.CategorySelector)
                     </div>
                     <div class="form-group mb-3">
-                        <table style="width:100%">
+                        <table id="tblCategories" style="width:100%" class="hidden">
                             <thead>
                                 <tr>
+                                    <th class="hidden"></th>
                                     <th style="width:80%">Category</th>
                                     <th style="width:15%">Hours</th>
                                     <th style="width:5%; text-align:center;"></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr draggable="true" style="border-bottom:1px solid #c3c3c3; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
-                                    <td>découpage 1</td>
-                                    <td><input type="text" class="form-control" /></td>
-                                    <td style="text-align:center;"><i class="far fa-trash-alt fa-lg"></i></td>
-                                </tr>
-                                <tr draggable="true" style="border-bottom:1px solid #c3c3c3; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
-                                    <td>découpage 2</td>
-                                    <td><input type="text" class="form-control" /></td>
-                                    <td style="text-align:center;"><i class="far fa-trash-alt fa-lg"></i></td>
-                                </tr>
-                                <tr draggable="true" style="border-bottom:1px solid #c3c3c3; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
-                                    <td>découpage 3</td>
-                                    <td><input type="text" class="form-control" /></td>
-                                    <td style="text-align:center;"><i class="far fa-trash-alt fa-lg"></i></td>
-                                </tr>
+                            <tbody id="tbodyCategories">
+                                
                             </tbody>
                         </table>
                     </div>
@@ -144,6 +131,25 @@
                     <div class="form-group mb-3">
                         <label for="description" class="form-label">@Localizer["Customer"]:</label>
                         @await Html.PartialAsync("_CustomerSelector", Model.CustomerSelector)
+                    </div>
+                    <hr />
+                    <div class="form-group mb-3">
+                        <label for="category" class="form-label">@Localizer["Categories"]:</label>
+                        @await Html.PartialAsync("_CategorySelector", Model.CategorySelector)
+                    </div>
+                    <div class="form-group mb-3">
+                        <table id="tblCategoriesEdit" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th class="hidden"></th>
+                                    <th style="width:80%">Category</th>
+                                    <th style="width:15%">Hours</th>
+                                    <th style="width:5%; text-align:center;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyCategoriesEdit">
+                            </tbody>
+                        </table>
                     </div>
                 </form>
             </div>

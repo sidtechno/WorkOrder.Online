@@ -114,6 +114,20 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
+        [HttpGet("Projects/ProjectCategories/{projectId}")]
+        public async Task<IActionResult> GetProjectProjectCategories(int projectId)
+        {
+            try
+            {
+                return Ok(await _projectService.GetProjectCategories(projectId));
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
         [HttpGet("Projects/Customers")]
         public async Task<IActionResult> GetProjectCustomers(int organizationId)
         {

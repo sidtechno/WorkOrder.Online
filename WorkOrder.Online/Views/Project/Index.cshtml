@@ -41,13 +41,19 @@
 
             @if (User.IsInRole("SuperAdmin"))
             {
-                <div class="mb-5 row">
+                <div class="mb-3 row">
                     <label for="example-text-input" class="col-md-2 col-form-label">@Localizer["Organization"]</label>
                     <div class="col-md-10">
                         @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
                     </div>
                 </div>
             }
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <input id="displayDeleted" type="checkbox" class="form-check-input" name="displayDeleted">
+                    <label for="displayDeleted" class="form-check-label">@Localizer["DisplayDeleted"]</label>
+                </div>
+            </div>
             <div id="project-list">
                 @await Html.PartialAsync("_Projects", Model)
             </div>

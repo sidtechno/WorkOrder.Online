@@ -21,7 +21,8 @@ namespace WorkOrder.Online.Data
                   ,[Code]
                   ,[Description_Fr]
                   ,[Description_En]
-                  ,[Price]
+                  ,[Cost]
+                  ,[Retail]
                   ,[IsFlatRate]
                   ,[OrganizationId]
               FROM [dbo].[Products]
@@ -50,7 +51,8 @@ namespace WorkOrder.Online.Data
                            ([Code]
                            ,[Description_Fr]
                            ,[Description_En]
-                           ,[Price]
+                           ,[Cost]
+                           ,[Retail]
                            ,[IsFlatRate]
                            ,[OrganizationId])
                         OUTPUT INSERTED.Id
@@ -58,7 +60,8 @@ namespace WorkOrder.Online.Data
                            (@Code
                            ,@Description_Fr
                            ,@Description_En
-                           ,@Price
+                           ,@Cost
+                           ,@Retail
                            ,@IsFlatRate
                            ,@OrganizationId)";
 
@@ -72,7 +75,8 @@ namespace WorkOrder.Online.Data
                             Code = model.Code,
                             Description_Fr = model.Description_Fr,
                             Description_En = model.Description_En,
-                            Price = model.Price,
+                            Cost = model.Cost,
+                            Retail = model.Retail,
                             IsFlatRate = model.IsFlatRate,
                             OrganizationId = model.OrganizationId
                         },
@@ -95,7 +99,8 @@ namespace WorkOrder.Online.Data
                            SET [Code] = @Code
                            ,[Description_Fr] = @Description_Fr
                            ,[Description_En] = @Description_En
-                           ,[Price] = @Price
+                           ,[Cost] = @Cost
+                           ,[Retail] = @Retail
                            ,[IsFlatRate] = @IsFlatRate
                            WHERE Id = @Id";
 
@@ -110,7 +115,8 @@ namespace WorkOrder.Online.Data
                             Code = model.Code,
                             Description_Fr = model.Description_Fr,
                             Description_En = model.Description_En,
-                            Price = model.Price,
+                            Cost = model.Cost,
+                            Retail = model.Retail,
                             IsFlatRate = model.IsFlatRate
                         },
                         commandType: CommandType.Text);

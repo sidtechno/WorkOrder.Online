@@ -5,7 +5,7 @@ namespace WorkOrder.Online.Services.Interfaces
 {
     public interface IProjectService
     {
-        Task<IEnumerable<ProjectViewModel>> GetProjects(int organizationId);
+        Task<IEnumerable<ProjectViewModel>> GetProjects(int organizationId, bool activeOnly);
         Task<IEnumerable<ProjectCategoryViewModel>> GetProjectCategories(int projectId);
         Task<int> Create(ProjectViewModel model);
         Task<int> Update(ProjectViewModel model);

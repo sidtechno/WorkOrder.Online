@@ -129,6 +129,9 @@
   <data name="Code" xml:space="preserve">
     <value>Code</value>
   </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
   <data name="CreateSuccess" xml:space="preserve">
     <value>Product created successfully!</value>
   </data>
@@ -171,8 +174,8 @@
   <data name="Organization" xml:space="preserve">
     <value>Organization</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
+  <data name="Retail" xml:space="preserve">
+    <value>Retail</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>

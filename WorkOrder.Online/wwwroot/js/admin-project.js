@@ -7,7 +7,7 @@
         var selectedOrganization = $(this).val();
         $('#hidSelectedOrganizationId').val(selectedOrganization);
         $('input[name="selectedOrganizationId"]').val(selectedOrganization);
-        UpdateProjectList(selectedOrganization);
+        UpdateProjectList(!$('#displayDeleted').is(':checked'));
         UpdateCustomerList(selectedOrganization);
         UpdateCategoryList(selectedOrganization);
     });
@@ -52,6 +52,15 @@
                 $('#tblCategories').addClass('hidden');
             }
 
+        }
+    });
+
+    $(document).on("change", '#displayDeleted', function () {
+        if (this.checked) {
+            UpdateProjectList(false);
+        }
+        else {
+            UpdateProjectList(true);
         }
     });
 
@@ -380,12 +389,13 @@
             .addClass('btn-primary mr-1');
     }
 
-    function UpdateProjectList(selectedOrganization) {
+    function UpdateProjectList(activeOnly) {
         $.ajax({
             url: ajaxUrl + '/Projects/List',
             type: "GET",
             data: {
-                organizationId: $('#hidSelectedOrganizationId').val()
+                organizationId: $('#hidSelectedOrganizationId').val(),
+                activeOnly: activeOnly 
             },
             dataType: "html",
             async: false,
@@ -454,7 +464,7 @@
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateProjectList();
+        UpdateProjectList(!$('#displayDeleted').is(':checked'));
     }
 
     function addFail(xhr, status, error) {
@@ -471,7 +481,7 @@
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateProjectList();
+        UpdateProjectList(!$('#displayDeleted').is(':checked'));
     }
 
     function editFail(xhr, status, error) {
@@ -487,7 +497,7 @@
             timer: 1000,
             timerProgressBar: true
         });
-        UpdateProjectList();
+        UpdateProjectList(!$('#displayDeleted').is(':checked'));
     }
 
     function delFail(xhr, status, error) {

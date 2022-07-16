@@ -17,7 +17,8 @@
             <th data-data="code">@Localizer["Code"]</th>
             <th data-data="description_fr" class="@(currentUser.Language.ToUpper() == "EN" ? "hidden" : "")">@Localizer["Description"]</th>
             <th data-data="description_en" class="@(currentUser.Language.ToUpper() == "FR" ? "hidden" : "")">@Localizer["Description"]</th>
-            <th data-data="price">@Localizer["Price"]</th>
+            <th data-data="cost">@Localizer["Cost"]</th>
+            <th data-data="retail">@Localizer["Retail"]</th>
             <th data-data="isflatrateForDisplay">@Localizer["IsFlatRate"]</th>
             <th data-data="isflatrate">@Localizer["IsFlatRate"]</th>
         </tr>
@@ -30,7 +31,8 @@
                 <td>@product.Code</td>
                 <td class="@(currentUser.Language.ToUpper() == "EN" ? "hidden" : "")">@product.Description_Fr</td>
                 <td class="@(currentUser.Language.ToUpper() == "FR" ? "hidden" : "")">@product.Description_En</td>
-                <td>@product.Price</td>
+                <td>@product.Cost</td>
+                 <td>@product.Retail</td>
                 <td>
                     @if (product.IsFlatRate)
                     {

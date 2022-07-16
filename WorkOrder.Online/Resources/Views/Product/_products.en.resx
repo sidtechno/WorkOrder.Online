@@ -120,13 +120,16 @@
   <data name="Code" xml:space="preserve">
     <value>Code</value>
   </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="IsFlatRate" xml:space="preserve">
     <value>Flat Rate</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
+  <data name="Retail" xml:space="preserve">
+    <value>Retail</value>
   </data>
 </root>

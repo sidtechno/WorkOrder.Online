@@ -16,9 +16,14 @@ namespace WorkOrder.Online.Services
             _projectFactory = projectFactory;
         }
 
-        public async Task<IEnumerable<ProjectViewModel>> GetProjects(int organizationId)
+        public async Task<IEnumerable<ProjectViewModel>> GetProjects(int organizationId, bool activeOnly = true)
         {
             var projects = await _projectFactory.GetProjects(organizationId);
+
+            if (activeOnly)
+            {
+                projects = projects.Where(p => !p.IsDeleted);
+            }
 
             foreach(var project in projects)
             {

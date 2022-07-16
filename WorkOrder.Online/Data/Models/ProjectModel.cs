@@ -7,6 +7,7 @@
         public string Description { get; set; }
         public int OrganizationId { get; set; }
         public int CustomerId { get; set; }
+        public bool IsDeleted { get; set; }
         public IEnumerable<ProjectCategoryModel> ProjectsCategories { get; set; }
 
     }

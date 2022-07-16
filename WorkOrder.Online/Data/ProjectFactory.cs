@@ -22,6 +22,7 @@ namespace WorkOrder.Online.Data
                   ,[Description]
                   ,[OrganizationId]
                   ,[CustomerId]
+                  ,[IsDeleted]
               FROM [dbo].[Projects]
               WHERE OrganizationId = @OrganizationId";
 
@@ -244,9 +245,11 @@ namespace WorkOrder.Online.Data
             }
         }
 
+        //Soft Delete
         public async Task<int> Delete(int projectId)
         {
-            var sql = @"DELETE FROM [dbo].[Projects]
+            var sql = @"UPDATE [dbo].[Projects]
+                        SET IsDeleted = 1
                         WHERE Id = @Id";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))

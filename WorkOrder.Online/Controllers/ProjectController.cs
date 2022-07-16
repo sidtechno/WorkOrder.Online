@@ -34,7 +34,7 @@ namespace WorkOrder.Online.Controllers
             {
                 var model = new ProjectListViewModel()
                 {
-                    Projects = await _projectService.GetProjects(CurrentUser.OrganizationId),
+                    Projects = await _projectService.GetProjects(CurrentUser.OrganizationId, true),
                     CustomerSelector = new CustomerSelectorViewModel
                     {
                         Customers = await _customerService.GetCustomersSelectList(CurrentUser.OrganizationId),
@@ -97,13 +97,13 @@ namespace WorkOrder.Online.Controllers
         }
 
         [HttpGet("Projects/List")]
-        public async Task<IActionResult> GetProjectList(int organizationId)
+        public async Task<IActionResult> GetProjectList(int organizationId, bool activeOnly)
         {
             try
             {
                 var model = new ProjectListViewModel()
                 {
-                    Projects = await _projectService.GetProjects(organizationId),
+                    Projects = await _projectService.GetProjects(organizationId, activeOnly),
                 };
                 return PartialView("_projects", model);
             }

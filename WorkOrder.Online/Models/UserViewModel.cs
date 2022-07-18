@@ -23,6 +23,7 @@ namespace WorkOrder.Online.Models
 
         public int StartUpScreenId { get; set; }
 
+        public string UserCategories { get; set; }
         public string OrganizationToDisplay
         {
             get

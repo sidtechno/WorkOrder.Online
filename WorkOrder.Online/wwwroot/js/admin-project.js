@@ -153,9 +153,6 @@
                             alert('Error');
                         }
                     });
-
-                    data.id
-
                 }
             },
             {

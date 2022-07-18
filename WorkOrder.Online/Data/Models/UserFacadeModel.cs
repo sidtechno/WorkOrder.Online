@@ -14,5 +14,7 @@
         public string UserName { get; set; }
         public string Cellphone { get; set; }
         public string CostHour { get; set; }
+        public string UserCategories { get; set; }
+
     }
 }

@@ -108,6 +108,24 @@
                                         }
                                     </ul>
                                 </div>
+                                <hr />
+                                <div class="form-group mb-3">
+                                    <label for="category" class="form-label">@Localizer["Categories"]:</label>
+                                    @await Html.PartialAsync("_CategorySelector", Model.CategorySelector)
+                                </div>
+                                <div class="form-group mb-3">
+                                    <table id="tblCategories" style="width:100%" class="hidden">
+                                        <thead>
+                                            <tr>
+                                                <th class="hidden"></th>
+                                                <th style="width:95%">@Localizer["Category"]</th>
+                                                <th style="width:5%; text-align:center;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbodyCategories">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,7 +170,7 @@
                                     <label for="email">@Localizer["Email"]:</label>
                                     <input id="email" name="email" type="email" class="form-control" />
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="cellphone" class="form-label">@Localizer["Cellphone"]:</label>
                                     <input id="cellphone" name="cellphone" type="text" class="form-control phone-mask" />
                                 </div>
@@ -160,14 +178,14 @@
                                     <input name="locked" type="checkbox" class="mr-2" value="Yes" />
                                     <label>@Localizer["Locked"]</label>
                                 </div>
-                               
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label>@Localizer["Organization"]:</label>
                                     @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="costHour" class="form-label">@Localizer["CostHour"]:</label>
                                     <input id="costHour" name="costHour" type="text" class="form-control" maxlength="10" />
                                 </div>
@@ -184,6 +202,24 @@
                                             </li>
                                         }
                                     </ul>
+                                </div>
+                                <hr />
+                                <div class="form-group mb-3">
+                                    <label for="category" class="form-label">@Localizer["Categories"]:</label>
+                                    @await Html.PartialAsync("_CategorySelector", Model.CategorySelector)
+                                </div>
+                                <div class="form-group mb-3">
+                                    <table id="tblCategoriesEdit" style="width:100%" class="hidden">
+                                        <thead>
+                                            <tr>
+                                                <th class="hidden"></th>
+                                                <th style="width:95%">@Localizer["Category"]</th>
+                                                <th style="width:5%; text-align:center;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbodyCategoriesEdit">
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

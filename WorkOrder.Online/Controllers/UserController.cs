@@ -9,13 +9,14 @@ using WorkOrder.Online.Services.Interfaces;
 
 namespace WorkOrder.Online.Controllers
 {
-     [Authorize(Roles = "SuperAdmin, Administrator")]
+    [Authorize(Roles = "SuperAdmin, Administrator")]
     public class UserController : BaseController
     {
         private readonly SignInManager<IdentityUser> _userIdentity;
         private RoleManager<IdentityRole> _roleManager;
         private readonly IUserService _userService;
         private readonly IOrganizationService _organizationService;
+        private readonly ICategoryService _categoryService;
         private readonly Dictionary<string, string> _roles;
         private readonly UserManager<IdentityUser> _userManager;
 
@@ -25,6 +26,7 @@ namespace WorkOrder.Online.Controllers
             IHttpContextAccessor httpContextAccessor,
             RoleManager<IdentityRole> roleManager,
             UserManager<IdentityUser> userManager,
+            ICategoryService categoryService,
             IOrganizationService organizationService,
             IUserService userService) : base(httpContextAccessor, userService)
         {
@@ -32,6 +34,7 @@ namespace WorkOrder.Online.Controllers
             _roleManager = roleManager;
             _userService = userService;
             _organizationService = organizationService;
+            _categoryService = categoryService;
             _roles = ((UserClaimsPrincipalFactory<IdentityUser, IdentityRole>)_userIdentity.ClaimsFactory).RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
             _userManager = userManager;
         }
@@ -60,6 +63,12 @@ namespace WorkOrder.Online.Controllers
                         SelectedOrganizationId = HttpContext.User.IsInRole("Administrator") ? CurrentUser.OrganizationId : 0,
                         disabled = HttpContext.User.IsInRole("Administrator")
                     },
+                    CategorySelector = new CategorySelectorViewModel
+                    {
+                        Categories = await _categoryService.GetCategorySelectList(CurrentUser.OrganizationId, CurrentUser.Language),
+                        SelectedCategoryId = 0,
+                        disabled = false
+                    }
                 };
 
                 ViewBag.Roles = _roles;
@@ -81,7 +90,7 @@ namespace WorkOrder.Online.Controllers
         }
 
         [HttpPost("Users/[action]")]
-        public async Task<IActionResult> CreateUser(string userName, string firstName, string lastName, string selectedOrganizationId, string email, string cellphone, string costHour, string[] roles)
+        public async Task<IActionResult> CreateUser(string userName, string firstName, string lastName, string selectedOrganizationId, string email, string cellphone, string costHour, string[] roles, string categories)
         {
             try
             {
@@ -109,6 +118,9 @@ namespace WorkOrder.Online.Controllers
                     if (cellphone != null)
                         await _userIdentity.UserManager.AddClaimAsync(user, new Claim("Cellphone", cellphone));
 
+                    if (categories != null)
+                        await _userIdentity.UserManager.AddClaimAsync(user, new Claim("Categories", categories));
+
                     if (!string.IsNullOrWhiteSpace(costHour))
                         await _userIdentity.UserManager.AddClaimAsync(user, new Claim("HourlyRate", costHour));
                     else
@@ -133,7 +145,7 @@ namespace WorkOrder.Online.Controllers
         }
 
         [HttpPost("Users/[action]")]
-        public async Task<IActionResult> UpdateUser(string id, string userName, string email, string firstName, string lastName, string selectedOrganizationId, string locked, string cellphone, string costHour, string[] roles)
+        public async Task<IActionResult> UpdateUser(string id, string userName, string email, string firstName, string lastName, string selectedOrganizationId, string locked, string cellphone, string costHour, string[] roles, string categories)
         {
             try
             {
@@ -221,6 +233,20 @@ namespace WorkOrder.Online.Controllers
 
                     }
 
+                    if (categories != null)
+                    {
+                        if (!userClaims.Any(c => c.Type == "Categories")) //Add
+                        {
+                            await _userIdentity.UserManager.AddClaimAsync(user, new Claim("Categories", categories));
+                        }
+                        else if (userClaims.Any(c => c.Type == "Categories") && userClaims.First(c => c.Type == "Categories").Value != categories)
+                        {
+                            var originalCategories = userClaims.First(c => c.Type == "Categories").Value;
+                            await _userIdentity.UserManager.RemoveClaimAsync(user, new Claim("Categories", originalCategories));
+                            await _userIdentity.UserManager.AddClaimAsync(user, new Claim("Categories", categories));
+                        }
+
+                    }
                     if (costHour != null)
                     {
                         if (!userClaims.Any(c => c.Type == "HourlyRate")) //Add
@@ -318,6 +344,37 @@ namespace WorkOrder.Online.Controllers
             }
         }
 
+        [HttpGet("Users/UserCategories")]
+        public async Task<IActionResult> GetUserCategories(int organizationId, string categories)
+        {
+            try
+            {
+                var result = new List<CategoryViewModel>();
+                if (categories == null) return Ok(result);
+
+                var categorieList = await _categoryService.GetCategories(organizationId);
+
+                categories.Split(",").ToList().ForEach(p =>
+                {
+                    var category = categorieList.FirstOrDefault(e => e.Id == Convert.ToInt32(p));
+
+                    result.Add(new CategoryViewModel()
+                    {
+                        Id = category.Id,
+                        Description_Fr = category.Description_Fr,
+                        Description_En = category.Description_En,
+                    });
+                });
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                //ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
         private Task<IdentityUser> GetCurrentUserAsync() => _userIdentity.UserManager.GetUserAsync(HttpContext.User);
 
         private async Task<IEnumerable<UserViewModel>> GetUsers(int organizationId = 0)
@@ -353,7 +410,7 @@ namespace WorkOrder.Online.Controllers
             }
             catch (Exception ex)
             {
-               // ex.ToExceptionless().Submit();
+                // ex.ToExceptionless().Submit();
                 return null;
             }
         }

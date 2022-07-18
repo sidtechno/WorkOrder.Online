@@ -123,6 +123,9 @@
   <data name="AddProject" xml:space="preserve">
     <value>Add Project</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="EditProject" xml:space="preserve">
     <value>Edit Project</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hours</value>
   </data>
   <data name="MinLength" xml:space="preserve">
     <value>Should have 3 characters minimum</value>

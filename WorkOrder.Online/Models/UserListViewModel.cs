@@ -4,6 +4,7 @@
     {
         public IEnumerable<UserViewModel> Users { get; set; }
         public OrganizationSelectorViewModel OrganizationSelector { get; set; }
+        public CategorySelectorViewModel CategorySelector { get; set; }
         public int RemainingUsers { get; set; }
     }
 }

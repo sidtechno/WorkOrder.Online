@@ -2,8 +2,6 @@
 
     var ajaxUrl = $('#HidRootUrl').val();
 
-    //$('select[name="SelectedOrganizationId"]').select2();
-
     $.validator.addMethod("userNotExist", function (value, element) {
         var result = false;
 
@@ -27,8 +25,58 @@
 
     initTable();
 
+    $('select[name="SelectedCategoryId"]').on('change', function () {
+        var selectedCategoryId = $(this).val();
+        if (selectedCategoryId === '') return;
+        var selectedCategory = $("option:selected", this);
+
+        $('#tbodyCategories').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
+                                    <td class="hidden">${selectedCategoryId}</td>
+                                    <td>${selectedCategory[0].innerText}</td>
+                                    <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt fa-lg"></i></td>
+                                </tr >
+            `);
+
+        $('#tbodyCategoriesEdit').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
+                                    <td class="hidden">${selectedCategoryId}</td>
+                                    <td>${selectedCategory[0].innerText}</td>
+                                    <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt edit fa-lg"></i></td>
+                                </tr >
+            `);
+
+        $('#tblCategories').removeClass('hidden');
+        $('#tblCategoriesEdit').removeClass('hidden');
+    });
+
+    $(document).on("click", '.fa-trash-alt', function () {
+        $(this).closest('tr').remove();
+
+        if ($(this).hasClass('edit')) {
+            var rowCount = $('#tbodyCategoriesEdit tr').length;
+            if (rowCount === 0) {
+                $('#tblCategoriesEdit').addClass('hidden');
+            }
+        }
+        else {
+            var rowCount = $('#tbodyCategories tr').length;
+            if (rowCount === 0) {
+                $('#tblCategories').addClass('hidden');
+            }
+
+        }
+    });
+
     $('#submitAddForm').on('click', function () {
         var form = $('#addUserForm');
+
+        var categories = [];
+
+        $('#tblCategories tbody tr').each(function () {
+            $this = $(this);
+            var categoryId = $this.find("td:eq(0)").text().trim();
+
+            categories.push(categoryId);
+        });
 
         var validator = form.validate({
             rules: {
@@ -100,6 +148,8 @@
 
             var disabled = form.find(':input:disabled').removeAttr('disabled');
             var formData = $(form).serialize();
+            formData = formData + '&categories=' + categories;
+
             disabled.attr('disabled', 'disabled');
 
             // Submit the form using AJAX.
@@ -126,6 +176,15 @@
     $('#submitEditForm').on('click', function () {
 
         var form = $('#editUserForm');
+
+        var categories = [];
+
+        $('#tblCategoriesEdit tbody tr').each(function () {
+            $this = $(this);
+            var categoryId = $this.find("td:eq(0)").text().trim();
+
+            categories.push(categoryId);
+        });
 
         var validator = form.validate({
             rules: {
@@ -194,6 +253,8 @@
         if (form.valid()) {
             var disabled = form.find(':input:disabled').removeAttr('disabled');
             var formData = $(form).serialize();
+            formData = formData + '&categories=' + categories;
+
             disabled.attr('disabled', 'disabled');
 
             // Submit the form using AJAX.
@@ -300,7 +361,7 @@
             },
             "aoColumnDefs": [
                 {
-                    "aTargets": [0, 5, 8, 9, 10, 11, 12],
+                    "aTargets": [0, 5, 8, 9, 10, 11, 12, 13],
                     "visible": false
                 },
                 {
@@ -320,6 +381,7 @@
                     action: function (e, dt, button, config) {
                         $('#userError').hide();
                         $('#addUserForm').trigger('reset');
+                        $('#tbodyCategoriesEdit').empty();
                     }
                 },
                 {
@@ -356,6 +418,31 @@
                                 $('#editUserForm :checkbox[value=' + "'" + value + "'" + ']').prop('checked', true);
                             });
                         }
+
+                        $.ajax({
+                            url: ajaxUrl + '/Users/UserCategories/',
+                            type: "GET",
+                            data: {
+                                organizationId: data.organizationId,
+                                categories: data.usercategories,
+                            },
+                            async: false,
+                            success: function (response) {
+                                $('#tbodyCategoriesEdit').empty();
+                                $.each(response, function (index, item) {
+                                    $('#tbodyCategoriesEdit').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
+                                    <td class="hidden">${item.id}</td>
+                                    <td>${$('#hidLanguage').val().toUpperCase() == 'FR' ? item.description_Fr : item.description_En}</td>
+                                    <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt edit fa-lg"></i></td>
+                                </tr >
+                                `);
+                                });
+                                $('#tblCategoriesEdit').removeClass('hidden');
+                            },
+                            error: function (xhr, status, error) {
+                                alert('Error');
+                            }
+                        });
 
                         //Trigger DDL change event to display current time
                         $('#editModal').on('shown.bs.modal', function () {

@@ -23,7 +23,7 @@ updateIndex = function (e, ui) {
 
     $('td.index').each(function (i) {
         idx++;
-        $(this).html(idx);
+        $(this).html(idx + '.');
     });
 };
 
@@ -31,6 +31,6 @@ updateIndexEdit = function (e, ui) {
     var idx = 0;
     $('td.indexEdit').each(function (i) {
         idx++;
-        $(this).html(idx);
+        $(this).html(idx + '.');
     });
 };

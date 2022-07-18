@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
 
     var ajaxUrl = $('#HidRootUrl').val();
-
     $.validator.addMethod("userNotExist", function (value, element) {
         var result = false;
 
@@ -32,6 +31,7 @@
 
         $('#tbodyCategories').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
                                     <td class="hidden">${selectedCategoryId}</td>
+                                    <td class="index"></td>
                                     <td>${selectedCategory[0].innerText}</td>
                                     <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt fa-lg"></i></td>
                                 </tr >
@@ -39,6 +39,7 @@
 
         $('#tbodyCategoriesEdit').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
                                     <td class="hidden">${selectedCategoryId}</td>
+                                    <td class="indexEdit"></td>
                                     <td>${selectedCategory[0].innerText}</td>
                                     <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt edit fa-lg"></i></td>
                                 </tr >
@@ -46,6 +47,8 @@
 
         $('#tblCategories').removeClass('hidden');
         $('#tblCategoriesEdit').removeClass('hidden');
+        updateIndex();
+        updateIndexEdit();
     });
 
     $(document).on("click", '.fa-trash-alt', function () {
@@ -56,14 +59,17 @@
             if (rowCount === 0) {
                 $('#tblCategoriesEdit').addClass('hidden');
             }
+            updateIndexEdit();
         }
         else {
             var rowCount = $('#tbodyCategories tr').length;
             if (rowCount === 0) {
                 $('#tblCategories').addClass('hidden');
             }
-
+            updateIndex();
         }
+        
+
     });
 
     $('#submitAddForm').on('click', function () {
@@ -381,7 +387,8 @@
                     action: function (e, dt, button, config) {
                         $('#userError').hide();
                         $('#addUserForm').trigger('reset');
-                        $('#tbodyCategoriesEdit').empty();
+                        $('#tbodyCategories').empty();
+                        $('#tblCategories').addClass('hidden');
                     }
                 },
                 {
@@ -432,11 +439,13 @@
                                 $.each(response, function (index, item) {
                                     $('#tbodyCategoriesEdit').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
                                     <td class="hidden">${item.id}</td>
+                                    <td class="indexEdit"></td>
                                     <td>${$('#hidLanguage').val().toUpperCase() == 'FR' ? item.description_Fr : item.description_En}</td>
                                     <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt edit fa-lg"></i></td>
                                 </tr >
                                 `);
                                 });
+                                updateIndexEdit();
                                 $('#tblCategoriesEdit').removeClass('hidden');
                             },
                             error: function (xhr, status, error) {
@@ -533,17 +542,7 @@
             .removeClass('btn-secondary')
             .addClass('btn-primary mr-1');
 
-        // Disable ADD button if max number of user reached
-        var remainingUsers = parseInt($('#hidRemainingUsers').val());
-
-        if (remainingUsers === 0) {
-            table.button(0).enable(false);
-            $('#MaxUserWarning').removeClass('hidden');
-        }
-        else {
-            table.button(0).enable(true);
-            $('#MaxUserWarning').addClass('hidden');
-        }
+        validateMaxUsers();
     }
 
     $('#addModal').on('hidden.bs.modal', function () {
@@ -607,6 +606,20 @@
         updateUserList();
     }
 
+    function validateMaxUsers() {
+        // Disable ADD button if max number of user reached
+        var remainingUsers = parseInt($('#hidRemainingUsers').val());
+
+        if (remainingUsers === 0) {
+            table.button(0).enable(false);
+            $('#MaxUserWarning').removeClass('hidden');
+        }
+        else {
+            table.button(0).enable(true);
+            $('#MaxUserWarning').addClass('hidden');
+        }
+    }
+
     function editFail(xhr, status, error) {
         $('#editError').html(xhr.responseText || error).fadeIn();
     }
@@ -620,6 +633,11 @@
             timer: 1000,
             timerProgressBar: true
         });
+        //Update remainingUsers
+        var total = parseInt($('#hidRemainingUsers').val());
+        $('#hidRemainingUsers').val(total + 1);
+        validateMaxUsers();
+
         updateUserList();
     }
 

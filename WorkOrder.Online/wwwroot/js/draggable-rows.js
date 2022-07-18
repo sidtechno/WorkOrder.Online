@@ -13,4 +13,24 @@ function dragover() {
         e.target.parentNode.after(row);
     else
         e.target.parentNode.before(row);
+
+    updateIndex();
+    updateIndexEdit();
 }
+
+updateIndex = function (e, ui) {
+    var idx = 0;
+
+    $('td.index').each(function (i) {
+        idx++;
+        $(this).html(idx);
+    });
+};
+
+updateIndexEdit = function (e, ui) {
+    var idx = 0;
+    $('td.indexEdit').each(function (i) {
+        idx++;
+        $(this).html(idx);
+    });
+};

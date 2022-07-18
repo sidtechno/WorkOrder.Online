@@ -19,6 +19,7 @@
 
         $('#tbodyCategories').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
                                     <td class="hidden">${selectedCategoryId}</td>
+                                    <td class="index"></td>
                                     <td>${selectedCategory[0].innerText}</td>
                                     <td><input id="txtHours" type="text" class="form-control hours" /></td>
                                     <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt fa-lg"></i></td>
@@ -27,6 +28,7 @@
 
         $('#tbodyCategoriesEdit').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
                                     <td class="hidden">${selectedCategoryId}</td>
+                                    <td class="indexEdit"></td>
                                     <td>${selectedCategory[0].innerText}</td>
                                     <td><input id="txtHours" type="text" class="form-control hours" /></td>
                                     <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt edit fa-lg"></i></td>
@@ -35,6 +37,8 @@
 
         $('#tblCategories').removeClass('hidden');
         $('#tblCategoriesEdit').removeClass('hidden');
+        updateIndex();
+        updateIndexEdit();
     });
 
     $(document).on("click", '.fa-trash-alt', function () {
@@ -45,13 +49,14 @@
             if (rowCount === 0) {
                 $('#tblCategoriesEdit').addClass('hidden');
             }
+            updateIndexEdit();
         }
         else {
             var rowCount = $('#tbodyCategories tr').length;
             if (rowCount === 0) {
                 $('#tblCategories').addClass('hidden');
             }
-
+            updateIndex();
         }
     });
 
@@ -141,13 +146,14 @@
                             $.each(response, function (index, item) {
                                 $('#tbodyCategoriesEdit').append(`<tr draggable="true" style="border-bottom:1px solid #e2e5e8; height: 55px; cursor:all-scroll;" ondragstart="start()" ondragover="dragover()">
                                     <td class="hidden">${item.categoryId}</td>
+                                    <td class="indexEdit"></td>
                                     <td>${$('#hidLanguage').val().toUpperCase() == 'FR' ? item.description_Fr : item.description_En}</td>
                                     <td><input id="txtHours" type="text" class="form-control hours" value="${item.hours}" /></td>
                                     <td style="text-align:center;cursor:default;"><i class="far fa-trash-alt edit fa-lg"></i></td>
                                 </tr >
                                 `);
                             });
-
+                            updateIndexEdit();
                         },
                         error: function (xhr, status, error) {
                             alert('Error');

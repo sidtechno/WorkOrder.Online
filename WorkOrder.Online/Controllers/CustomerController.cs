@@ -186,7 +186,8 @@ namespace WorkOrder.Online.Controllers
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HeaderValidated = null,
-                MissingFieldFound = null
+                MissingFieldFound = null,
+                Delimiter = ";"
             };
 
             using (var reader = new StreamReader(importFile.OpenReadStream()))

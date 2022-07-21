@@ -6,14 +6,14 @@
 
 @if (Model.disabled)
 {
-    <select id="@Model.UniqueId" class="form-select custom-select" asp-for="SelectedCategoryId"
+    <select id="@Model.UniqueId" class="form-select custom-select" data-trigger asp-for="SelectedCategoryId"
             asp-items="Model.Categories" disabled>
         <option value="">@Localizer["SelectOption"]</option>
     </select>
 }
 else
 {
-    <select id="@Model.UniqueId" class="form-select custom-select auto-complete" asp-for="SelectedCategoryId"
+    <select id="@Model.UniqueId" class="form-select custom-select auto-complete" data-trigger asp-for="SelectedCategoryId"
             asp-items="Model.Categories">
         <option value="">@Localizer["SelectOption"]</option>
     </select>

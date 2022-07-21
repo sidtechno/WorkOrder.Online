@@ -522,40 +522,30 @@
 
                 }
             },
-                {
-                    text: '<i class="fas fa-user-plus"></i> ' + $('#hidImportCustomers').val(),
-                    name: 'importButton',
-                    className: 'btn-primary',
-                    action: function (e, dt, button, config) {
-                        var data = dt.row({ selected: true }).data();
+            {
+                text: '<i class="fas fa-user-plus"></i> ' + $('#hidImportCustomers').val(),
+                name: 'importButton',
+                className: 'btn-primary',
+                action: function (e, dt, button, config) {
+                    var data = dt.row({ selected: true }).data();
 
-                        Swal.fire({
-                            title: 'Select image',
-                            html: 'You can upload multiple customers here',
-                            input: 'file',
-                            inputAttributes: {
-                                'id': 'customerFile',
-                                'accept': '.csv',
-                                'aria-label': 'Upload your CSV customers file'
-                            }
-                        }).then((file) => {
+                    Swal.fire({
+                        title: 'Select image',
+                        html: 'You can upload multiple customers here',
+                        input: 'file',
+                        inputAttributes: {
+                            'id': 'customerFile',
+                            'accept': '.csv',
+                            'aria-label': 'Upload your CSV customers file'
+                        }
+                    }).then((file) => {
+                        if (!file.isDismissed) {
                             handleFileSelect(file);
-                        });
+                        }
+                    });
 
-                        //if (file) {
-                        //    const reader = new FileReader()
-                        //    reader.onload = (e) => {
-                        //        Swal.fire({
-                        //            title: 'Your uploaded picture',
-                        //            imageUrl: e.target.result,
-                        //            imageAlt: 'The uploaded picture'
-                        //        })
-                        //    }
-                        //    reader.readAsDataURL(file)
-                        //}
-
-                    }
-                }            ]
+                }
+            }]
         });
 
         table
@@ -578,7 +568,7 @@
     }
 
     function handleFileSelect(file) {
-       
+
         // Create FormData object  
         var formData = new FormData();
 
@@ -606,7 +596,7 @@
             error: function (err) {
                 alert(err.statusText);
             }
-        });  
+        });
     }
 
     function initResponsibleTable() {

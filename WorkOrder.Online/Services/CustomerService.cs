@@ -108,5 +108,10 @@ namespace WorkOrder.Online.Services
         {
             return await _customerFactory.DeleteResponsible(responsibleId);
         }
+
+        public async Task<int> ImportCustomers(IEnumerable<CustomerViewModel> customers)
+        {
+            return await _customerFactory.ImportCustomers(customers);
+        }
     }
 }

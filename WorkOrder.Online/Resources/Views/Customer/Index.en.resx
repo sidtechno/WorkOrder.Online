@@ -180,6 +180,12 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="ImportCustomers" xml:space="preserve">
+    <value>Import Customers</value>
+  </data>
+  <data name="ImportedCustomerSuccess" xml:space="preserve">
+    <value>Customers imported successfully!</value>
+  </data>
   <data name="MinLength" xml:space="preserve">
     <value>Should have 3 characters minimum</value>
   </data>

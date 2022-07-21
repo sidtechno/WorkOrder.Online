@@ -492,7 +492,7 @@
             .addClass('btn-primary');
 
         new $.fn.dataTable.Buttons(table, {
-            name: 'respButton',
+            name: 'customButton',
             buttons: [{
                 extend: "selectedSingle",
                 text: $('#hidAuthorized').val(),
@@ -521,11 +521,45 @@
 
 
                 }
-            }]
+            },
+                {
+                    text: '<i class="fas fa-user-plus"></i> ' + $('#hidImportCustomers').val(),
+                    name: 'importButton',
+                    className: 'btn-primary',
+                    action: function (e, dt, button, config) {
+                        var data = dt.row({ selected: true }).data();
+
+                        Swal.fire({
+                            title: 'Select image',
+                            html: 'You can upload multiple customers here',
+                            input: 'file',
+                            inputAttributes: {
+                                'id': 'customerFile',
+                                'accept': '.csv',
+                                'aria-label': 'Upload your CSV customers file'
+                            }
+                        }).then((file) => {
+                            handleFileSelect(file);
+                        });
+
+                        //if (file) {
+                        //    const reader = new FileReader()
+                        //    reader.onload = (e) => {
+                        //        Swal.fire({
+                        //            title: 'Your uploaded picture',
+                        //            imageUrl: e.target.result,
+                        //            imageAlt: 'The uploaded picture'
+                        //        })
+                        //    }
+                        //    reader.readAsDataURL(file)
+                        //}
+
+                    }
+                }            ]
         });
 
         table
-            .buttons('respButton', null)
+            .buttons('customButton', null)
             .containers()
             .insertBefore('.dataTables_filter');
 
@@ -536,6 +570,43 @@
             .addClass('btn-primary')
             .addClass('margin-button');
 
+        table
+            .button('importButton:name')
+            .nodes()
+            .removeClass('btn-secondary')
+            .addClass('btn-primary');
+    }
+
+    function handleFileSelect(file) {
+       
+        // Create FormData object  
+        var formData = new FormData();
+
+        formData.append("importFile", file.value);
+        formData.append("organizationId", $('#hidSelectedOrganizationId').val());
+
+        $.ajax({
+            url: ajaxUrl + '/Customers/Import',
+            type: "POST",
+            dataType: "JSON",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                Swal.fire({
+                    icon: 'success',
+                    title: $('#hidImportedCustomerSuccess').val(),
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true
+                });
+                UpdateCustomerList();
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });  
     }
 
     function initResponsibleTable() {

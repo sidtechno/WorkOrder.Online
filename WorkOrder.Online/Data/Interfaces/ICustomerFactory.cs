@@ -1,4 +1,5 @@
 ﻿using WorkOrder.Online.Data.Models;
+using WorkOrder.Online.Models;
 
 namespace WorkOrder.Online.Data.Interfaces
 {
@@ -12,5 +13,6 @@ namespace WorkOrder.Online.Data.Interfaces
         Task<int> CreateResponsible(ResponsibleModel model);
         Task<int> UpdateResponsible(CustomerModel model);
         Task<int> DeleteResponsible(int responsibleId);
+        Task<int> ImportCustomers(IEnumerable<CustomerViewModel> customers);
     }
 }

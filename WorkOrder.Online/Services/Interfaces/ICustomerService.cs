@@ -14,5 +14,6 @@ namespace WorkOrder.Online.Services.Interfaces
         Task<int> AddResponsible(ResponsibleViewModel model);
         Task<int> UpdateResponsible(ResponsibleViewModel model);
         Task<int> DeleteResponsible(int responsibleId);
+        Task<int> ImportCustomers(IEnumerable<CustomerViewModel> customers);
     }
 }

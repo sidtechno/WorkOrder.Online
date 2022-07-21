@@ -180,6 +180,12 @@
   <data name="Email" xml:space="preserve">
     <value>Courriel</value>
   </data>
+  <data name="ImportCustomers" xml:space="preserve">
+    <value>Importation clients</value>
+  </data>
+  <data name="ImportedCustomerSuccess" xml:space="preserve">
+    <value>Importation des clients réussie!</value>
+  </data>
   <data name="IsFlatRate" xml:space="preserve">
     <value>Taux fixe</value>
   </data>

@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using WorkOrder.Online.Data.Interfaces;
 using WorkOrder.Online.Data.Models;
+using WorkOrder.Online.Models;
 
 namespace WorkOrder.Online.Data
 {
@@ -282,6 +283,50 @@ namespace WorkOrder.Online.Data
                     commandType: CommandType.Text);
 
                 return result;
+            }
+        }
+
+        public async Task<int> ImportCustomers(IEnumerable<CustomerViewModel> customers)
+        {
+            try
+            {
+                var sql = @"INSERT INTO [dbo].[Customers]
+                           ([Name]
+                            ,[Responsible]
+                            ,[Address]
+                            ,[City]
+                            ,[State]
+                            ,[PostalCode]
+                            ,[Phone]
+                            ,[Cellphone]
+                            ,[Email]
+                            ,[OrganizationId])
+                        VALUES
+                           (@Name
+                           ,@Responsible
+                           ,@Address
+                           ,@City
+                           ,@State
+                           ,@PostalCode
+                           ,@Phone
+                           ,@Cellphone
+                           ,@Email
+                           ,@OrganizationId)";
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+
+                    var result = await connection.ExecuteAsync(sql,
+                        customers,
+                        commandType: CommandType.Text);
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

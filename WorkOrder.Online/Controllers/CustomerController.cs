@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using WorkOrder.Online.Models;
 using WorkOrder.Online.Services.Interfaces;
 
@@ -157,6 +160,59 @@ namespace WorkOrder.Online.Controllers
             {
                 //ex.ToExceptionless().Submit();
                 return BadRequest();
+            }
+        }
+
+        [HttpPost("Customers/Import")]
+        public async Task<ActionResult> Import(IFormFile importFile, int organizationId)
+        {
+            try
+            {
+                //parse CSV customers file
+                var customers = ImportCustomers(importFile, organizationId);
+
+                //Import customers
+                var result = await _customerService.ImportCustomers(customers);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        private IEnumerable<CustomerViewModel> ImportCustomers(IFormFile importFile, int organizationId)
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HeaderValidated = null,
+                MissingFieldFound = null
+            };
+
+            using (var reader = new StreamReader(importFile.OpenReadStream()))
+
+            using (var csvReader = new CsvReader(reader, config))
+            {
+                csvReader.Context.RegisterClassMap(new CustomerViewModelMap(organizationId));
+                var customers = csvReader.GetRecords<CustomerViewModel>();
+                return customers.ToList();
+            }
+        }
+
+        sealed class CustomerViewModelMap : ClassMap<CustomerViewModel>
+        {
+            public CustomerViewModelMap(int organizationId)
+            {
+                Map(m => m.Address);
+                Map(m => m.Email);
+                Map(m => m.Responsible);
+                Map(m => m.Phone);
+                Map(m => m.Cellphone);
+                Map(m => m.City);
+                Map(m => m.State);
+                Map(m => m.Name);
+                Map(m => m.PostalCode);
+                Map(m => m.OrganizationId).Constant(organizationId);
             }
         }
     }

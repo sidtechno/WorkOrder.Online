@@ -43,6 +43,7 @@
 <body data-layout="horizontal" data-topbar="dark" data-layout-mode="light">
     @Html.Hidden("hidIsSuperAdmin", User.IsInRole("SuperAdmin"))
     @Html.Hidden("hidLanguage", currentUser.Language)
+    @Html.Hidden("hidUserId", @currentUser.UserId)
     @Html.Hidden("hidLightMode", @Localizer["LightMode"].Value)
     @Html.Hidden("hidDarkMode", @Localizer["DarkMode"].Value)
 

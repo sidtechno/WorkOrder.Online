@@ -13,5 +13,7 @@
         public string Cellphone { get; set; }
         public string Email { get; set; }
         public int OrganizationId { get; set; }
+        public int ActiveProjectCount { get; set; }
+        public int FinishedProjectCount { get; set; }
     }
 }

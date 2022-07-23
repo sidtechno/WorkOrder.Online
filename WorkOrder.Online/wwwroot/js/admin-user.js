@@ -359,8 +359,18 @@
 
     function initTable() {
 
+        var state_key = "_" + $('#hidUserId').val();
+
         var tableSettings = {
             dom: 'Bfrtip',
+            stateSave: true,
+            stateDuration: 0,
+            stateSaveCallback: function (settings, data) {
+                localStorage.setItem('DataTables_' + settings.sInstance + state_key, JSON.stringify(data))
+            },
+            stateLoadCallback: function (settings) {
+                return JSON.parse(localStorage.getItem('DataTables_' + settings.sInstance + state_key))
+            },
             select: {
                 style: 'single',
                 info: false
@@ -507,7 +517,7 @@
             ],
             language: {
                 buttons: {
-                    pageLength: '%d'
+                    pageLength: { "-1": "Show All", "_": "%d rows" }
                 }
             }
         };

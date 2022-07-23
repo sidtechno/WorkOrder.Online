@@ -17,6 +17,8 @@
             <th data-data="state">State</th>
             <th data-data="postalcode">PostalCode</th>
             <th data-data="cellphone">CellPhone</th>
+            <th data-data="activeCount">@Localizer["ActiveCount"]</th>
+            <th data-data="finishCount">@Localizer["FinishCount"]</th>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +36,8 @@
                 <td>@customer.State</td>
                 <td>@customer.PostalCode</td>
                 <td>@customer.Cellphone</td>
+                <td>@customer.ActiveProjectCount</td>
+                <td>@customer.FinishedProjectCount</td>
             </tr>
         }
     </tbody>

@@ -12,9 +12,19 @@
         UpdateTaskList(selectedOrganization);
     });
 
+    var state_key = "_" + $('#hidUserId').val();
+
     var tableSettings = {
         dom: 'Bfrtip',
         retrieve: true,
+        stateSave: true,
+        stateDuration: 0,
+        stateSaveCallback: function (settings, data) {
+            localStorage.setItem('DataTables_' + settings.sInstance + state_key, JSON.stringify(data))
+        },
+        stateLoadCallback: function (settings) {
+            return JSON.parse(localStorage.getItem('DataTables_' + settings.sInstance + state_key))
+        },
         select: {
             style: 'single',
             info: false
@@ -108,9 +118,14 @@
                         }
                     });
                 }
-            }
+            },
+            'pageLength'
         ],
-
+        language: {
+            buttons: {
+                pageLength: { "-1": "Show All", "_": "%d rows" }
+            }
+        }
     };
 
     initTable();

@@ -95,7 +95,7 @@ namespace WorkOrder.Online.Controllers
             try
             {
                 var fullName = $"{firstName} {lastName}";
-                var user = new IdentityUser { Email = email.ToLower(), UserName = userName.ToLower(), EmailConfirmed = true };
+                var user = new IdentityUser { Email = email.Trim().ToLower(), UserName = userName.Trim().ToLower(), EmailConfirmed = true };
 
                 //security to avoid string in database
                 var organizationIdSelected = 0;

@@ -32,33 +32,27 @@
 
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 
-<div class="col-xl-12">
-    <div class="card">
-        <div class="card-header justify-content-between d-flex align-items-center">
-            <h4 class="card-title">@Localizer["Title"]</h4>
-        </div><!-- end card header -->
-        <div class="card-body">
+<div class="col-xl-12 pt-5">
 
-            @if (User.IsInRole("SuperAdmin"))
-            {
-                <div class="mb-3 row">
-                    <label for="example-text-input" class="col-md-2 col-form-label">@Localizer["Organization"]</label>
-                    <div class="col-md-10">
-                        @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
-                    </div>
-                </div>
-            }
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <input id="displayDeleted" type="checkbox" class="form-check-input" name="displayDeleted">
-                    <label for="displayDeleted" class="form-check-label">@Localizer["DisplayDeleted"]</label>
-                </div>
+    @if (User.IsInRole("SuperAdmin"))
+    {
+        <div class="mb-3 row">
+            <label for="example-text-input" class="col-md-2 col-form-label">@Localizer["Organization"]</label>
+            <div class="col-md-10">
+                @await Html.PartialAsync("_OrganizationSelector", Model.OrganizationSelector)
             </div>
-            <div id="project-list">
-                @await Html.PartialAsync("_Projects", Model)
-            </div>
-        </div><!-- end card body -->
-    </div><!-- end card -->
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <input id="displayDeleted" type="checkbox" class="form-check-input" name="displayDeleted">
+            <label for="displayDeleted" class="form-check-label">@Localizer["DisplayDeleted"]</label>
+        </div>
+    </div>
+    <div id="project-list">
+        @await Html.PartialAsync("_Projects", Model)
+    </div>
+
 </div>
 
 <div id="addModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
@@ -76,7 +70,7 @@
                         <label for="projectNo" class="form-label">@Localizer["ProjectNo"]:</label>
                         <input name="projectNo" type="text" class="form-control" maxlength="50" readonly />
                     </div>
-                     <div class="form-group mb-3">
+                    <div class="form-group mb-3">
                         <label for="customer" class="form-label">@Localizer["Customer"]:</label>
                         @await Html.PartialAsync("_CustomerSelector", Model.CustomerSelector)
                     </div>

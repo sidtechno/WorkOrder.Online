@@ -1,0 +1,35 @@
+﻿@model WorkOrder.Online.Models.ProjectListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using WorkOrder.Online.Services.Interfaces
+
+@inject IViewLocalizer Localizer
+@inject IUserService userService
+
+@{
+    var currentUser = userService.GetCurrentUserCredentials();
+}
+
+<table id="projectsTable" class="table table-striped dataTable w-100" data-processing="true">
+    <thead>
+        <tr>
+            <th data-data="id">Id</th>
+            <th data-data="projectNo">@Localizer["ProjectNo"]</th>
+            <th data-data="description">@Localizer["Description"]</th>
+            <th data-data="nbWo">@Localizer["NbWorkOrder"]</th>
+             <th data-data="customerId">@Localizer["CustomerId"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model.Projects)
+        {
+            <tr>
+                <td>@project.Id</td>
+                <td>@project.ProjectNo</td>
+                <td>@project.Description</td>
+                <td>@project.NbWorkOrder</td>
+                <td>@project.CustomerId</td>
+            </tr>
+        }
+    </tbody>
+</table>

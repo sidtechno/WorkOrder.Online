@@ -11,4 +11,11 @@
         public int sequence { get; set; }
 
     }
+
+    public class WorkOrderModel
+    {
+        public int Id { get; set; }
+   
+
+    }
 }

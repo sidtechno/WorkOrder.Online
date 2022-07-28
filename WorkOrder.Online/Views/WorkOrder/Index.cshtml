@@ -1,0 +1,61 @@
+﻿@model WorkOrder.Online.Models.WorkOrderListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@inject IUserService userService
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var currentUser = userService.GetCurrentUserCredentials();
+}
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+<div class="card">
+    <div class="card-body">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#home1" role="tab">
+                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                    <span class="d-none d-sm-block">Projets</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#profile1" role="tab">
+                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                    <span class="d-none d-sm-block">Bon de travail</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content p-3 text-muted">
+            <div class="tab-pane active" id="home1" role="tabpanel">
+                @await Html.PartialAsync("_ProjectComponent", Model.ProjectListViewModel)
+            </div>
+            <div class="tab-pane" id="profile1" role="tabpanel">
+                <p class="mb-0">
+                    Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+                    single-origin coffee squid. Exercitation +1 labore velit, blog
+                    sartorial PBR leggings next level wes anderson artisan four loko
+                    farm-to-table craft beer twee. Qui photo booth letterpress,
+                    commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+                    vinyl cillum PBR. Homo nostrud organic, assumenda labore
+                    aesthetic magna delectus.
+                </p>
+            </div>
+        </div>
+    </div><!-- end card body -->
+</div><!-- end card -->
+
+                    
+@section Scripts
+    {
+    <script src="~/js/draggable-rows.js"></script>
+    <script src="~/js/admin-project.js"></script>
+}

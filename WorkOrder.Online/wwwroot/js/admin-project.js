@@ -2,6 +2,7 @@
 
     var ajaxUrl = $('#HidRootUrl').val();
     var table;
+    var choicesCustomer = null;
 
     $('select[name="SelectedOrganizationId"]').on('change', function () {
         var selectedOrganization = $(this).val();
@@ -145,7 +146,14 @@
                     $('#editForm input[name=id]').val(data.id);
                     $('#editForm input[name=projectNo]').val(data.projectNo);
                     $('#editForm input[name=description]').val(data.description);
-                    $('#editForm select[name=SelectedCustomerId]').val(data.customerId);
+
+                    if (choicesCustomer === null) {
+                        choicesCustomer = new Choices($('#editForm select[name=SelectedCustomerId]')[0]);
+                    }
+                    choicesCustomer.setChoiceByValue(data.customerId);
+
+                    const choicesCategory = new Choices($('#editForm select[name=SelectedCategoryId]')[0]);
+                    //choices.setChoiceByValue(data.customerId);
 
                     $.ajax({
                         url: ajaxUrl + '/Projects/ProjectCategories/' + data.id,

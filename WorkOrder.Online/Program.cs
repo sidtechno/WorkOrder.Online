@@ -44,6 +44,7 @@ builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IProjectService, ProjectService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IWorkOrderService, WorkOrderService>();
 
 // Factory
 builder.Services.AddTransient<IUserFactory, UserFactory>();
@@ -54,6 +55,7 @@ builder.Services.AddTransient<ICustomerFactory, CustomerFactory>();
 builder.Services.AddTransient<IProjectFactory, ProjectFactory>();
 builder.Services.AddTransient<IProjectSequenceFactory, ProjectSequenceFactory>();
 builder.Services.AddTransient<ICategoryFactory, CategoryFactory>();
+builder.Services.AddTransient<IWorkOrderFactory, WorkOrderFactory>();
 
 var app = builder.Build();
 
@@ -90,7 +92,7 @@ app.MapAreaControllerRoute(
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=WorkOrder}/{action=Index}/{id?}");
 
 
 app.MapRazorPages();

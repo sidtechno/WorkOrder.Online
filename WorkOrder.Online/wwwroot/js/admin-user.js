@@ -1,6 +1,9 @@
 ﻿$(document).ready(function () {
 
     var ajaxUrl = $('#HidRootUrl').val();
+
+    const choicesOrganization = new Choices($('select[name=SelectedOrganizationId]')[0]);
+
     $.validator.addMethod("userNotExist", function (value, element) {
         var result = false;
 

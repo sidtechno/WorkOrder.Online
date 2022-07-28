@@ -2,7 +2,10 @@
 
     var ajaxUrl = $('#HidRootUrl').val();
     var table;
-    var choicesCustomer = null;
+    var choicesCustomer_add = null;
+    var choicesCustomer_edit = null;
+
+    new Choices($('select[name=SelectedOrganizationId]')[0]);
 
     $('select[name="SelectedOrganizationId"]').on('change', function () {
         var selectedOrganization = $(this).val();
@@ -126,6 +129,12 @@
                             alert('Error');
                         }
                     });
+
+                    if (choicesCustomer_add === null) {
+                        choicesCustomer_add = new Choices($('#addForm select[name=SelectedCustomerId]')[0]);
+                    }
+
+                    new Choices($('#addForm select[name=SelectedCategoryId]')[0]);
                 }
             },
             {
@@ -147,13 +156,12 @@
                     $('#editForm input[name=projectNo]').val(data.projectNo);
                     $('#editForm input[name=description]').val(data.description);
 
-                    if (choicesCustomer === null) {
-                        choicesCustomer = new Choices($('#editForm select[name=SelectedCustomerId]')[0]);
+                    if (choicesCustomer_edit === null) {
+                        choicesCustomer_edit = new Choices($('#editForm select[name=SelectedCustomerId]')[0]);
                     }
-                    choicesCustomer.setChoiceByValue(data.customerId);
+                    choicesCustomer_edit.setChoiceByValue(data.customerId);
 
-                    const choicesCategory = new Choices($('#editForm select[name=SelectedCategoryId]')[0]);
-                    //choices.setChoiceByValue(data.customerId);
+                    new Choices($('#editForm select[name=SelectedCategoryId]')[0]);
 
                     $.ajax({
                         url: ajaxUrl + '/Projects/ProjectCategories/' + data.id,
